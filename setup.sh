@@ -41,6 +41,22 @@ fi
 
 if [ $bad -ne 0 ]; then
 	printf "\nPlease install the missing commands ($bad) and run this script again.\n\n"
-else
-	printf "\nMove these files to wherever you set up your server. Enjoy!\n\n"
+	exit 1
 fi
+
+printf "\n$pform" "MySQL username: "
+read NAME
+printf "$pform" "MySQL password: "
+read -s PASS
+printf "\n$pform" "MySQL server (localhost): "
+read SERVER
+printf "$pform" "MySQL database name: "
+read DB_NAME
+
+printf "\n$pform" "Creating ./run/database.php..."
+echo "<?php \$con = mysqli_connect(\"$SERVER\", \"$NAME\", \"$PASS\", \"$DB_NAME\");" > ./run/database.php
+chmod +x ./run/database.php
+echo "Success!"
+
+printf "\nPlease create a MySQL database called \"$DB_NAME\".\n"
+printf "Move these files to wherever you set up your server.\n\nEnjoy!\n\n"
