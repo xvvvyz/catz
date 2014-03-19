@@ -4,5 +4,7 @@
 /run/songs/
 /run/log/
 /run/database.php
+/run/AtomicParsley
+/run/eyeD3
 /sandbox/
 *~
