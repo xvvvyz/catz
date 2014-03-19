@@ -1,5 +1,5 @@
 <?php
-	$con = mysqli_connect("localhost", "root", "alpine", "omgcatz");
+	include 'database.php';
 
 	$time = time();
 	srand($time);
