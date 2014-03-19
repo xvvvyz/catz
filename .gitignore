@@ -3,4 +3,6 @@
 /run/artwork/
 /run/songs/
 /run/log/
+/run/database.php
 /sandbox/
+*~
