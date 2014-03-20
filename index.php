@@ -15,6 +15,7 @@
         <noscript>
             <p class="browsehappy">JavaScript must be enabled for this site to do anything.</p>
         </noscript>
+        
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -25,9 +26,8 @@
 
         <div id="everything">
             <main id="main">
-                <!--<div class="ad_box">
+                <!-- <div class="ad_box">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!\-\- Leader \-\->
                     <ins class="adsbygoogle"
                          style="display:inline-block;width:728px;height:90px"
                          data-ad-client="ca-pub-4166408543945956"
@@ -35,7 +35,7 @@
                     <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
-                </div>-->
+                </div> -->
 
                 <form id="main_form" method="get" name="main_form">
                     <?php echo '<input id="main_text" type="text" value="'.$_GET["q"].'">'."\n"; ?>
