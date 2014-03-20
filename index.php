@@ -46,6 +46,7 @@
 
                 <div id="hidden">
                     <!-- ALL -->
+                    <span id="content_title"></span>
                     <span id="timer"></span>
                     <span id="domain"></span>
                     <span id="url"></span>

@@ -347,6 +347,7 @@ function eightTracks()
 	            	$("#mix_id").html(data["mix"]["id"]);
 	            	$("#slug").html(data["mix"]["web_path"].split('/').pop())
 	            	$("#total_tracks").html(data["mix"]["tracks_count"]);
+	            	$("#content_title").html(data["mix"]["name"]);
 
 	            	$("#results_cover").attr("src", data["mix"]["cover_urls"]["sq133"]);
 	            	$("#results_cover_big").attr("href", data["mix"]["cover_urls"]["max1024"]);
@@ -363,7 +364,7 @@ function eightTracks()
 
 		    		$("#results_header").slideDown(400)
 		            $("#results_table").show()
-					$("#results_table").append('<tr class="songs row'+trackCount+'" id="row'+trackCount+'"><td class="right">'+trackCount+'</td><td id="song_title'+trackCount+'" class="left">'+data[i]["title"]+'</td><td id="song_artist'+trackCount+'" class="left song_artists">'+data[i]["artist"]+'</td><td id="song_album'+trackCount+'" class="left song_albums">'+data[i]["album"]+'</td><td><a id="song_url'+trackCount+'" href="'+data[i]["songUrl"]+'"></a><a id="song_id'+trackCount+'" href="'+data[i]["songId"]+'"></a><input id="download_submit'+trackCount+'" class="download_buttons" type="button" onclick="postWithRow('+trackCount+');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download'+trackCount+'"><div id="down_loader'+trackCount+'" class="down_loaders"><img width="20" height="20" src="/img/downLoading.gif" alt=""/></div></td></tr>')
+					$("#results_table").append('<tr class="songs row'+trackCount+'" id="row'+trackCount+'"><td class="right">'+trackCount+'</td><td id="song_title'+trackCount+'" class="left">'+data[i]["title"]+'</td><td id="song_artist'+trackCount+'" class="left song_artists">'+data[i]["artist"]+'</td><td id="song_album'+trackCount+'" class="left song_albums">'+$("#content_title").html()+'</td><td><a id="song_url'+trackCount+'" href="'+data[i]["songUrl"]+'"></a><a id="song_id'+trackCount+'" href="'+data[i]["songId"]+'"></a><input id="download_submit'+trackCount+'" class="download_buttons" type="button" onclick="postWithRow('+trackCount+');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download'+trackCount+'"><div id="down_loader'+trackCount+'" class="down_loaders"><img width="20" height="20" src="/img/downLoading.gif" alt=""/></div></td></tr>')
 					$("#results_table tr:last").hide()
 					$("#results_table tr:last").fadeIn(400)
 
