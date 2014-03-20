@@ -3,8 +3,8 @@
 	$pathParts = pathinfo($_GET['p']);
 	$dirName  = $pathParts['dirname'];
 
-	// prevent any file from being donwloaded
-	if ($dirName != "archives" && $dirName != "songs") {
+	// prevent any file from being downloaded
+	if (!preg_match('|^archives/[^/]+$|', $dirName) && $dirName != "songs") {
 		exit(1);
 	}
 
