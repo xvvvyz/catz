@@ -10,12 +10,12 @@ printf "$pform" "Changing folder permissions..."
 chmod 777 ./run/{archives,artwork,songs} && echo "Success!" || echo "Failed."
 
 printf "$pform" "Changing file permissions..."
-chmod +x ./run/{*php,*sh} && echo "Success!" || echo "Failed."
+chmod +x ./run/*/{*php,*sh} && echo "Success!" || echo "Failed."
 
 printf "$pform" "Checking for eyeD3..."
 if [ $(which eyeD3) ]; then
 	echo "Success!"
-	ln -fs `which eyeD3` ./run/eyeD3
+	ln -fs `which eyeD3` ./run/download/eyeD3
 else
 	echo "Nada, please install."
 	let bad+=1
@@ -24,7 +24,7 @@ fi
 printf "$pform" "Checking for AtomicParsley..."
 if [ $(which AtomicParsley) ]; then
 	echo "Success!"
-	ln -fs `which AtomicParsley` ./run/AtomicParsley
+	ln -fs `which AtomicParsley` ./run/download/AtomicParsley
 else
 	echo "Nada, please install."
 	let bad+=1
@@ -54,8 +54,8 @@ printf "$pform" "MySQL database name: "
 read DB_NAME
 
 printf "\n$pform" "Creating ./run/database.php..."
-echo "<?php \$con = mysqli_connect(\"$SERVER\", \"$NAME\", \"$PASS\", \"$DB_NAME\");" > ./run/database.php
-chmod +x ./run/database.php
+echo "<?php \$con = mysqli_connect(\"$SERVER\", \"$NAME\", \"$PASS\", \"$DB_NAME\");" > ./run/include/database.php
+chmod +x ./run/include/database.php
 echo "Success!"
 
 printf "\nPlease create a MySQL database called \"$DB_NAME\".\n"

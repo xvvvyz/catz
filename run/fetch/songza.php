@@ -1,4 +1,5 @@
 <?php
+include '../include/functions.php';
 
 $url = (isset($_POST["url"]) ? $_POST["url"] : "http://songza.com/listen/the-dubstep-dictionary-songza/");
 $stationId = (isset($_POST["stationId"]) ? $_POST["stationId"] : "");

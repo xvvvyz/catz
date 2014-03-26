@@ -179,7 +179,7 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount)
 
     $.ajax({
         type: "POST",
-        url: "/run/f_download.php", // http://192.81.133.187
+        url: "/run/download/fd.php",
         data: {
             songTitle: songTitle,
             tagTitle: tagTitle,
@@ -206,7 +206,7 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount)
 
             if (extension) {
                 fileName = fileName.replace("&", "and");
-                var downloadUrl = "/run/download.php?p=" + path + "&t=" + fileName;
+                var downloadUrl = "/run/download/d.php?p=" + path + "&t=" + fileName;
 
                 if (extension != ".txt") {
                     $("#row" + position).slideUp();
@@ -328,10 +328,10 @@ function eightTracks()
 	console.log("  mixId = "+mixId);
 	console.log("  trackNumber = "+trackCount);
 
-	console.log("POST /run/f_eight.php");
+	console.log("POST /run/fetch/eight.php");
     $.ajax({
         type: "POST",
-        url: "/run/f_eight.php",
+        url: "/run/fetch/eight.php",
         dataType:'json',
         data: {
             url: url,
@@ -426,7 +426,7 @@ function songza()
 
     $.ajax({
         type: "POST",
-        url: "/run/f_songza.php",
+        url: "/run/fetch/songza.php",
         dataType:'json',
         data: {
             url: url,
@@ -494,7 +494,7 @@ function displayCat(tag)
 {
     $.ajax({
         type: "POST",
-        url: "/run/cat.php",
+        url: "/run/fetch/cat.php",
         dataType:'json',
         data: {
             tag: tag

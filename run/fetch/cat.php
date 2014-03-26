@@ -1,5 +1,5 @@
 <?php
-	include 'database.php';
+	include '../include/database.php';
 
 	$time = time();
 	srand($time);

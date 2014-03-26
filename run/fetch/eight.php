@@ -1,6 +1,6 @@
 <?php
-include 'functions.php';
-include 'database.php';
+include '../include/functions.php';
+include '../include/database.php';
 
 function nextSong(&$playToken, $mixId, $trackNumber, $con) {
     $authToken = "3557239;13ede75e207a2348e6482b3bb4da509096e3d3e9";
@@ -169,7 +169,9 @@ if (mysqli_num_rows($result) < 1) {
     nextSong($playToken, $mixId, $trackNumber, $con);
 }
 
-getOutputArray($output, $mixArray, $mixId, $trackNumber, $con);
+if (getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)) {
+    bail_out(999, "8tracks pooped on our face.");
+}
 
 // release memory or whatever
 mysqli_close($con);
