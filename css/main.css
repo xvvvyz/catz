@@ -624,7 +624,7 @@ textarea {
    ========================================================================== */
 
 *:focus {outline: 0;}
-body{background-color:#444349;position:absolute;width:100%;text-align:center;}
+body{background-color:#2B2B2B;position:absolute;width:100%;text-align:center;}
 img,div{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 
@@ -632,21 +632,21 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 .bar{background-color:#60EB7B;width:0%;height:100%;}
 #spinner{display:none;padding:65px 0 40px 0}
 
-#everything{margin:auto;max-width:900px;min-width:400px}
+#everything{margin:auto;max-width:900px;min-width:300px}
 .ad_box{margin:10px;}
 #main{width:100%;margin:20px 0 60px 0;}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:70%;}
-#main_button{background-color:#2E2E31;width:30%;border-left:3px solid #fff;color:#fff;}
-#main_button:hover{background-color:#65EDE4}
-#main_button:active{background-color:#EA7290}
+#main_button{background-color:#212121;width:30%;color:#fff;}
+#main_button:hover{background-color:#5BD3CB}
+#main_button:active{background-color:#4BAFA9}
 
 #hidden{display:none;visibility:hidden;}
-#kitty_img{max-width:100%;min-width:100px;display:none;max-width:90%;margin:20px;
--webkit-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
--moz-box-shadow:    0px 1px 7px 0px rgba(0, 0, 0, 1);
-box-shadow:         0px 1px 7px 0px rgba(0, 0, 0, 1);}
+#kitty_img{display:none;max-width:90%;margin-top:20px;
+-webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 1);
+-moz-box-shadow:    0px 0px 2px 0px rgba(0, 0, 0, 1);
+box-shadow:         0px 0px 2px 0px rgba(0, 0, 0, 1);}
 #message{padding:20px;background-color:#F7F4F4;display:none}
 
 #results_header{text-align:left;display:none;color:#F7F4F4;padding:10px 4px;border:20px solid #BCBCBC;border-color:#BCBCBC #444349}
@@ -677,7 +677,6 @@ table tr:last-child td{border-bottom:0;}
 @media only screen and (max-width:500px) {
     #main_text{display:none}
     #main_button,#main_form{height:6em!important;width:100%;border:none;}
-    *{box-shadow:none}
 }
 
 @media only screen and (max-width:900px) {

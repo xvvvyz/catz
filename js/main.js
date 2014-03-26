@@ -53,7 +53,7 @@ function setup()
 	$('#spinner').show()
 
 	$('#spinner').spin({
-		color: "#2E2E31",
+		color: "#fff",
 		lines: 7, // The number of lines to draw
 		length: 8, // The length of each line
 		width: 10, // The line thickness
