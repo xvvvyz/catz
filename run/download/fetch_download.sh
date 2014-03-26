@@ -1,4 +1,9 @@
 #!/bin/bash
+# this script can download, tag, and archive music
+
+ARCHIVES="../archives"
+SONGS="../songs"
+ARTWORK="../artwork"
 
 TITLE="$(echo "$1" | tr -d '\' | tr -s ' ' | sed 's|\ *$||')"
 TAG_TITLE="$2"
@@ -13,15 +18,17 @@ MIX_TITLE="$(echo "$9" | cut -d/ -f3)"
 RECURSIVE="${10}"
 DOWNLOAD_ID="${11}"
 SONG_ID="${12}"
-SONG_SAVE="songs/$SONG_ID"
+
+SONG_SAVE="$SONGS/$SONG_ID"
 ZIP_SAVE="$DOWNLOAD_ID.zip"
 ZIP_DIR="$MIX_TITLE/"
 
 if [ "$(echo "$IMG" | grep -E "(musicnet|sndcdn)")" ]; then
-	ARTWORK_SAVE="artwork/$SONG_ID.jpeg"
+	ARTWORK_SAVE="$ARTWORK/$SONG_ID.jpeg"
 else
-	ARTWORK_SAVE="artwork/$MIX_TITLE.png"
+	ARTWORK_SAVE="$ARTWORK/$MIX_TITLE.png"
 fi
+
 SAVE_TITLE="${TRACK_NUMBER_SPACE}$(echo "$TITLE" | sed 's|/|-|g;s|^\.||g' | tr -d '\#')"
 
 [ "$TAG_TITLE" == "false" ] && unset TITLE
@@ -91,13 +98,13 @@ elif [ "$EXT" == ".m4a" ]; then
 fi
 
 if [ -n "$RECURSIVE" ]; then
-	cd archives
+	cd "$ARCHIVES"
 	mkdir -p "$ZIP_DIR"
 	chmod 777 "$ZIP_DIR"
 	cp "../$SONG_SAVE$EXT" "$SAVE_TITLE$EXT"
 	./zip -q -0 -D -r "$ZIP_DIR$ZIP_SAVE" "$SAVE_TITLE$EXT" &> /dev/null
 	rm -f "$SAVE_TITLE$EXT"
-	printf "archives/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
+	printf "$ARCHIVES/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
 else
 	printf "$SONG_SAVE$EXT\n$SAVE_TITLE$EXT\n$EXT"
 fi
