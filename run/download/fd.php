@@ -14,5 +14,5 @@ $recursive   = escapeshellarg($_POST["recursive"]);
 $downloadId  = escapeshellarg($_POST["downloadId"]);
 $songId      = escapeshellarg($_POST["songId"]);
 
-$output = shell_exec("./f_download.sh $songTitle $tagTitle $songArtist $songAlbum $songImg $trackNumber $totalTracks $songUrl $mixSlug $recursive $downloadId $songId");
+$output = shell_exec("./fetch_download.sh $songTitle $tagTitle $songArtist $songAlbum $songImg $trackNumber $totalTracks $songUrl $mixSlug $recursive $downloadId $songId");
 echo json_encode(array($output));
