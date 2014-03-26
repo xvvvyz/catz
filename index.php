@@ -38,7 +38,10 @@
                 </div> -->
 
                 <form id="main_form" method="get" name="main_form">
-                    <?php echo '<input id="main_text" type="text" value="'.$_GET["q"].'">'."\n"; ?>
+                    <?php
+                        $default = (isset($_GET["q"]) ? $_GET["q"] : "");
+                        echo '<input id="main_text" type="text" value="'.$default.'">'."\n";
+                    ?>
                     <input id="main_button" type="submit" value="=^.^=">
                 </form>
 
