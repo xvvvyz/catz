@@ -1,13 +1,15 @@
 <?php
 /* this script downloads a file in the browser */
 
+include '../include/functions.php';
+
 // get directory name
 $pathParts = pathinfo($_GET['p']);
 $dirName  = $pathParts['dirname'];
 
 // prevent arbitrary files from being downloaded
-if (!preg_match('|^archives/[^/]+$|', $dirName) && $dirName != "songs") {
-	exit(1);
+if (!preg_match('|^../archives/[^/]+$|', $dirName) && $dirName != "../songs") {
+	bail_out(403, "Not acceptable.");
 }
 
 $fileSize = filesize($_GET['p']);
