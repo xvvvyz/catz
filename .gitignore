@@ -1,10 +1,18 @@
+# OS specific
 .DS_Store
+
+# generated
 /run/archives/
 /run/artwork/
 /run/songs/
-/run/log/
+
 *database.php
-/run/AtomicParsley
-/run/eyeD3
-/sandbox/
+*AtomicParsley
+*eyeD3
+
+# backup
 *~
+
+# other
+/sandbox/
+*log/
