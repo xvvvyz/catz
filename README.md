@@ -15,5 +15,5 @@ Setup
 
 2. Move everything into the webroot of your webserver.
 
-3. Dance
+3. Dance.
 
