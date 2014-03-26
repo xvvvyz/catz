@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
-        <meta name="viewport" content="initial-scale=0.8, width=device-width, user-scalable=yes">
+        <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=yes">
         
         <title>Catz</title>
 
@@ -91,6 +91,12 @@
             </main>
 
             <footer id="footer">
+                <div id="social">
+                    <a id="s1" href="https://twitter.com/thirdletterdev">Twitter</a>
+                    <a id="s2" href="https://plus.google.com/+Thirdletter">Google+</a>
+                    <a id="s3" href="https://www.facebook.com/omgcatzwebsite">Facebook</a>
+                    <a id="s4" href="https://github.com/cadejscroggins/omgcatz">Github</a>
+                </div>
             </footer>
         </div>
 
