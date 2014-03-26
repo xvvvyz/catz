@@ -53,14 +53,14 @@ function setup()
 	$('#spinner').show()
 
 	$('#spinner').spin({
-		color: "#fff",
-		lines: 10, // The number of lines to draw
-		length: 3, // The length of each line
+		color: "#2E2E31",
+		lines: 7, // The number of lines to draw
+		length: 8, // The length of each line
 		width: 10, // The line thickness
-		radius: 30, // The radius of the inner circle
+		radius: 18, // The radius of the inner circle
 		corners: 1, // Corner roundness (0..1)
 		speed: 0.5, // Rounds per second
-		shadow: true, // Whether to render a shadow
+		shadow: false, // Whether to render a shadow
 		hwaccel: false, // Whether to use hardware acceleration
 		top: "auto",
 		zIndex:-1

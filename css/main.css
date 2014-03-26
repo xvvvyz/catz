@@ -630,17 +630,17 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 
 #progress{width:100%;height:10px;background-color:rgba(25, 25, 25, 0.5)}
 .bar{background-color:#60EB7B;width:0%;height:100%;}
-#spinner{display:none;padding:80px 0 60px 0}
+#spinner{display:none;padding:65px 0 40px 0}
 
 #everything{margin:auto;max-width:900px;min-width:400px}
 .ad_box{margin:10px;}
 #main{width:100%;margin:20px 0 60px 0;}
-#main_form{background-color:#fff;padding:3px;height:3em;}
+#main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:70%;}
-#main_button{background-color:#444349;width:30%;border-left:3px solid #fff;color:#fff;}
-#main_button:hover{background-color:#4EBAB4}
-#main_button:active{-webkit-box-shadow:inset 0px 0px 9px -5px rgba(0, 0, 0, 1);-moz-box-shadow:inset 0px 0px 9px -5px rgba(0, 0, 0, 1);box-shadow:inset 0px 0px 9px -5px rgba(0, 0, 0, 1);}
+#main_button{background-color:#2E2E31;width:30%;border-left:3px solid #fff;color:#fff;}
+#main_button:hover{background-color:#65EDE4}
+#main_button:active{background-color:#EA7290}
 
 #hidden{display:none;visibility:hidden;}
 #kitty_img{max-width:100%;min-width:100px;display:none;max-width:90%;margin:20px;
@@ -685,5 +685,4 @@ table tr:last-child td{border-bottom:0;}
     #progress{height:20px}
     #main{margin:0 0 60px 0;}
     #main_text,#main_button,#main_form{height:4em;}
-    #main_form{padding:1px 0;}
 }
