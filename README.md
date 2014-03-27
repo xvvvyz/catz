@@ -1,5 +1,5 @@
-omgcatz.com
-===========
+OMG. Catz
+=========
 
 Source code for the latest version of omgcatz.com.
 
