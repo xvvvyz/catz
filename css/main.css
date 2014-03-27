@@ -681,7 +681,7 @@ table tr:last-child td{border-bottom:0;}
 .center{text-align:center}
 .right{text-align:right}
 
-@media only screen and (max-width:500px) {
+@media only screen and (max-width:460px) {
     #info{display:none}
 }
 
