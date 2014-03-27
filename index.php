@@ -98,9 +98,9 @@
                     <a id="s4" href="https://github.com/cadejscroggins/omgcatz">Git</a>
                 </div>
                 <div id="info">
-                    <a href="http://omgcatz.com/tos">Terms</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
+                    <a href="tos">Terms</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </div>
             </footer>
         </div>
