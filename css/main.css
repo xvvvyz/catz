@@ -668,10 +668,12 @@ table tr:last-child td{border-bottom:0;}
 .down_loaders{display:none}
 .song_img_url{background-color:#EDEDED}
 
-#footer{position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.8);text-align:left;height:40px;font-size:13px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;}
-#social{padding:0 20px;overflow-y:hidden;}
-#social a{padding:14px 20px;display:inline-block;text-decoration:underline;}
-#social a:hover{text-decoration:none;}
+#footer{color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);text-align:left;font-size:13px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;}
+#social{padding:0 20px;overflow-y:hidden;display:inline}
+#info{display:inline;position:absolute;right:20px;}
+#info a:hover{background-color:white;color:black;}
+#footer a{padding:14px 20px;display:inline-block;text-decoration:underline;}
+#footer a:hover{text-decoration:none;}
 #s1:hover{background-color:#3399DD}
 #s2:hover{background-color:#DB412B}
 #s3:hover{background-color:#44619D}
@@ -682,7 +684,7 @@ table tr:last-child td{border-bottom:0;}
 .right{text-align:right}
 
 @media only screen and (max-width:500px) {
-    #main_text{display:none}
+    #main_text,#info{display:none}
     #main_button,#main_form{height:6em!important;width:100%;border:none;}
 }
 

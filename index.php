@@ -92,10 +92,15 @@
 
             <footer id="footer">
                 <div id="social">
-                    <a id="s1" href="https://twitter.com/thirdletterdev">Twitter</a>
-                    <a id="s2" href="https://plus.google.com/+Thirdletter">Google+</a>
-                    <a id="s3" href="https://www.facebook.com/omgcatzwebsite">Facebook</a>
-                    <a id="s4" href="https://github.com/cadejscroggins/omgcatz">Github</a>
+                    <a id="s1" href="https://twitter.com/thirdletterdev">T</a>
+                    <a id="s2" href="https://plus.google.com/+Thirdletter">G+</a>
+                    <a id="s3" href="https://www.facebook.com/omgcatzwebsite">F</a>
+                    <a id="s4" href="https://github.com/cadejscroggins/omgcatz">Git</a>
+                </div>
+                <div id="info">
+                    <a href="http://omgcatz.com/tos">Terms</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
                 </div>
             </footer>
         </div>
