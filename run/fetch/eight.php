@@ -169,7 +169,7 @@ if (mysqli_num_rows($result) < 1) {
     nextSong($playToken, $mixId, $trackNumber, $con);
 }
 
-getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)
+getOutputArray($output, $mixArray, $mixId, $trackNumber, $con);
 
 // release memory or whatever
 mysqli_close($con);
