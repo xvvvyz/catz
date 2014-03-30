@@ -101,10 +101,10 @@ if [ -n "$RECURSIVE" ]; then
 	cd "$ARCHIVES"
 	mkdir -p "$ZIP_DIR"
 	chmod 777 "$ZIP_DIR"
-	cp "../$SONG_SAVE$EXT" "$SAVE_TITLE$EXT"
+	cp "$SONG_SAVE$EXT" "$SAVE_TITLE$EXT"
 	./zip -q -0 -D -r "$ZIP_DIR$ZIP_SAVE" "$SAVE_TITLE$EXT" &> /dev/null
 	rm -f "$SAVE_TITLE$EXT"
-	printf "archives/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
+	printf "$ARCHIVES/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
 else
 	printf "$SONG_SAVE$EXT\n$SAVE_TITLE$EXT\n$EXT"
 fi
