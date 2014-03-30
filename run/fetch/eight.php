@@ -169,10 +169,6 @@ if (mysqli_num_rows($result) < 1) {
     nextSong($playToken, $mixId, $trackNumber, $con);
 }
 
-if (getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)) {
-    bail_out(999, "8tracks pooped on our face.");
-}
-
 // release memory or whatever
 mysqli_close($con);
 
