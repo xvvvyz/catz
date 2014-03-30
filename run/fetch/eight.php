@@ -77,7 +77,7 @@ function getOutputArray(&$output, $mixArray, $mixId, $trackNumber, $con) {
             $rows[] = $r;
         }
 
-        if (isset($mixArray)) {
+        if (!empty($mixArray)) {
             $output = array_merge($mixArray, $rows);
         } else {
             $output = $rows;
@@ -113,6 +113,8 @@ if (empty($mixId)) {
 
     $mixId = $mixArray['mix']['id'];
     $tracksCount = $mixArray['mix']['tracks_count'];
+} else {
+    $mixArray = "";
 }
 
 // if 8tracks_playlists table doesn't exist, create it
@@ -166,6 +168,9 @@ if (mysqli_num_rows($result) < 1) {
     $playToken = $row["playToken"];
     $lastUpdate = $row["lastUpdate"];
 } else if (getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)) {
+    /* if there is nothing new in the database,
+       fetch another song... */
+
     nextSong($playToken, $mixId, $trackNumber, $con);
 }
 
