@@ -1,17 +1,19 @@
 <?php
 include '../include/functions.php';
 
-$url = (isset($_POST["url"]) ? $_POST["url"] : "http://songza.com/listen/the-dubstep-dictionary-songza/");
+$url = (isset($_POST["url"]) ? $_POST["url"] : "http://songza.com/listen/today-s-trap-and-moombahton-rump-shakers-songza/");
 $stationId = (isset($_POST["stationId"]) ? $_POST["stationId"] : "");
 $sessionId = (isset($_POST["sessionId"]) ? $_POST["sessionId"] : "IPAmNpAX02YTL8CPgc");
 $userAgent = (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0");
 
 // if stationId is not set then get it along with playlist info
 if (empty($stationId)) {
+
 	// get station id from page source
 	$c = curl_init($url);
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($c, CURLOPT_USERAGENT, $userAgent);
 	$source = curl_exec($c);
 	curl_close($c);
 
