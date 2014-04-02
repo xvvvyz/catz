@@ -5,16 +5,6 @@
 	srand($time);
 
 	$tag = escapeshellarg(ereg_replace("[^A-Za-z0-9%]", "", "%".$_POST["tag"]."%"));
-	$userRating = $_POST["userRating"];
-	$reblogKey = $_POST["reblogKey"];
-	
-	if ($userRating != 0) {
-		$query = "UPDATE cats SET rating = rating+$userRating WHERE reblogKey = \"$reblogKey\"";
-		mysqli_query($con, $query);
-	}
-
-	$query = "UPDATE cats SET lastView = $time WHERE reblogKey = \"$reblogKey\"";
-	mysqli_query($con, $query);
 
 	if ($_POST["tag"] != "NOTAG") {
 		$query = "SELECT * FROM cats WHERE tags LIKE $tag AND flag = 0 AND $time - lastView > 900 ORDER BY RAND() LIMIT 1";
@@ -38,7 +28,6 @@
 	} else {
 		$output = array('error' => 1);
 	}
-
 
 	echo json_encode($output);
 ?>
