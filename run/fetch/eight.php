@@ -32,20 +32,25 @@ function nextSong(&$playToken, $mixId, $trackNumber, $con) {
     $duration = $jsonSongArray['set']['track']['play_duration'];
     $songUrl = $jsonSongArray['set']['track']['url'];
 
-    // if 8track_playlists table doesn't exist, create it
+    // if 8tracks_songs table doesn't exist, create it and 8tracks_playlists_songs
     $result = mysqli_query($con, "SHOW TABLES LIKE '8tracks_songs'");
     if(mysqli_num_rows($result) == 0) {
         $query = "CREATE TABLE `8tracks_songs` (
-                    `mixId` tinyblob NOT NULL,
-                    `trackNumber` int(11) NOT NULL,
-                    `songId` tinyblob NOT NULL,
-                    `title` tinyblob NOT NULL,
-                    `artist` tinyblob,
-                    `album` tinyblob,
-                    `duration` int(11) NOT NULL,
-                    `songUrl` varchar(2083) NOT NULL DEFAULT '',
-                    PRIMARY KEY (`songId`(255))
-                  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+                  `songId` tinyblob NOT NULL,
+                  `title` tinyblob NOT NULL,
+                  `artist` tinyblob,
+                  `album` tinyblob,
+                  `duration` int(11) NOT NULL,
+                  `songUrl` varchar(2083) NOT NULL DEFAULT '',
+                  PRIMARY KEY (`songId`(255))
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        mysqli_query($con, $query);
+
+        $query = "CREATE TABLE `8tracks_playlists_songs` (
+                  `mixId` tinyblob NOT NULL,
+                  `songId` int(11) NOT NULL,
+                  `trackNumber` tinyblob NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         mysqli_query($con, $query);
     }
 
@@ -57,30 +62,43 @@ function nextSong(&$playToken, $mixId, $trackNumber, $con) {
 
     if(mysqli_num_rows($result) == 0) {
         $query = "INSERT INTO 8tracks_songs
-                  (mixId,trackNumber,songId,title,artist,album,duration,songUrl)
-                  VALUES ('$mixId','$trackNumber','$songId','$title','$artist','$album','$duration','$songUrl')";
-        mysqli_query($con, $query) or die(mysqli_error($con));
+                  (songId,title,artist,album,duration,songUrl)
+                  VALUES ('$songId','$title','$artist','$album','$duration','$songUrl')";
+        mysqli_query($con, $query); // or die(mysqli_error($con))
     }
+
+    $query = "INSERT INTO 8tracks_playlists_songs
+              (mixId,songId,trackNumber)
+              VALUES ('$mixId','$songId','$trackNumber')";
+    mysqli_query($con, $query);
 }
 
 function getOutputArray(&$output, $mixArray, $mixId, $trackNumber, $con) {
-    $query = "SELECT * FROM 8tracks_songs
+    $query = "SELECT songId FROM 8tracks_playlists_songs
               WHERE mixId='$mixId'
               AND trackNumber >= $trackNumber
               ORDER BY trackNumber";
-    $result = mysqli_query($con, $query);
+    $songs = mysqli_query($con, $query);
 
-    if (mysqli_num_rows($result) > 0) {
-        $rows = array();
+    if (mysqli_num_rows($songs) > 0) {
+        while ($r = mysqli_fetch_assoc($songs)) {
+            $songId = $r["songId"];
 
-        while ($r = mysqli_fetch_assoc($result)) {
-            $rows[] = $r;
-        }
+            $query = "SELECT * FROM 8tracks_songs
+                      WHERE songId='$songId'";
+            $result = mysqli_query($con, $query);
 
-        if (!empty($mixArray)) {
-            $output = array_merge($mixArray, $rows);
-        } else {
-            $output = $rows;
+            $rows = array();
+
+            while ($rr = mysqli_fetch_assoc($result)) {
+                $rows[] = $rr;
+            }
+
+            if (!empty($mixArray)) {
+                $output = array_merge($mixArray, $rows);
+            } else {
+                $output = $rows;
+            }
         }
     } else {
         return 1;
@@ -95,7 +113,7 @@ ignore_user_abort(true);
 
 $lastUpdate = time();
 $trackNumber = (isset($_POST["trackNumber"]) ? $_POST["trackNumber"] : 0);
-$url = (isset($_POST["url"]) ? $_POST["url"] : "http://8tracks.com/ltennet/electronic-road-trip");
+$url = (isset($_POST["url"]) ? $_POST["url"] : "http://8tracks.com/mollysmiles/a-different-kind-of-trance");
 $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : "");
 $playToken = (isset($_POST["playToken"]) ? $_POST["playToken"] : "");
 
@@ -121,11 +139,12 @@ if (empty($mixId)) {
 $result = mysqli_query($con, "SHOW TABLES LIKE '8track_playlists'");
 if(mysqli_num_rows($result) == 0) {
     $query = "CREATE TABLE `8tracks_playlists` (
-                `mixId` tinyblob NOT NULL,
-                `tracksCount` int(11) NOT NULL,
-                `playToken` int(11) DEFAULT NULL,
-                `lastUpdate` int(11) DEFAULT NULL
-              ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+              `mixId` tinyblob NOT NULL,
+              `tracksCount` int(11) NOT NULL,
+              `playToken` int(11) DEFAULT NULL,
+              `lastUpdate` int(11) DEFAULT NULL,
+              PRIMARY KEY (`mixId`(255))
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     mysqli_query($con, $query);
 }
 
