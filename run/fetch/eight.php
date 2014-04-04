@@ -81,6 +81,8 @@ function getOutputArray(&$output, $mixArray, $mixId, $trackNumber, $con) {
     $songs = mysqli_query($con, $query);
 
     if (mysqli_num_rows($songs) > 0) {
+        $rows = array();
+        
         while ($r = mysqli_fetch_assoc($songs)) {
             $songId = $r["songId"];
 
@@ -88,17 +90,15 @@ function getOutputArray(&$output, $mixArray, $mixId, $trackNumber, $con) {
                       WHERE songId='$songId'";
             $result = mysqli_query($con, $query);
 
-            $rows = array();
-
             while ($rr = mysqli_fetch_assoc($result)) {
                 $rows[] = $rr;
             }
+        }
 
-            if (!empty($mixArray)) {
-                $output = array_merge($mixArray, $rows);
-            } else {
-                $output = $rows;
-            }
+        if (!empty($mixArray)) {
+            $output = array_merge($mixArray, $rows);
+        } else {
+            $output = $rows;
         }
     } else {
         return 1;
