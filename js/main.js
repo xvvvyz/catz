@@ -293,7 +293,7 @@ function updateTimeout()
     	returnMessage("Fetching next song...", 0);
     	switch ($("#domain").html()) {
     		case "8tracks":
-    			eightTracks();
+    			eight();
     			break;
     		case "songza":
     			songza();
@@ -314,9 +314,9 @@ function updateTimeout()
 	updateTimeout("Fetching next song in");
 */
 
-function eightTracks()
+function eight()
 {
-	console.log("eightTracks()");
+	console.log("eight()");
 
 	var url = $("#url").html();
 	var playToken = $("#play_token").html();
@@ -385,7 +385,7 @@ function eightTracks()
 						width: percentage+"%"
 					}, 200, "linear");
 
-			        eightTracks();
+			        eight();
 		        }
 		    } else if (data["error"] == 403) {
 		    	returnMessage(data["message"]);
@@ -560,7 +560,7 @@ function doStuff()
     	case "8tracks.com":
     		$("#domain").html("8tracks")
     		$("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
-    		eightTracks();
+    		eight();
     		break;
     	case "songza.com":
     		$("#domain").html("songza")
