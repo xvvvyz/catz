@@ -6,7 +6,7 @@ Source code for the latest version of omgcatz.com.
 Prereqs
 -------
 
-*AMP stack.
+(^W)AMP stack.
 
 Setup
 -----
