@@ -552,7 +552,7 @@ function doStuff()
     // we don't need to be secure
     url = url.replace("https://", "http://");
 
-    $("#url").html(url);
+    $("#url").text(url);
 
     var domain = url.split("/")[2];
 
