@@ -1,0 +1,23 @@
+crontab to finish abandoned playlists
+
+======== upload
+
+look into songza and fix er up
+
+======== upload
+
+make terms about and contact do something
+
+add "share this playlist" link
+
+======== TRANSFER TO OMGCATZ.COM
+
+make a cat scraper
+
+update cat.php to search for exact tags
+
+======== upload
+
+soundcloud?
+
+pandora?
