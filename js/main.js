@@ -160,7 +160,7 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount)
         if ($("#song_img_url" + position).length > 0) {
             var songImg = $("#song_img_url" + position).attr("href");
         } else {
-            var songImg = $("#results_cover_big").attr("href");
+            var songImg = $("#results_cover_tag").attr("href");
         }
     } else {
         var songImg = "false";
@@ -342,6 +342,7 @@ function eight()
 	            	$("#total_tracks").html(data["mix"]["tracks_count"]);
 	            	$("#content_title").html(data["mix"]["name"]);
 
+	            	$("#results_cover_tag").attr("href", data["mix"]["cover_urls"]["sq500"]);
 	            	$("#results_cover").attr("src", data["mix"]["cover_urls"]["sq133"]);
 	            	$("#results_cover_big").attr("href", data["mix"]["cover_urls"]["max1024"]);
 

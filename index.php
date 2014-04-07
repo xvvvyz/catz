@@ -63,6 +63,7 @@
                     <!-- 8TRACKS -->
                     <span id="play_token"></span>
                     <span id="mix_id"></span>
+                    <a id="results_cover_tag"></a>
 
                     <!-- SONGZA -->
                     <span id="session_id"><?php echo substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 18); ?></span>
