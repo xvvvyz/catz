@@ -10,7 +10,11 @@ make terms about and contact do something
 
 add "share this playlist" link
 
+convert gif to png when tagging
+
 ======== TRANSFER TO OMGCATZ.COM
+
+update cat storing mysql tables
 
 make a cat scraper
 
