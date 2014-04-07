@@ -26,17 +26,6 @@
 
         <div id="everything">
             <main id="main">
-                <!-- <div class="ad_box">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:728px;height:90px"
-                         data-ad-client="ca-pub-4166408543945956"
-                         data-ad-slot="1162321024"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div> -->
-
                 <form id="main_form" method="get" name="main_form">
                     <?php
                         $default = (isset($_GET["q"]) ? $_GET["q"] : "");
@@ -86,6 +75,16 @@
                         <img id="kitty_img" src="">
                     </div>
                     <table id="results_table"></table>
+                    <!-- <div class="ad_box">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-4166408543945956"
+                             data-ad-slot="1162321024"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div> -->
                 </div>
 
                 <div id="spinner"></div>
