@@ -667,10 +667,10 @@ table tr:last-child td{border-bottom:0;}
 .down_loaders{display:none}
 .song_img_url{background-color:#EDEDED}
 
-#footer{color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);text-align:left;font-size:13px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;}
-#social{padding:0 20px;overflow-y:hidden;display:inline}
-#info{display:inline;position:absolute;right:20px;}
-#footer a{padding:14px 20px;display:inline-block;text-decoration:underline;}
+#footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;padding:3px 0}
+#social{display:inline;float:right}
+#info{display:inline}
+#footer a{padding:14px 25px;display:inline-block;text-decoration:underline;}
 #footer a:hover{text-decoration:none;}
 #s1:hover{background-color:#3399DD}
 #s2:hover{background-color:#DB412B}
@@ -681,8 +681,8 @@ table tr:last-child td{border-bottom:0;}
 .center{text-align:center}
 .right{text-align:right}
 
-@media only screen and (max-width:460px) {
-    #info{display:none}
+@media only screen and (max-width:500px) {
+    #social{display:none}
 }
 
 @media only screen and (max-width:900px) {

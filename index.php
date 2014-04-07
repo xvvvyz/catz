@@ -4,8 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=yes">
+        <meta name="description" content="catz catz catz catz catz catz catz catz catz OMG">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
         
         <title>Catz</title>
 
