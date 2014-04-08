@@ -117,6 +117,7 @@ $url = (isset($_POST["url"]) ? $_POST["url"] : "");
 $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : "");
 $playToken = (isset($_POST["playToken"]) ? $_POST["playToken"] : "");
 
+// print fancy message if it was a random request
 if ($url.$mixId == "") {
   bail_out(69, 'fuck off.');
 }
