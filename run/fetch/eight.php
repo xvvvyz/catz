@@ -117,6 +117,10 @@ $url = (isset($_POST["url"]) ? $_POST["url"] : "");
 $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : "");
 $playToken = (isset($_POST["playToken"]) ? $_POST["playToken"] : "");
 
+if ($url.$mixId == "") {
+  bail_out(69, 'fuck off.');
+}
+
 // if no mixId then fetch the playlist info
 if (empty($mixId)) {
     $ch = curl_init($url.".jsonp?api_key=3b7b9c79a600f667fe2113ff91183149779a74b8&api_version=3");
