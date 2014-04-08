@@ -113,7 +113,7 @@ ignore_user_abort(true);
 
 $lastUpdate = time();
 $trackNumber = (isset($_POST["trackNumber"]) ? $_POST["trackNumber"] : 0);
-$url = (isset($_POST["url"]) ? $_POST["url"] : "http://8tracks.com/mollysmiles/a-different-kind-of-trance");
+$url = (isset($_POST["url"]) ? $_POST["url"] : "");
 $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : "");
 $playToken = (isset($_POST["playToken"]) ? $_POST["playToken"] : "");
 
