@@ -25,12 +25,18 @@ function nextSong(&$playToken, $mixId, $trackNumber, $con) {
         }
     } while (!preg_match('/(200)/', $status));
 
-    $songId = $jsonSongArray['set']['track']['id'];
-    $title = addslashes($jsonSongArray['set']['track']['name']);
-    $artist = addslashes($jsonSongArray['set']['track']['performer']);
-    $album = addslashes($jsonSongArray['set']['track']['release_name']);
-    $duration = $jsonSongArray['set']['track']['play_duration'];
-    $songUrl = $jsonSongArray['set']['track']['url'];
+    
+    if (isset($jsonSongArray['set']['track']['id'])) {
+      $songId = $jsonSongArray['set']['track']['id'];
+      $title = addslashes($jsonSongArray['set']['track']['name']);
+      $artist = addslashes($jsonSongArray['set']['track']['performer']);
+      $album = addslashes($jsonSongArray['set']['track']['release_name']);
+      $duration = $jsonSongArray['set']['track']['play_duration'];
+      $songUrl = $jsonSongArray['set']['track']['url'];
+    } else {
+      bail_out(2, "Something broke. Please try clearing your browser's cache.");
+    }
+    
 
     // if 8tracks_songs table doesn't exist, create it and 8tracks_playlists_songs
     $result = mysqli_query($con, "SHOW TABLES LIKE '8tracks_songs'");
