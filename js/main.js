@@ -62,7 +62,7 @@ function unload()
 	document.title = "Catz";
 	$("#timer").html("")
 
-	$(".bar").stop(true).animate({width: "100%"}, 500)
+	$(".bar").stop(true).animate({width: "100%"}, 300)
 	$(".bar").animate({opacity: 0.5}, 400)
 
 	$('#spinner').hide()
