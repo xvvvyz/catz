@@ -130,33 +130,37 @@ if ($url.$mixId == "") {
 
 // if no mixId then fetch the playlist info
 if (empty($mixId)) {
-    $ch = curl_init($url.".jsonp?api_key=3b7b9c79a600f667fe2113ff91183149779a74b8&api_version=3");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $mixArray = json_decode(curl_exec($ch), true);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+  $ch = curl_init($url.".jsonp?api_key=3b7b9c79a600f667fe2113ff91183149779a74b8&api_version=3");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $mixArray = json_decode(curl_exec($ch), true);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  curl_close($ch);
 
-    if($httpCode != 200) {
-        bail_out(2, '8tracks returned '.$httpCode.'.');
-    }
+  if($httpCode != 200) {
+    bail_out(2, '8tracks returned '.$httpCode.'.');
+  }
 
-    $mixId = $mixArray['mix']['id'];
-    $tracksCount = $mixArray['mix']['tracks_count'];
+  $mixId = $mixArray['mix']['id'];
+  $tracksCount = $mixArray['mix']['tracks_count'];
+
+  if (empty($mixId)) {
+    bail_out(3, 'We found nothing. Try clearing your browser\'s cache.');
+  }
 } else {
-    $mixArray = "";
+  $mixArray = "";
 }
 
 // if 8tracks_playlists table doesn't exist, create it
 $result = mysqli_query($con, "SHOW TABLES LIKE '8track_playlists'");
 if(mysqli_num_rows($result) == 0) {
-    $query = "CREATE TABLE `8tracks_playlists` (
-              `mixId` tinyblob NOT NULL,
-              `tracksCount` int(11) NOT NULL,
-              `playToken` int(11) DEFAULT NULL,
-              `lastUpdate` int(11) DEFAULT NULL,
-              PRIMARY KEY (`mixId`(255))
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-    mysqli_query($con, $query);
+  $query = "CREATE TABLE `8tracks_playlists` (
+            `mixId` tinyblob NOT NULL,
+            `tracksCount` int(11) NOT NULL,
+            `playToken` int(11) DEFAULT NULL,
+            `lastUpdate` int(11) DEFAULT NULL,
+            PRIMARY KEY (`mixId`(255))
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+  mysqli_query($con, $query);
 }
 
 // select mix from table, if it exists
@@ -166,42 +170,42 @@ $query = "SELECT mixId FROM 8tracks_playlists
 $result = mysqli_query($con, $query);
 
 if (mysqli_num_rows($result) < 1) {
-    // if mixId isn't in the table, put it there
+  // if mixId isn't in the table, put it there
 
-    $playToken = rand();
+  $playToken = rand();
 
-    $query = "INSERT INTO 8tracks_playlists
-              (mixId,tracksCount,playToken,lastUpdate)
-              VALUES ('$mixId','$tracksCount','$playToken','$lastUpdate')";
-    mysqli_query($con, $query);
+  $query = "INSERT INTO 8tracks_playlists
+            (mixId,tracksCount,playToken,lastUpdate)
+            VALUES ('$mixId','$tracksCount','$playToken','$lastUpdate')";
+  mysqli_query($con, $query);
 
-    nextSong($playToken, $mixId, $trackNumber, $con);
+  nextSong($playToken, $mixId, $trackNumber, $con);
 } else if (empty($playToken)) {
-    /* if mix has already been entered and this
-       is the clients first time requesting */
+  /* if mix has already been entered and this
+     is the clients first time requesting */
 
-    $query = "SELECT tracksCount,playToken,lastUpdate FROM 8tracks_playlists
-              WHERE mixId='$mixId' 
-              LIMIT 1";
-    $result = mysqli_query($con, $query);
-    $row = mysqli_fetch_array($result);
+  $query = "SELECT tracksCount,playToken,lastUpdate FROM 8tracks_playlists
+            WHERE mixId='$mixId' 
+            LIMIT 1";
+  $result = mysqli_query($con, $query);
+  $row = mysqli_fetch_array($result);
 
-    $tracksCount = $row["tracksCount"];
+  $tracksCount = $row["tracksCount"];
 
-    /* for when things start to change
-    if ($oldTracksCount < $tracksCount) {
-        $diff = $tracksCount - $oldTracksCount;
-        $s = ($diff == 1 ? ' was' : 's were');
-    }
-    */
-    
-    $playToken = $row["playToken"];
-    $lastUpdate = $row["lastUpdate"];
+  /* for when things start to change
+  if ($oldTracksCount < $tracksCount) {
+      $diff = $tracksCount - $oldTracksCount;
+      $s = ($diff == 1 ? ' was' : 's were');
+  }
+  */
+  
+  $playToken = $row["playToken"];
+  $lastUpdate = $row["lastUpdate"];
 } else if (getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)) {
-    /* if there is nothing new in the database,
-       fetch another song... */
+  /* if there is nothing new in the database,
+     fetch another song... */
 
-    nextSong($playToken, $mixId, $trackNumber, $con);
+  nextSong($playToken, $mixId, $trackNumber, $con);
 }
 
 getOutputArray($output, $mixArray, $mixId, $trackNumber, $con);
