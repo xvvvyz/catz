@@ -76,7 +76,7 @@ table tr:last-child td{border-bottom:0;}
     #social{display:none}
     #info div{width:32%}
     #info{padding:0!important;}
-    #results_table td{font-size:7px;padding:2px 4px;}
+    #results_table td{font-size:7px;padding:6px;}
     .download_buttons{width:60px;font-size:6px;}
 }
 
