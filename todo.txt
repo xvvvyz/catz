@@ -1,7 +1,3 @@
-fix horrific eight tracks bug
-
-======== upload
-
 look into songza and fix er up
 
 ======== upload
