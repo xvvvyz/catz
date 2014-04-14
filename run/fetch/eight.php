@@ -34,7 +34,7 @@ function nextSong(&$playToken, $mixId, $trackNumber, $con) {
       $duration = $jsonSongArray['set']['track']['play_duration'];
       $songUrl = $jsonSongArray['set']['track']['url'];
     } else {
-      bail_out(2, "Something broke. Please try clearing your browser's cache.");
+      bail_out(2, "That's all we could find. Maybe try clearing your browser's cache.");
     }
     
 
