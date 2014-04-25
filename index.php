@@ -10,7 +10,7 @@
         <title>Catz</title>
 
         <link rel="icon" type="image/png" href="favicon.ico">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
     <body>
         <noscript>
             <p class="browsehappy">JavaScript must be enabled for this site to do anything.</p>
@@ -106,6 +106,6 @@
         </div>
 
         <iframe id="download_iframe" style="display:none"></iframe>
-        <script src="js/main.js"></script>
+        <script src="js/main.js" type="text/javascript"></script>
     </body>
 </html>

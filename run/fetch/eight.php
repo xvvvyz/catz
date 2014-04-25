@@ -3,114 +3,112 @@ include '../include/functions.php';
 include '../include/database.php';
 
 function nextSong(&$playToken, $mixId, $trackNumber, $con) {
-    $authToken = "3557239;13ede75e207a2348e6482b3bb4da509096e3d3e9";
-    $retries = 0;
+	$authToken = "3557239;13ede75e207a2348e6482b3bb4da509096e3d3e9";
+	$retries = 0;
 
-    do {
-        $ch = curl_init("http://8tracks.com/sets/".$playToken."/next?mix_id=".$mixId."&format=jsonh&api_version=2");
-        curl_setopt($ch, CURLOPT_COOKIE, "auth_token=".$authToken);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $jsonSongArray = json_decode(curl_exec($ch), true);
-        curl_close($ch);
+	do {
+		$ch = curl_init("http://8tracks.com/sets/".$playToken."/next?mix_id=".$mixId."&format=jsonh&api_version=2");
+		curl_setopt($ch, CURLOPT_COOKIE, "auth_token=".$authToken);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$jsonSongArray = json_decode(curl_exec($ch), true);
+		curl_close($ch);
 
-        $status = $jsonSongArray['status'];
-        $retries++;
+		$status = $jsonSongArray['status'];
+		$retries++;
 
-        if ($retries > 1) {
-            if (preg_match('/(403)/', $status)) {
-                bail_out(403, "8tracks denied our request.");
-            } else {
-                bail_out(1, "8tracks denied our request. (Error: ".$status.")");
-            } 
-        }
-    } while (!preg_match('/(200)/', $status));
+		if ($retries > 1) {
+			if (preg_match('/(403)/', $status)) {
+				bail_out(403, "8tracks denied our request.");
+			} else {
+				bail_out(1, "8tracks denied our request. (Error: ".$status.")");
+			} 
+		}
+	} while (!preg_match('/(200)/', $status));
 
-    
-    if (isset($jsonSongArray['set']['track']['id'])) {
-      $songId = $jsonSongArray['set']['track']['id'];
-      $title = addslashes($jsonSongArray['set']['track']['name']);
-      $artist = addslashes($jsonSongArray['set']['track']['performer']);
-      $album = addslashes($jsonSongArray['set']['track']['release_name']);
-      $duration = $jsonSongArray['set']['track']['play_duration'];
-      $songUrl = $jsonSongArray['set']['track']['url'];
-    } else {
-      bail_out(2, "That's all we could find. Maybe try clearing your browser's cache.");
-    }
-    
+	if (isset($jsonSongArray['set']['track']['id']) && $jsonSongArray['set']['track']['id'] > 0) {
+		$songId = $jsonSongArray['set']['track']['id'];
+		$title = addslashes($jsonSongArray['set']['track']['name']);
+		$artist = addslashes($jsonSongArray['set']['track']['performer']);
+		$album = addslashes($jsonSongArray['set']['track']['release_name']);
+		$duration = $jsonSongArray['set']['track']['play_duration'];
+		$songUrl = $jsonSongArray['set']['track']['url'];
+	} else {
+	  	bail_out(2, "That's all we could find. Maybe try clearing your browser's cache.");
+	}
+	
+	// if 8tracks_songs table doesn't exist, create it and 8tracks_playlists_songs
+	$result = mysqli_query($con, "SHOW TABLES LIKE '8tracks_songs'");
+	if(mysqli_num_rows($result) == 0) {
+		$query = "CREATE TABLE `8tracks_songs` (
+				  `songId` tinyblob NOT NULL,
+				  `title` tinyblob NOT NULL,
+				  `artist` tinyblob,
+				  `album` tinyblob,
+				  `duration` int(11) NOT NULL,
+				  `songUrl` varchar(2083) NOT NULL DEFAULT '',
+				  PRIMARY KEY (`songId`(255))
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+		mysqli_query($con, $query);
 
-    // if 8tracks_songs table doesn't exist, create it and 8tracks_playlists_songs
-    $result = mysqli_query($con, "SHOW TABLES LIKE '8tracks_songs'");
-    if(mysqli_num_rows($result) == 0) {
-        $query = "CREATE TABLE `8tracks_songs` (
-                  `songId` tinyblob NOT NULL,
-                  `title` tinyblob NOT NULL,
-                  `artist` tinyblob,
-                  `album` tinyblob,
-                  `duration` int(11) NOT NULL,
-                  `songUrl` varchar(2083) NOT NULL DEFAULT '',
-                  PRIMARY KEY (`songId`(255))
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-        mysqli_query($con, $query);
+		$query = "CREATE TABLE `8tracks_playlists_songs` (
+				  `mixId` tinyblob NOT NULL,
+				  `songId` int(11) NOT NULL,
+				  `trackNumber` tinyblob NOT NULL
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+		mysqli_query($con, $query);
+	}
 
-        $query = "CREATE TABLE `8tracks_playlists_songs` (
-                  `mixId` tinyblob NOT NULL,
-                  `songId` int(11) NOT NULL,
-                  `trackNumber` tinyblob NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-        mysqli_query($con, $query);
-    }
+	// if songId isn't in the table, add a new row
+	$query = "SELECT songId FROM 8tracks_songs
+			  WHERE songId='$songId' 
+			  LIMIT 1";
+	$result = mysqli_query($con, $query);
 
-    // if songId isn't in the table, add a new row
-    $query = "SELECT songId FROM 8tracks_songs
-              WHERE songId='$songId' 
-              LIMIT 1";
-    $result = mysqli_query($con, $query);
+	if(mysqli_num_rows($result) == 0) {
+		$query = "INSERT INTO 8tracks_songs
+				  (songId,title,artist,album,duration,songUrl)
+				  VALUES ('$songId','$title','$artist','$album','$duration','$songUrl')";
+		mysqli_query($con, $query); // or die(mysqli_error($con))
+	}
 
-    if(mysqli_num_rows($result) == 0) {
-        $query = "INSERT INTO 8tracks_songs
-                  (songId,title,artist,album,duration,songUrl)
-                  VALUES ('$songId','$title','$artist','$album','$duration','$songUrl')";
-        mysqli_query($con, $query); // or die(mysqli_error($con))
-    }
-
-    $query = "INSERT INTO 8tracks_playlists_songs
-              (mixId,songId,trackNumber)
-              VALUES ('$mixId','$songId','$trackNumber')";
-    mysqli_query($con, $query);
+	$query = "INSERT INTO 8tracks_playlists_songs
+			  (mixId,songId,trackNumber)
+			  VALUES ('$mixId','$songId','$trackNumber')";
+	mysqli_query($con, $query);
 }
 
 function getOutputArray(&$output, $mixArray, $mixId, $trackNumber, $con) {
-    $query = "SELECT songId FROM 8tracks_playlists_songs
-              WHERE mixId='$mixId'
-              AND trackNumber >= $trackNumber
-              ORDER BY trackNumber";
-    $songs = mysqli_query($con, $query);
+	$query = "SELECT songId FROM 8tracks_playlists_songs
+			  WHERE mixId='$mixId'
+			  AND trackNumber >= $trackNumber
+			  ORDER BY trackNumber";
+	$songs = mysqli_query($con, $query);
 
-    if (mysqli_num_rows($songs) > 0) {
-        $rows = array();
-        
-        while ($r = mysqli_fetch_assoc($songs)) {
-            $songId = $r["songId"];
+	if (mysqli_num_rows($songs) > 0) {
+		$rows = array();
+		
+		while ($r = mysqli_fetch_assoc($songs)) {
+			$songId = $r["songId"];
 
-            $query = "SELECT * FROM 8tracks_songs
-                      WHERE songId='$songId'";
-            $result = mysqli_query($con, $query);
+			$query = "SELECT * FROM 8tracks_songs
+					  WHERE songId='$songId'";
+			$result = mysqli_query($con, $query);
 
-            while ($rr = mysqli_fetch_assoc($result)) {
-                $rows[] = $rr;
-            }
-        }
+			while ($rr = mysqli_fetch_assoc($result)) {
+				$rows[] = $rr;
+			}
+		}
 
-        if (!empty($mixArray)) {
-            $output = array_merge($mixArray, $rows);
-        } else {
-            $output = $rows;
-        }
-    } else {
-        return 1;
-    }
+		if (!empty($mixArray)) {
+			$output = array_merge($mixArray, $rows);
+		} else {
+			$output = $rows;
+		}
+	} else {
+		return 1;
+	}
 
-    return 0;
+	return 0;
 }
 
 // printf("Error: %s\n", mysqli_error($con));
@@ -125,7 +123,7 @@ $playToken = (isset($_POST["playToken"]) ? $_POST["playToken"] : "");
 
 // print fancy message if it was a random request
 if ($url.$mixId == "") {
-  bail_out(69, 'fuck off.');
+  bail_out(69, 'nope.');
 }
 
 // if no mixId then fetch the playlist info
@@ -137,14 +135,14 @@ if (empty($mixId)) {
   curl_close($ch);
 
   if($httpCode != 200) {
-    bail_out(2, '8tracks returned '.$httpCode.'.');
+	bail_out(2, '8tracks returned '.$httpCode.'.');
   }
 
   $mixId = $mixArray['mix']['id'];
   $tracksCount = $mixArray['mix']['tracks_count'];
 
   if (empty($mixId)) {
-    bail_out(3, 'We found nothing. Try clearing your browser\'s cache.');
+	bail_out(3, 'We found nothing. Try clearing your browser\'s cache.');
   }
 } else {
   $mixArray = "";
@@ -154,19 +152,19 @@ if (empty($mixId)) {
 $result = mysqli_query($con, "SHOW TABLES LIKE '8track_playlists'");
 if(mysqli_num_rows($result) == 0) {
   $query = "CREATE TABLE `8tracks_playlists` (
-            `mixId` tinyblob NOT NULL,
-            `tracksCount` int(11) NOT NULL,
-            `playToken` int(11) DEFAULT NULL,
-            `lastUpdate` int(11) DEFAULT NULL,
-            PRIMARY KEY (`mixId`(255))
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+			`mixId` tinyblob NOT NULL,
+			`tracksCount` int(11) NOT NULL,
+			`playToken` int(11) DEFAULT NULL,
+			`lastUpdate` int(11) DEFAULT NULL,
+			PRIMARY KEY (`mixId`(255))
+		  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
   mysqli_query($con, $query);
 }
 
 // select mix from table, if it exists
 $query = "SELECT mixId FROM 8tracks_playlists
-          WHERE mixId='$mixId' 
-          LIMIT 1";
+		  WHERE mixId='$mixId' 
+		  LIMIT 1";
 $result = mysqli_query($con, $query);
 
 if (mysqli_num_rows($result) < 1) {
@@ -175,18 +173,18 @@ if (mysqli_num_rows($result) < 1) {
   $playToken = rand();
 
   $query = "INSERT INTO 8tracks_playlists
-            (mixId,tracksCount,playToken,lastUpdate)
-            VALUES ('$mixId','$tracksCount','$playToken','$lastUpdate')";
+			(mixId,tracksCount,playToken,lastUpdate)
+			VALUES ('$mixId','$tracksCount','$playToken','$lastUpdate')";
   mysqli_query($con, $query);
 
   nextSong($playToken, $mixId, $trackNumber, $con);
 } else if (empty($playToken)) {
   /* if mix has already been entered and this
-     is the clients first time requesting */
+	 is the clients first time requesting */
 
   $query = "SELECT tracksCount,playToken,lastUpdate FROM 8tracks_playlists
-            WHERE mixId='$mixId' 
-            LIMIT 1";
+			WHERE mixId='$mixId' 
+			LIMIT 1";
   $result = mysqli_query($con, $query);
   $row = mysqli_fetch_array($result);
 
@@ -194,8 +192,8 @@ if (mysqli_num_rows($result) < 1) {
 
   /* for when things start to change
   if ($oldTracksCount < $tracksCount) {
-      $diff = $tracksCount - $oldTracksCount;
-      $s = ($diff == 1 ? ' was' : 's were');
+	  $diff = $tracksCount - $oldTracksCount;
+	  $s = ($diff == 1 ? ' was' : 's were');
   }
   */
   
@@ -203,7 +201,7 @@ if (mysqli_num_rows($result) < 1) {
   $lastUpdate = $row["lastUpdate"];
 } else if (getOutputArray($output, $mixArray, $mixId, $trackNumber, $con)) {
   /* if there is nothing new in the database,
-     fetch another song... */
+	 fetch another song... */
 
   nextSong($playToken, $mixId, $trackNumber, $con);
 }
