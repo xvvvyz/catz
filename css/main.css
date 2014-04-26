@@ -16,7 +16,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #spinner{display:none;padding:60px 0 40px 0}
 
 #everything{margin:auto;max-width:900px}
-.ad_box{margin:10px;}
+.ad_box{margin:20px}
 #main{width:100%;margin:20px 0 60px 0;}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
@@ -50,9 +50,24 @@ table tr:last-child td{border-bottom:0;}
 #results_table{display:none}
 #results_table td{padding:5px 10px;font-size:10px}
 .download_buttons{border-radius:0;background-color:#333333;color:#fff;border:0;width:80px;height:25px;font-size:8px;}
-.download_buttons:hover{background-color:#5ED8D3;color:#000;}
+.download_buttons:hover{background-color:#5ED8D3;color:#000}
 .down_loaders{display:none}
 .song_img_url{background-color:#EDEDED}
+
+.popup{text-align:left;width:100%;max-width:500px;margin:20px auto;display:none;background-color:#6D6D6D;padding:5px 20px;}
+.popup h2{text-align:center}
+.popup b{margin-right:10px;}
+.popup b,.popup p{display:inline}
+.popup a{text-decoration:underline;color:inherit}
+.close_popup{text-decoration:none!important;color:#3EB880!important;cursor:pointer;font-size:1.5em;position:absolute;}
+.submit{margin:0;height:50px;width:100px;font-size:1.4em;font-weight:700;background-color:inherit;border:solid 3px #333;}
+.submit:hover{background-color:#333;color:#6D6D6D;}
+
+#contact_div form,#contact_div textarea{width:96%}
+#contact_div textarea,#contact_div input{padding:2%;display:block;margin-top:5px;}
+#contact_div textarea{height:100px;}
+#contact_div label{font-weight:700}
+#donate_div form{display:block;width:100px;margin:0 auto;}
 
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
@@ -81,7 +96,7 @@ table tr:last-child td{border-bottom:0;}
 }
 
 @media only screen and (max-width:900px) {
-    .ad_box{display:none}
+    .ad_box{overflow:hidden;}
     #progress{height:20px}
     #main{margin-top:0}
     #main_text,#main_button,#main_form{height:4em;}

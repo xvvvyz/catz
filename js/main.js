@@ -569,6 +569,20 @@ function doStuff()
 /* ################# JQUERY FUNCTIONS ##################### */
 
 $(function() {
+	$('a').click(function() {
+		var item = $(this);
+		var frag = item.attr('href');
+		window.location.hash = "";
+		$(".popup").slideUp(50);
+		if (frag == "#about") {
+			$("#about_div").toggle(100);
+		} else if (frag == "#contact") {
+			$("#contact_div").toggle(100);
+		} else if (frag == "#donate") {
+			$("#donate_div").toggle(100);
+		}
+	});
+
 	$("#main_form").submit(function() {
 		doStuff();
 		return false;
@@ -578,5 +592,14 @@ $(function() {
 $(document).ready(function () {
     if ($("#main_text").val() != "") {
         doStuff()
+    }
+
+    var frag = window.location.hash;
+    if (frag == "#about") {
+    	$("#about_div").toggle(100);
+    } else if (frag == "#contact") {
+    	$("#contact_div").toggle(100);
+    } else if (frag == "#donate") {
+    	$("#donate_div").toggle(100);
     }
 });
