@@ -2,8 +2,6 @@ look into songza and fix er up
 
 ======== upload
 
-make contact form do something
-
 convert gif to png when tagging (or safely refuse)
 
 ======== TRANSFER TO OMGCATZ.COM
