@@ -45,7 +45,8 @@
                     <span id="track_count"></span>
                     <span id="total_tracks"></span>
                     <span id="download_count"></span>
-                    <span id="wait_duration">0</span>
+                    <span id="song_duration">0</span>
+                    <span id="etr"></span>
                     <span id="recursive_downloads">0</span>
                     <span id="slug"></span>
 

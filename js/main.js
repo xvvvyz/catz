@@ -32,7 +32,7 @@ function setup()
 	$("#mix_id").html("");
 	$("#track_count").html(0);
 	$("#total_tracks").html(0);
-	$("#wait_duration").html(0);
+	$("#song_duration").html(0);
 
 	$(".bar").stop(true).show()
 	$(".bar").animate({width: 0}, 100)
@@ -273,6 +273,7 @@ function postWithRow(position)
 function updateTimeout()
 {
 	if ($("#timer").html() == "") {
+		$("#etr").html("");
 		$("#message").slideUp(100)
 		return;
 	}
@@ -293,7 +294,10 @@ function updateTimeout()
     } else {
     	returnMessage("Fetching next song in "+pretty+".");
     	var width = parseFloat($(".bar").width()) / parseFloat($("#progress").width()) * 100;
-    	document.title = "loading... "+width.toFixed(2)+"%";
+    	var etr = parseInt($("#etr").html()) - 1;
+    	$("#etr").html(etr);
+
+    	document.title = "loading... "+width.toFixed(2)+"% "+Math.floor(etr / 60)+"m";
     	timeoutId = setTimeout(updateTimeout, 1000);
     }
 }
@@ -313,7 +317,8 @@ function eight()
 	var playToken = $("#play_token").html();
 	var mixId = $("#mix_id").html();
 	var trackCount = parseInt($("#track_count").html());
-	var lastSongDuration = parseInt($("#wait_duration").html());
+	var lastSongDuration = parseInt($("#song_duration").html());
+	var extraWait = 4;
 
 	console.log("  url = "+url);
 	console.log("  playToken = "+playToken);
@@ -337,8 +342,11 @@ function eight()
 	            	$("#play_token").html(data["play_token"]);
 	            	$("#mix_id").html(data["mix"]["id"]);
 	            	$("#slug").html(data["mix"]["web_path"].split('/').pop())
-	            	$("#total_tracks").html(data["mix"]["tracks_count"]);
 	            	$("#content_title").html(data["mix"]["name"]);
+
+	            	var totalTracks = data["mix"]["tracks_count"];
+	            	$("#total_tracks").html(totalTracks);
+	            	$("#etr").html(data["mix"]["duration"] / 2 + totalTracks * extraWait);
 
 	            	$("#results_cover_tag").attr("href", data["mix"]["cover_urls"]["sq500"]);
 	            	$("#results_cover").attr("src", data["mix"]["cover_urls"]["sq133"]);
@@ -347,12 +355,15 @@ function eight()
 	            	console.log("  data['play_token'] = "+data["play_token"]);
             		console.log("  data['mix']['id'] = "+data["mix"]["id"]);
             		console.log("  data['mix']['tracks_count'] = "+data["mix"]["tracks_count"]);
+            		console.log("  data['mix']['duration'] = "+data["mix"]["duration"]);
 	            }
 
 	        	var i = 0;
 		    	while (typeof data[i] !== "undefined") {
 		    		trackCount++;
-		    		$("#wait_duration").html(data[i]["duration"]);
+		    		var duration = data[i]["duration"];
+		    		$("#song_duration").html(duration);
+		    		$("#etr").html(parseInt($("#etr").html()) - duration / 2 + 4);
 
 		    		$("#results_header").slideDown(400)
 		            $("#results_table").show()
@@ -384,7 +395,7 @@ function eight()
 		    	console.log("  "+data["message"]);
 
 		    	var timer = new Date();
-		    	var updateTime = lastSongDuration / 2 + 4;
+		    	var updateTime = lastSongDuration / 2 + extraWait;
 
 			    timer.setSeconds(timer.getSeconds() + updateTime);
 			    $("#timer").html(timer);
@@ -416,6 +427,7 @@ function songza()
 	var sessionId = $("#session_id").html();
 	var stationId = $("#station_id").html();
 	var trackCount = parseInt($("#track_count").html());
+	var updateTime = 3;
 
     $.ajax({
         type: "POST",
@@ -434,7 +446,10 @@ function songza()
 	            	$("#session_id").html(data["session_id"]);
 	            	$("#station_id").html(data["station_id"]);
 	            	$("#slug").html(data["station_slug"])
-	            	$("#total_tracks").html(data["total_tracks"]);
+
+	            	var totalTracks = data["total_tracks"];
+	            	$("#total_tracks").html(totalTracks);
+	            	$("#etr").html(totalTracks * updateTime);
 
 	            	$("#results_cover").attr("src", data["station_100"]);
 	            	$("#results_cover_big").attr("href", data["station_500"]);
@@ -459,7 +474,6 @@ function songza()
 			    	updateTimeout();
 		        } else {
 		        	var timer = new Date();
-			    	var updateTime = 3;
 
 				    timer.setSeconds(timer.getSeconds() + updateTime);
 				    $("#timer").html(timer);
