@@ -64,8 +64,8 @@ table tr:last-child td{border-bottom:0;}
 
 #donate_div form{display:block;width:100px;height:50px;margin:0 auto;}
 
-.ad_box{display:block;width:748px;height:110px;position:absolute;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
-.ad_box h4{color:#2B9664;margin:15px;}
+.money_box{display:block;width:748px;height:110px;position:absolute;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
+.money_box h4{color:#2B9664;margin:15px;}
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
 #info{padding-left:10%}
@@ -84,7 +84,7 @@ table tr:last-child td{border-bottom:0;}
 .right{text-align:right}
 
 @media only screen and (max-width:725px) {
-    .ad_box{display:none}
+    .money_box{display:none}
     #main{width:100%;margin:20px 0 60px 0;}
 }
 
