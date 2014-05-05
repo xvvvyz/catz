@@ -1,7 +1,7 @@
 OMG. Catz
 =========
 
-Source code for the latest version of omgcatz.com.
+Source code for the latest version of omgcatz.com
 
 Prereqs
 -------
@@ -16,4 +16,3 @@ Setup
 2. Move everything into the webroot of your webserver.
 
 3. Dance.
-
