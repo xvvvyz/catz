@@ -16,8 +16,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #spinner{display:none;padding:60px 0 40px 0}
 
 #everything{margin:auto;max-width:900px}
-.ad_box{margin:20px}
-#main{width:100%;margin:20px 0 60px 0;}
+#main{width:100%;margin:20px 0 170px 0;}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:65%}
@@ -60,15 +59,12 @@ table tr:last-child td{border-bottom:0;}
 .popup b,.popup p{display:inline}
 .popup a{text-decoration:underline;color:inherit}
 .close_popup{text-decoration:none!important;color:#3EB880!important;cursor:pointer;font-size:1.5em;position:absolute;}
-.submit{margin:0;height:50px;width:100px;font-size:1.4em;font-weight:700;background-color:inherit;border:solid 3px #333;}
-.submit:hover{background-color:#333;color:#6D6D6D;}
+.submit{margin:0;width:50%}
+.submit:hover{background-color:#333!important;color:#6D6D6D;}
 
-#contact_div form,#contact_div textarea{width:96%}
-#contact_div textarea,#contact_div input{padding:2%;display:block;margin-top:5px;}
-#contact_div textarea{height:100px;}
-#contact_div label{font-weight:700}
-#donate_div form{display:block;width:100px;margin:0 auto;}
+#donate_div form{display:block;width:100px;height:50px;margin:0 auto;}
 
+.ad_box{position:absolute;bottom:40px;left:50%;margin-left:-374px;padding:10px 10px 3px 10px;background-color:rgba(25, 25, 25, 0.9)}
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
 #info{padding-left:10%}
@@ -86,6 +82,11 @@ table tr:last-child td{border-bottom:0;}
 .center{text-align:center}
 .right{text-align:right}
 
+@media only screen and (max-width:725px) {
+    .ad_box{display:none}
+    #main{width:100%;margin:20px 0 60px 0;}
+}
+
 @media only screen and (max-width:500px) {
     #footer{text-align:center;}
     #social{display:none}
@@ -96,7 +97,6 @@ table tr:last-child td{border-bottom:0;}
 }
 
 @media only screen and (max-width:900px) {
-    .ad_box{overflow:hidden;}
     #progress{height:20px}
     #main{margin-top:0}
     #main_text,#main_button,#main_form{height:4em;}

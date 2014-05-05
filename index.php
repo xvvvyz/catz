@@ -26,17 +26,6 @@
 
         <div id="everything">
             <main id="main">
-                <!--<div class="ad_box">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:728px;height:90px"
-                         data-ad-client="ca-pub-4166408543945956"
-                         data-ad-slot="1162321024"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>-->
-
                 <form id="main_form" method="get" name="main_form">
                     <?php
                         $default = (isset($_GET["q"]) ? $_GET["q"] : "");
@@ -75,36 +64,7 @@
                     <h2>OH FAQ!</h2>
                     <b>What Is This?</b><p>This is a cat website (made for cats... like you). With the internet came an unruley amount of cats and cat like things. Maybe the Egyptians understood something we still don't quite understand. Along with cats, this website provides you with a whole bunch of music. Music to the eyes, that is, in the form of cats.</p><br><br>
                     <b>Wait.. Why?</b><p>Because of <a href="http://www.youtube.com/v/xEhaVhta7sI">this</a>... And because obsessively viewing cat pictures while enjoying my favorite music can turn a bad day into something slightly better. I hope you can find joy from this website, too.</p><br><br>
-                    <b>How can I thank you?</b><p>You can drop me a line <a href="#contact">here</a>, and you can click <a href="#donate">here</a> if you are interested in donating.</p><br><br>
-                </div>
-
-                <div class="popup" id="contact_div">
-                    <a class="close_popup">x</a>
-                    <h2>Meow</h2>
-                    <p>Use the form below to contact me. Include your email address if you want a reply, but I can't guarantee that you'll get one. Read the lists below to ensure a response.</p><br><br>
-                    <b>Good reasons to contact me:</b>
-                    <ul>
-                        <li>You have a question...</li>
-                        <li>... that hasn't been answered <a href="https://facebook.com/omgcatzwebsite">here</a>, <a href="https://twitter.com/thirdletterdev">here</a>, or <a href="http://www.google.com">here</a>.</li>
-                        <li>You want to thank me.</li>
-                        <li>You had an awesome dream last night.</li>
-                        <li>You have a suggestion.</li>
-                        <li>You want to talk computer science.</li>
-                        <li>You're having a midlife crisis.</li>
-                        <li>You want to sell me cookies.</li>
-                    </ul>
-                    <b>Bad reasons to contact me:</b>
-                    <ul>
-                        <li>You don't have anything to say.</li>
-                        <li>You want to have my babies.</li>
-                        <li>You hate me.</li>
-                    </ul><br>
-                    <form id="contact_form" method="get" name="main_form">
-                        <label>Email: <input placeholder="name@email.com" name="email"></label><br>
-                        <label>Message: <textarea name="message"></textarea></label><br>
-                        <input class="submit" type="submit" value="Send">
-                    </form>
-                    <br>
+                    <b>How can I thank you?</b><p>You can drop me a line by <a href="mailto:admin@omgcatz.com">email</a>, and you can click <a href="#donate">here</a> if you are interested in donating.</p><br><br>
                 </div>
 
                 <div class="popup" id="donate_div">
@@ -140,6 +100,17 @@
                 <div id="spinner"></div>
             </main>
 
+            <div class="ad_box">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-4166408543945956"
+                     data-ad-slot="1162321024"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <footer id="footer">
                 <div id="social">
                     <div id="s1"><a href="https://twitter.com/thirdletterdev">T</a></div>
@@ -150,7 +121,7 @@
                 <div id="info">
                     <div><a href="tos">Terms</a></div>
                     <div><a href="#about">About</a></div>
-                    <div><a href="#contact">Contact</a></div>
+                    <div><a href="mailto:admin@omgcatz.com">Contact</a></div>
                 </div>
             </footer>
         </div>
