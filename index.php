@@ -105,7 +105,7 @@
                 <h4>... just kidding, but please consider <a href="#donate">donating</a>.</h4>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
-                     style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px"
+                     style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px;background-color:#2B2B2B"
                      data-ad-client="ca-pub-4166408543945956"
                      data-ad-slot="1162321024"></ins>
                 <script>
