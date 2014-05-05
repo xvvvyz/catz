@@ -101,9 +101,11 @@
             </main>
 
             <div class="ad_box">
+                <h4><?php echo $_SERVER['REMOTE_ADDR']; ?>, blocking ads is a good way to get DDOS attacked by my massive botnet...</h4>
+                <h4>... just kidding, but please consider <a href="#donate">donating</a>.</h4>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
-                     style="display:inline-block;width:728px;height:90px"
+                     style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px"
                      data-ad-client="ca-pub-4166408543945956"
                      data-ad-slot="1162321024"></ins>
                 <script>
