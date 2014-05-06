@@ -102,8 +102,8 @@
             </main>
 
             <div class="money_box">
-                <h4><?php echo $_SERVER['REMOTE_ADDR']; ?>, blocking ads is a good way to get DDoS attacked by my massive botnet...</h4>
-                <h4>... just kidding, but please consider <a href="#donate">donating</a>.</h4>
+                <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. This site exists because of ads and donations.</h4>
+                <h4>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
                      style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px;background-color:#2B2B2B"
