@@ -62,7 +62,7 @@ table tr:last-child td{border-bottom:0;}
 .submit{margin:0;width:50%}
 .submit:hover{background-color:#333!important;color:#6D6D6D;}
 
-#donate_div form{display:block;width:100px;height:50px;margin:0 auto;}
+#donate_div form{display:inline;margin:0;}
 
 .money_box{display:block;width:748px;height:110px;position:absolute;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
 .money_box h4{color:#2B9664;margin:15px;}

@@ -72,12 +72,11 @@
                 <div class="popup" id="donate_div">
                     <a class="close_popup">x</a>
                     <h2>Helllp</h2>
-                    <p>This website gets too much traffic, and, due to special kitties, it requires a fairly strong (expensive) server to keep it from crashing. Thus, ads and donations are its lifeblood. I promise not to spend your contribution on drugs and hookers.</p><br><br>
-                    <form id="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    
+                    <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                         <input type="hidden" name="cmd" value="_s-xclick">
                         <input type="hidden" name="hosted_button_id" value="9TA7SKMGJFCZ8">
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                        <img alt="donate" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        <p>This website gets too much traffic, and, due to special kitties, it requires a fairly strong (expensive) server to keep it from crashing. Thus, ads and donations are its lifeblood. You can donate using <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Bitcoins</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a>. I promise not to spend your contribution on drugs and hookers.</p><br><br>
                     </form>
                 </div>
 
