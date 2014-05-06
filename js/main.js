@@ -364,7 +364,7 @@ function eight()
 		    		var duration = data[i]["duration"];
 		    		$("#song_duration").html(duration);
 
-		    		if (lastSongDuration != 0) {
+		    		if (lastSongDuration == 0) {
 		    			$("#etr").html(parseInt($("#etr").html()) - duration / 2 + 4);
 		    		}
 
