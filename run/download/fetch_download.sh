@@ -1,17 +1,21 @@
 #!/bin/bash
 # this script can download, tag, and archive music
 
+# paths to stuff
 ARCHIVES="../archives"
 SONGS="../songs"
 ARTWORK="../artwork"
 
+# set arguments to variables
 TITLE="$(echo "$1" | tr -d '\' | tr -s ' ' | sed 's|\ *$||')"
 TAG_TITLE="$2"
 ARTIST="$(echo "$3" | tr -d '\' | tr -s ' ')"
 ALBUM="$(echo "$4" | tr -d '\' | tr -s ' ')"
 IMG="$5"
 TRACK_NUMBER="$6"
-[ "$TRACK_NUMBER" != "false" ] && TRACK_NUMBER_SPACE="$TRACK_NUMBER. "
+if [ "$TRACK_NUMBER" != "false" ]; then
+	TRACK_NUMBER_SPACE="$TRACK_NUMBER. "
+fi
 TOTAL_TRACKS="$7"
 URL="$8"
 MIX_TITLE="$(echo "$9" | cut -d/ -f3)"
@@ -19,6 +23,7 @@ RECURSIVE="${10}"
 DOWNLOAD_ID="${11}"
 SONG_ID="${12}"
 
+# paths to more stuff
 SONG_SAVE="$SONGS/$SONG_ID"
 ZIP_SAVE="$DOWNLOAD_ID.zip"
 ZIP_DIR="$MIX_TITLE/"
@@ -39,16 +44,25 @@ SAVE_TITLE="${TRACK_NUMBER_SPACE}$(echo "$TITLE" | sed 's|/|-|g;s|^\.||g' | tr -
 [ "$RECURSIVE" == "false" ] && unset RECURSIVE
 
 while [ -f "SONG_SAVE".part ]; do
+	# if the song is being downloaded by someone
+	# else, wait for it to finish downloading
+	
 	sleep 2
 done
 
 if [ -f "$SONG_SAVE".m4a ]; then
+	# if m4a exists
+
 	EXT=".m4a"
 	touch "$SONG_SAVE$EXT"
 elif [ -f "$SONG_SAVE".mp3 ]; then
+	# if mp3 exists
+
 	EXT=".mp3"
 	touch "$SONG_SAVE$EXT"
 else
+	# if song doesn't exist
+
 	curl -Lso "$SONG_SAVE".part "$URL"
 
 	if [ "$(file "$SONG_SAVE".part | grep -E "(MPEG ADTS|Audio file with ID3)")" ]; then
@@ -79,6 +93,7 @@ else
 	mv "$SONG_SAVE".part "$SONG_SAVE$EXT"
 fi
 
+# tag artwork
 if [ "$EXT" == ".mp3" ]; then
 	./eyeD3 --remove-images -t "$TITLE" -a "$ARTIST" -A "$ALBUM" -n "$TRACK_NUMBER" -N "$TOTAL_TRACKS" "$SONG_SAVE$EXT" &> /dev/null
 	if [ -n "$IMG" ]; then
@@ -98,6 +113,8 @@ elif [ "$EXT" == ".m4a" ]; then
 fi
 
 if [ -n "$RECURSIVE" ]; then
+	# if we are adding to zip
+
 	cd "$ARCHIVES"
 	mkdir -p "$ZIP_DIR"
 	chmod 777 "$ZIP_DIR"
@@ -106,5 +123,7 @@ if [ -n "$RECURSIVE" ]; then
 	rm -f "$SAVE_TITLE$EXT"
 	printf "$ARCHIVES/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
 else
+	# if we are downloading single file
+
 	printf "$SONG_SAVE$EXT\n$SAVE_TITLE$EXT\n$EXT"
 fi
