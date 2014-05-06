@@ -337,7 +337,9 @@ function eight()
             trackNumber: trackCount
         },
         success: function (data) {
-            if (data["error"] == 0) {
+        	var error = data["error"];
+        	
+            if (error == 0) {
 	            if (data["mix"]) {
 	            	$("#play_token").html(data["play_token"]);
 	            	$("#mix_id").html(data["mix"]["id"]);
@@ -395,33 +397,38 @@ function eight()
 				        eight();
 			        }
 			    } else {
-			       	unload();
-				    updateTimeout();
-				    returnMessage("That's all we could find.");
+					unload();
+					returnMessage("That's all we could find.");
 			    }
-		    } else if (data["error"] == 403) {
-		    	returnMessage(data["message"]);
-		    	console.log("  "+data["message"]);
+		    } else if (error == 403) {
+		    	if (error != $("#old_error").html()) {
+			    	console.log("  "+data["message"]);
 
-		    	var timer = new Date();
-		    	var updateTime = lastSongDuration / 2 + extraWait;
+			    	var timer = new Date();
+			    	var updateTime = lastSongDuration / 2 + extraWait;
 
-			    timer.setSeconds(timer.getSeconds() + updateTime);
-			    $("#timer").html(timer);
+				    timer.setSeconds(timer.getSeconds() + updateTime);
+				    $("#timer").html(timer);
 
-			    var speed = updateTime * 1000;
-			    var total = parseInt($("#total_tracks").html());
-		    	var percentage = Math.floor((trackCount + 1) / total * 100);
+				    var speed = updateTime * 1000;
+				    var total = parseInt($("#total_tracks").html());
+			    	var percentage = Math.floor((trackCount + 1) / total * 100);
 
-			    $(".bar").animate({
-					width: percentage+"%"
-				}, speed, "linear");
+				    $(".bar").animate({
+						width: percentage+"%"
+					}, speed, "linear");
 
-				updateTimeout();
+					updateTimeout();
+				} else {
+					unload();
+					returnMessage("That's all we could find.");
+				}
 		    } else {
 		    	unload();
 		    	returnMessage(data["message"]);
 		    }
+
+		    $("#old_error").html(error);
         },
         error: function (jqXHR, textStatus) {
         	unload();

@@ -49,6 +49,7 @@
                     <span id="etr"></span>
                     <span id="recursive_downloads">0</span>
                     <span id="slug"></span>
+                    <span id="old_error"></span>
 
                     <!-- 8TRACKS -->
                     <span id="play_token"></span>
