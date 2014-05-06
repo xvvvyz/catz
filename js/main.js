@@ -318,7 +318,7 @@ function eight()
 	var mixId = $("#mix_id").html();
 	var trackCount = parseInt($("#track_count").html());
 	var lastSongDuration = parseInt($("#song_duration").html());
-	var extraWait = 4;
+	var extraWait = 7;
 
 	console.log("  url = "+url);
 	console.log("  playToken = "+playToken);
@@ -421,7 +421,7 @@ function eight()
 					updateTimeout();
 				} else {
 					unload();
-					returnMessage("That's all we could find.");
+					returnMessage("The mix has been modified; this is all we could find.");
 				}
 		    } else {
 		    	unload();
