@@ -102,7 +102,7 @@
             </main>
 
             <div class="money_box">
-                <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. This site exists thanks to ads and donations.</h4>
+                <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations keep this site alive.</h4>
                 <h4>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
