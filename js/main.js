@@ -368,7 +368,7 @@ function eight()
 			    		$("#song_duration").html(duration);
 
 			    		if (lastSongDuration == 0) {
-			    			$("#etr").html(parseInt($("#etr").html()) - duration / 2 + 4);
+			    			$("#etr").html(parseInt($("#etr").html()) - duration / 2 - extraWait);
 			    		}
 
 			    		$("#results_header").slideDown(400)
