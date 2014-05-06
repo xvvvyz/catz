@@ -363,7 +363,10 @@ function eight()
 		    		trackCount++;
 		    		var duration = data[i]["duration"];
 		    		$("#song_duration").html(duration);
-		    		$("#etr").html(parseInt($("#etr").html()) - duration / 2 + 4);
+
+		    		if (lastSongDuration != 0) {
+		    			$("#etr").html(parseInt($("#etr").html()) - duration / 2 + 4);
+		    		}
 
 		    		$("#results_header").slideDown(400)
 		            $("#results_table").show()
