@@ -44,9 +44,8 @@ SAVE_TITLE="${TRACK_NUMBER_SPACE}$(echo "$TITLE" | sed 's|/|-|g;s|^\.||g' | tr -
 [ "$RECURSIVE" == "false" ] && unset RECURSIVE
 
 while [ -f "SONG_SAVE".part ]; do
-	# if the song is being downloaded by someone
-	# else, wait for it to finish downloading
-	
+	# if the song is being downloaded by someone else
+
 	sleep 2
 done
 
