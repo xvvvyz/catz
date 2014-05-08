@@ -31,7 +31,7 @@ else
 fi
 
 printf "$pform" "Checking for p7zip..."
-if [ $(which zip) ]; then
+if [ $(which zip) ] || [ $(which p7zip) ]; then
 	echo "Success!"
 	ln -fs `which zip` ./run/archives/zip
 else
