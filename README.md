@@ -13,11 +13,13 @@ Setup
 
 0. Clone the repo into a place that serves http requests.
 
-```git clone https://github.com/cadejscroggins/omgcatz /path/to/server/```
+```shell
+git clone https://github.com/cadejscroggins/omgcatz /path/to/server/```
 
 1. Install all of the things (Debian)
 
-```sudo apt-get update
+```shell
+sudo apt-get update
 sudo apt-get install apache2
 sudo apt-get install mysql-server
 sudo apt-get install php5
@@ -35,13 +37,15 @@ sudo /etc/init.d/apache2 restart```
 
 3. If you don't have unlimited disk space, you should probably put something like this in a crontab.
 
-```*/5 * * * * find /path/to/server/run/songs -type f -mmin +200 -delete
+```shell
+*/5 * * * * find /path/to/server/run/songs -type f -mmin +200 -delete
 */5 * * * * find /path/to/server/run/archives -type f -mmin +45 -delete
 */5 * * * * find /path/to/server/run/artwork -type f -mmin +45 -delete```
 
 4. Create the database.
 
-```mysql -u root -p
+```shell
+mysql -u root -p
 create database lollipop;
 quit```
 
