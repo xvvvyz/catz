@@ -6,20 +6,20 @@ This guide will (hopefully) get you close to having Catz run on your local or re
 Prereqs
 -------
 
-A *NIX box. (Tested with OS X Mavericks and Debain).
+* A *NIX box. (Tested with OS X Mavericks and Debain).
 
 Setup
 -----
 
 * Clone the repo into a place that serves HTTP requests.
 
-```
+```bash
 git clone https://github.com/cadejscroggins/omgcatz /path/to/server/
 ```
 
 * Install all of the things (Debian).
 
-```
+```bash
 sudo apt-get update
 sudo apt-get install apache2
 sudo apt-get install mysql-server
@@ -39,7 +39,7 @@ sudo /etc/init.d/apache2 restart
 
 * If you don't have unlimited disk space, you should probably put something like this in a crontab.
 
-```
+```bash
 */5 * * * * find /path/to/server/run/songs -type f -mmin +200 -delete
 */5 * * * * find /path/to/server/run/archives -type f -mmin +45 -delete
 */5 * * * * find /path/to/server/run/artwork -type f -mmin +45 -delete
@@ -47,7 +47,7 @@ sudo /etc/init.d/apache2 restart
 
 * Create the database.
 
-```
+```bash
 mysql -u root -p
 create database lollipop;
 quit
