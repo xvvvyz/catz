@@ -63,7 +63,16 @@ function unload()
 	$(".bar").stop(true).animate({width: "100%"}, 300)
 	$(".bar").animate({opacity: 0.5}, 400)
 
-	$('#spinner').slideUp(200)
+	$('#spinner').hide()
+}
+
+function smartAd()
+{
+	if ($(document).height() > $(window).height()) {
+		$(".money_box").css("position", "absolute")
+    } else {
+    	$(".money_box").css("position", "fixed")
+    }
 }
 
 function returnMessage(message, slideDown)
@@ -535,8 +544,9 @@ function displayCat(tag)
 				}, speed);
 
 		        var img = $("#kitty_img").attr("src", data.imageUrl).load(function () {
+		            $("#kitty_img").fadeIn(500);
+
 		            unload();
-		            $("#kitty_img").slideDown(200);
 		        }).error(function() {
 		        	unload();
 		        	returnMessage("404");

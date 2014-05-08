@@ -16,7 +16,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #spinner{display:none;padding:60px 0 40px 0}
 
 #everything{margin:auto;max-width:900px}
-#main{width:100%;margin:20px 0 170px 0;}
+#main{width:100%;margin:20px 0 170px 0}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:65%}
@@ -64,9 +64,10 @@ table tr:last-child td{border-bottom:0;}
 
 #donate_div form{display:inline;margin:0;}
 
-.money_box{display:block;width:748px;height:110px;position:absolute;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
+.money_box{display:block;width:748px;height:110px;position:fixed;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
 .money_box h4{color:#2B9664;margin:15px;}
 .money_box a:hover{text-decoration:underline}
+
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
 #info{padding-left:10%}
