@@ -12,6 +12,14 @@ chmod 777 ./run/{archives,artwork,songs} && echo "Success!" || echo "Failed."
 printf "$pform" "Changing file permissions..."
 chmod +x ./run/*/{*php,*sh} && echo "Success!" || echo "Failed."
 
+printf "$pform" "Checking for curl..."
+if [ $(which curl) ]; then
+	echo "Success!"
+else
+	echo "Nada, please install."
+	let bad+=1
+fi
+
 printf "$pform" "Checking for eyeD3..."
 if [ $(which eyeD3) ]; then
 	echo "Success!"
