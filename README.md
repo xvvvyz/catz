@@ -11,13 +11,13 @@ A *NIX box. (Tested with OS X Mavericks and Debain).
 Setup
 -----
 
-0. Clone the repo into a place that serves http requests.
+0. Clone the repo into a place that serves HTTP requests.
 
 ```
 git clone https://github.com/cadejscroggins/omgcatz /path/to/server/
 ```
 
-1. Install all of the things (Debian)
+1. Install all of the things (Debian).
 
 ```
 sudo apt-get update
