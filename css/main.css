@@ -68,7 +68,7 @@ table tr:last-child td{border-bottom:0;}
 
 #donate_div form{display:inline;margin:0;}
 
-#double_box{margin:0 auto 20px auto}
+#double_box{margin:10px auto 20px auto}
 
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
