@@ -16,7 +16,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #spinner{display:none;padding:60px 0 60px 0}
 
 #money_header{display:block;width:728px;height:90px;position:absolute;top:10px;left:50%;margin-left:-364px;background-color:rgba(25, 25, 25, 0.9)}
-#money_header h4{color:#2B9664;margin:15px;line-height:28px}
+#money_header h4{color:#2B9664;margin:20px;line-height:25px}
 #money_header a:hover{text-decoration:underline}
 
 #everything{margin:auto;max-width:900px}
