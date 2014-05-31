@@ -43,7 +43,7 @@ if (empty($stationId)) {
 
 
 // get a song (hopefully it's a new one) from the station
-$ch = curl_init("http://songza.com/api/1/station/".$stationId."/next?cover_size=g&format=mp3");
+$ch = curl_init("http://songza.com/api/1/station/".$stationId."/next");
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_COOKIE, "sessionid=".$sessionId."; visitor-prompted:1");
