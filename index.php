@@ -1,25 +1,26 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="catz catz catz catz catz catz catz catz catz OMG">
         <meta name="viewport" content="width=device-width, user-scalable=no">
-        
         <title>Catz</title>
-
+        <meta name="description" content="Come enjoy some furry little kittens as you listen to your jams. We have just what you need.">
+        <meta property="og:title" content="Catz">
+        <meta property="og:description" content="Come enjoy some furry little kittens as you listen to your jams. We have just what you need.">
+        <meta property="og:url" content="http://omgcatz.com">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="http://omgcatz.com/img/omgcatz.png">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Catz">
+        <meta name="twitter:creator" content="@thirdletterdev">
+        <meta name="twitter:description" content="Come enjoy some furry little kittens as you listen to your jams. We have just what you need.">
+        <meta name="twitter:url" content="http://omgcatz.com">
+        <meta name="twitter:image" content="http://omgcatz.com/img/omgcatz.png">
         <link rel="icon" type="image/png" href="favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/main.css">
     <body>
-        <noscript>
-            <p class="browsehappy">JavaScript must be enabled for this site to do anything.</p>
-        </noscript>
-        
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
         <div id="progress">
             <div class="bar"></div>
         </div>
