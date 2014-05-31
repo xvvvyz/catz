@@ -15,12 +15,12 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 .bar{background-color:#fff;width:0%;height:100%;}
 #spinner{display:none;padding:60px 0 60px 0}
 
-#money_header{display:block;width:748px;height:110px;position:absolute;top:10px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
-#money_header h4{color:#2B9664;margin:15px}
+#money_header{display:block;width:728px;height:90px;position:absolute;top:10px;left:50%;margin-left:-364px;background-color:rgba(25, 25, 25, 0.9)}
+#money_header h4{color:#2B9664;margin:15px;line-height:28px}
 #money_header a:hover{text-decoration:underline}
 
 #everything{margin:auto;max-width:900px}
-#main{width:100%;margin:110px 0 60px 0}
+#main{width:100%;margin:90px 0 60px 0}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:65%}
@@ -85,7 +85,7 @@ table tr:last-child td{border-bottom:0;}
 .center{text-align:center}
 .right{text-align:right}
 
-@media only screen and (max-width:748px) {
+@media only screen and (max-width:728px) {
     #money_header{display:none}
     #main{width:100%;margin:20px 0 40px 0;}
     #kitty_img{display:none;max-width:90%;margin-bottom:20px}
