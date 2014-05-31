@@ -112,19 +112,6 @@
                 </div>
 
                 <div id="spinner"></div>
-
-                <div id="double_box">
-                    <div id="money_b2">
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:335px;height:278px"
-                             data-ad-client="ca-pub-4166408543945956"
-                             data-ad-slot="3386452629"></ins>
-                        <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
             </main>
 
             <footer id="footer">

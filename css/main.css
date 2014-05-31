@@ -20,7 +20,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #money_header a:hover{text-decoration:underline}
 
 #everything{margin:auto;max-width:900px}
-#main{width:100%;margin:110px 0 40px 0}
+#main{width:100%;margin:110px 0 60px 0}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:65%}
@@ -68,8 +68,6 @@ table tr:last-child td{border-bottom:0;}
 
 #donate_div form{display:inline;margin:0;}
 
-#double_box{margin:10px auto 20px auto}
-
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
 #info{padding-left:10%}
@@ -88,8 +86,9 @@ table tr:last-child td{border-bottom:0;}
 .right{text-align:right}
 
 @media only screen and (max-width:748px) {
-    #money_header,#double_box{display:none}
+    #money_header{display:none}
     #main{width:100%;margin:20px 0 40px 0;}
+    #kitty_img{display:none;max-width:90%;margin-bottom:20px}
     #progress{height:20px}
     #main{margin-top:0}
     #main_text,#main_button,#main_form{height:4em;}
@@ -104,8 +103,4 @@ table tr:last-child td{border-bottom:0;}
     #info{padding:0!important;}
     #results_table td{font-size:7px;padding:6px;}
     .download_buttons{width:60px;font-size:6px;}
-}
-
-@media only screen and (max-width:900px) {
-
 }
