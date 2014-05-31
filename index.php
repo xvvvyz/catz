@@ -6,16 +6,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <title>Catz</title>
-        <meta name="description" content="Come enjoy some furry kittens as you listen to your jams. We have just what you need.">
+        <meta name="description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
         <meta property="og:title" content="Catz">
-        <meta property="og:description" content="Come enjoy some furry kittens as you listen to your jams. We have just what you need.">
+        <meta property="og:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
         <meta property="og:url" content="http://omgcatz.com">
         <meta property="og:type" content="website">
         <meta property="og:image" content="http://omgcatz.com/img/omgcatz.png">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="Catz">
         <meta name="twitter:creator" content="@thirdletterdev">
-        <meta name="twitter:description" content="Come enjoy some furry kittens as you listen to your jams. We have just what you need.">
+        <meta name="twitter:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
         <meta name="twitter:url" content="http://omgcatz.com">
         <meta name="twitter:image" content="http://omgcatz.com/img/omgcatz.png">
         <link rel="icon" type="image/png" href="favicon.ico">
