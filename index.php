@@ -24,6 +24,19 @@
             <div class="bar"></div>
         </div>
 
+        <div id="money_header">
+            <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations keep this site alive.</h4>
+            <h4>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px;background-color:#2B2B2B"
+                 data-ad-client="ca-pub-4166408543945956"
+                 data-ad-slot="1162321024"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <div id="everything">
             <main id="main">
                 <form id="main_form" method="get" name="main_form">
@@ -71,7 +84,7 @@
 
                 <div class="popup" id="donate_div">
                     <a class="close_popup">x</a>
-                    <h2>Helllp</h2>
+                    <h2>How to Help</h2>
                     
                     <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                         <input type="hidden" name="cmd" value="_s-xclick">
@@ -99,20 +112,20 @@
                 </div>
 
                 <div id="spinner"></div>
-            </main>
 
-            <div class="money_box">
-                <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations keep this site alive.</h4>
-                <h4>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <ins class="adsbygoogle"
-                     style="display:block;width:728px;height:90px;position:absolute;top:10px;left:10px;background-color:#2B2B2B"
-                     data-ad-client="ca-pub-4166408543945956"
-                     data-ad-slot="1162321024"></ins>
-                <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+                <div id="double_box">
+                    <div id="money_b2">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:335px;height:278px"
+                             data-ad-client="ca-pub-4166408543945956"
+                             data-ad-slot="3386452629"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </main>
 
             <footer id="footer">
                 <div id="social">

@@ -13,10 +13,14 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 
 #progress{width:100%;height:10px;background-color:rgba(25, 25, 25, 0.5)}
 .bar{background-color:#fff;width:0%;height:100%;}
-#spinner{display:none;padding:60px 0 40px 0}
+#spinner{display:none;padding:60px 0 60px 0}
+
+#money_header{display:block;width:748px;height:110px;position:absolute;top:10px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
+#money_header h4{color:#2B9664;margin:15px}
+#money_header a:hover{text-decoration:underline}
 
 #everything{margin:auto;max-width:900px}
-#main{width:100%;margin:20px 0 170px 0}
+#main{width:100%;margin:110px 0 40px 0}
 #main_form{height:3em;}
 #main_text,#main_button{float:left;height:3em;text-align:center;border:0;border-radius:0;margin:0;padding:0;}
 #main_text{width:65%}
@@ -64,9 +68,7 @@ table tr:last-child td{border-bottom:0;}
 
 #donate_div form{display:inline;margin:0;}
 
-.money_box{display:block;width:748px;height:110px;position:fixed;bottom:40px;left:50%;margin-left:-374px;padding:10px;background-color:rgba(25, 25, 25, 0.9)}
-.money_box h4{color:#2B9664;margin:15px;}
-.money_box a:hover{text-decoration:underline}
+#double_box{margin:0 auto 20px auto}
 
 #footer{text-align:left;color:#fff;position:fixed;bottom:0;left:0;width:100%;background-color:rgba(25, 25, 25, 0.9);font-size:13px;height:40px}
 #social{float:right;padding-right:10%}
@@ -85,9 +87,14 @@ table tr:last-child td{border-bottom:0;}
 .center{text-align:center}
 .right{text-align:right}
 
-@media only screen and (max-width:725px) {
-    .money_box{display:none}
-    #main{width:100%;margin:20px 0 60px 0;}
+@media only screen and (max-width:748px) {
+    #money_header,#double_box{display:none}
+    #main{width:100%;margin:20px 0 40px 0;}
+    #progress{height:20px}
+    #main{margin-top:0}
+    #main_text,#main_button,#main_form{height:4em;}
+    #social{padding-right:20px}
+    #info{padding-left:20px}
 }
 
 @media only screen and (max-width:500px) {
@@ -100,9 +107,5 @@ table tr:last-child td{border-bottom:0;}
 }
 
 @media only screen and (max-width:900px) {
-    #progress{height:20px}
-    #main{margin-top:0}
-    #main_text,#main_button,#main_form{height:4em;}
-    #social{padding-right:20px}
-    #info{padding-left:20px}
+
 }
