@@ -131,11 +131,11 @@ if (empty($mixId)) {
   $ch = curl_init($url.".jsonp?api_key=3b7b9c79a600f667fe2113ff91183149779a74b8&api_version=3");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   $mixArray = json_decode(curl_exec($ch), true);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  $errors = $mixArray["errors"];
   curl_close($ch);
 
-  if($httpCode != 200) {
-	bail_out(2, '8tracks returned '.$httpCode.'.');
+  if($errors != "") {
+	bail_out(2, '8tracks said, "'.$errors.'"');
   }
 
   $mixId = $mixArray['mix']['id'];
