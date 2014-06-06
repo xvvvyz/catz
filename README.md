@@ -31,7 +31,7 @@ sudo apt-get install php5-curl
 sudo apt-get install curl
 sudo apt-get install eyeD3
 sudo apt-get install atomicparsley
-sudo apt-get install p7zip
+sudo apt-get install zip
 sudo /etc/init.d/apache2 restart
 ```
 
