@@ -57,12 +57,12 @@ table tr:last-child td{border-bottom:0;}
 .down_loaders{display:none}
 .song_img_url{background-color:#EDEDED}
 
-.popup{text-align:left;width:100%;max-width:500px;margin:20px auto;display:none;background-color:#6D6D6D;padding:5px 20px;}
+.popup{text-align:left;width:100%;margin:0 auto;display:none;background-color:#6D6D6D;padding:10px 20px;}
 .popup h2{text-align:center}
 .popup b{margin-right:10px;}
 .popup b,.popup p{display:inline}
 .popup a{text-decoration:underline;color:inherit}
-.close_popup{text-decoration:none!important;color:#3EB880!important;cursor:pointer;font-size:1.5em;position:absolute;}
+.close_popup{text-decoration:none!important;color:#3EB880!important;cursor:pointer;font-size:1.5em;position:absolute}
 .submit{margin:0;width:50%}
 .submit:hover{background-color:#333!important;color:#6D6D6D;}
 

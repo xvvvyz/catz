@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="popup" id="about_div">
-                    <a class="close_popup">x</a>
+                    <a class="close_popup"><img src="img/x.png" alt="x"></a>
                     <h2>OH FAQ!</h2>
                     <b>What Is This?</b><p>This is a cat website (made for cats... like you). With the internet came an unruley amount of cats and cat like things. Maybe the Egyptians understood something we still don't quite understand. Along with cats, this website provides you with a whole bunch of music. Music to the eyes, that is, in the form of cats.</p><br><br>
                     <b>Wait.. Why?</b><p>Because of <a href="http://www.youtube.com/v/xEhaVhta7sI">this</a>... And because obsessively viewing cat pictures while enjoying my favorite music can turn a bad day into something slightly better. I hope you can find joy from this website, too.</p><br><br>
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="popup" id="donate_div">
-                    <a class="close_popup">x</a>
+                    <a class="close_popup"><img src="img/x.png" alt="x"></a>
                     <h2>How to Help</h2>
                     
                     <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
