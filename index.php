@@ -124,7 +124,7 @@
                 <div id="info">
                     <div><a href="tos">Terms</a></div>
                     <div><a href="#about">About</a></div>
-                    <div><a href="mailto:scroggins.cade@gmail.com">Contact</a></div>
+                    <div><a href="mailto:admin@omgcatz.com">Contact</a></div>
                 </div>
             </footer>
         </div>
