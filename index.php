@@ -117,7 +117,6 @@
             <footer id="footer">
                 <div id="social">
                     <div id="s1"><a href="https://twitter.com/thirdletterdev">T</a></div>
-                    <div id="s2"><a href="https://plus.google.com/+Thirdletter">G+</a></div>
                     <div id="s3"><a href="https://www.facebook.com/omgcatzwebsite">F</a></div>
                     <div id="s4"><a href="https://github.com/cadejscroggins/omgcatz">Git</a></div>
                 </div>
