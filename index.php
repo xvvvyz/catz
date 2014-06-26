@@ -26,7 +26,7 @@
         </div>
 
         <div id="money_header">
-            <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations keep this site alive.<br>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
+            <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations help me tremendously.<br>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <ins class="adsbygoogle"
                  style="display:block;width:728px;height:90px;position:absolute;top:0;left:0;background-color:#2B2B2B"
