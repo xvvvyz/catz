@@ -2,9 +2,9 @@
 # this script can download, tag, and archive music
 
 # paths to stuff
-ARCHIVES="../archives"
-SONGS="../songs"
-ARTWORK="../artwork"
+ARCHIVES="archives"
+SONGS="songs"
+ARTWORK="artwork"
 
 # set arguments to variables
 TITLE="$(echo "$1" | tr -d '\' | tr -s ' ' | sed 's|\ *$||')"

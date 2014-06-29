@@ -8,7 +8,7 @@ $pathParts = pathinfo($_GET['p']);
 $dirName  = $pathParts['dirname'];
 
 // prevent arbitrary files from being downloaded
-if (!preg_match('|^../archives/[^/]+$|', $dirName) && $dirName != "../songs") {
+if (!preg_match('|^archives/[^/]+$|', $dirName) && $dirName != "songs") {
 	bail_out(403, "Not acceptable.");
 }
 

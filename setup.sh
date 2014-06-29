@@ -4,10 +4,10 @@ pform="%-32s"
 bad=0
 
 printf "$pform" "Creating folders..."
-mkdir -p ./run/{archives,artwork,songs} && echo "Success!" || echo "Failed."
+mkdir -p ./run/download/{archives,artwork,songs} && echo "Success!" || echo "Failed."
 
 printf "$pform" "Changing folder permissions..."
-chmod 777 ./run/{archives,artwork,songs} && echo "Success!" || echo "Failed."
+chmod 777 ./run/download/{archives,artwork,songs} && echo "Success!" || echo "Failed."
 
 printf "$pform" "Changing file permissions..."
 chmod +x ./run/*/{*php,*sh} && echo "Success!" || echo "Failed."
