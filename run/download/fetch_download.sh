@@ -114,10 +114,9 @@ fi
 if [ -n "$RECURSIVE" ]; then
 	# if we are adding to zip
 
-	cd "$ARCHIVES"
-	mkdir -p "$ZIP_DIR"
-	chmod 777 "$ZIP_DIR"
-	cp "$SONG_SAVE$EXT" "$SAVE_TITLE$EXT"
+	mkdir -p "$ARCHIVES/$ZIP_DIR"
+	cp "$SONG_SAVE$EXT" "$ARCHIVES/$SAVE_TITLE$EXT"
+  cd "$ARCHIVES"
 	./zip -q -0 -D -r "$ZIP_DIR$ZIP_SAVE" "$SAVE_TITLE$EXT" &> /dev/null
 	rm -f "$SAVE_TITLE$EXT"
 	printf "$ARCHIVES/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
