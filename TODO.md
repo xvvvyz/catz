@@ -1,6 +1,7 @@
 Things to be Done
 =================
 
+- clean up javascript and make things nice
 - look into songza and fix er up
 - soundcloud then fratmusic
 - make downloaded playlists page
