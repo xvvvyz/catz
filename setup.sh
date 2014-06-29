@@ -41,7 +41,7 @@ fi
 printf "$pform" "Checking for p7zip..."
 if [ $(which zip) ]; then
 	echo "Success!"
-	ln -fs `which zip` ./run/archives/zip
+	ln -fs `which zip` ./run/download/archives/zip
 else
 	echo "Nada, please install."
 	let bad+=1
