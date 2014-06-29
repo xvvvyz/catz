@@ -2,9 +2,9 @@
 .DS_Store
 
 # generated
-/run/archives/
-/run/artwork/
-/run/songs/
+/run/download/archives/
+/run/download/artwork/
+/run/download/songs/
 
 *database.php
 *AtomicParsley
