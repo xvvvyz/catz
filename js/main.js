@@ -6,638 +6,624 @@
 // countdownjs.org
 var module,countdown=function(r){function v(a,b){var c=a.getTime();a.setUTCMonth(a.getUTCMonth()+b);return Math.round((a.getTime()-c)/864E5)}function t(a){var b=a.getTime(),c=new Date(b);c.setUTCMonth(a.getUTCMonth()+1);return Math.round((c.getTime()-b)/864E5)}function h(a,b){return a+" "+(1===a?p[b]:q[b])}function n(){}function l(a,b,c,g,f,d){0<=a[c]&&(b+=a[c],delete a[c]);b/=f;if(1>=b+1)return 0;if(0<=a[g]){a[g]=+(a[g]+b).toFixed(d);switch(g){case"seconds":if(60!==a.seconds||isNaN(a.minutes))break;a.minutes++;a.seconds=0;case"minutes":if(60!==a.minutes||isNaN(a.hours))break;a.hours++;a.minutes=0;case"hours":if(24!==a.hours||isNaN(a.days))break;a.days++;a.hours=0;case"days":if(7!==a.days||isNaN(a.weeks))break;a.weeks++;a.days=0;case"weeks":if(a.weeks!==t(a.refMonth)/7||isNaN(a.months))break;a.months++;a.weeks=0;case"months":if(12!==a.months||isNaN(a.years))break;a.years++;a.months=0;case"years":if(10!==a.years||isNaN(a.decades))break;a.decades++;a.years=0;case"decades":if(10!==a.decades||isNaN(a.centuries))break;a.centuries++;a.decades=0;case"centuries":if(10!==a.centuries||isNaN(a.millennia))break;a.millennia++;a.centuries=0}return 0}return b}function w(a,b,c,g,f,d){a.start=b;a.end=c;a.units=g;a.value=c.getTime()-b.getTime();if(0>a.value){var h=c;c=b;b=h}a.refMonth=new Date(b.getFullYear(),b.getMonth(),15);try{a.millennia=0;a.centuries=0;a.decades=0;a.years=c.getUTCFullYear()-b.getUTCFullYear();a.months=c.getUTCMonth()-b.getUTCMonth();a.weeks=0;a.days=c.getUTCDate()-b.getUTCDate();a.hours=c.getUTCHours()-b.getUTCHours();a.minutes=c.getUTCMinutes()-b.getUTCMinutes();a.seconds=c.getUTCSeconds()-b.getUTCSeconds();a.milliseconds=c.getUTCMilliseconds()-b.getUTCMilliseconds();var k;0>a.milliseconds?(k=s(-a.milliseconds/1E3),a.seconds-=k,a.milliseconds+=1E3*k):1E3<=a.milliseconds&&(a.seconds+=m(a.milliseconds/1E3),a.milliseconds%=1E3);0>a.seconds?(k=s(-a.seconds/60),a.minutes-=k,a.seconds+=60*k):60<=a.seconds&&(a.minutes+=m(a.seconds/60),a.seconds%=60);0>a.minutes?(k=s(-a.minutes/60),a.hours-=k,a.minutes+=60*k):60<=a.minutes&&(a.hours+=m(a.minutes/60),a.minutes%=60);0>a.hours?(k=s(-a.hours/24),a.days-=k,a.hours+=24*k):24<=a.hours&&(a.days+=m(a.hours/24),a.hours%=24);for(;0>a.days;)a.months--,a.days+=v(a.refMonth,1);7<=a.days&&(a.weeks+=m(a.days/7),a.days%=7);0>a.months?(k=s(-a.months/12),a.years-=k,a.months+=12*k):12<=a.months&&(a.years+=m(a.months/12),a.months%=12);10<=a.years&&(a.decades+=m(a.years/10),a.years%=10,10<=a.decades&&(a.centuries+=m(a.decades/10),a.decades%=10,10<=a.centuries&&(a.millennia+=m(a.centuries/10),a.centuries%=10)));b=0;!(g&1024)||b>=f?(a.centuries+=10*a.millennia,delete a.millennia):a.millennia&&b++;!(g&512)||b>=f?(a.decades+=10*a.centuries,delete a.centuries):a.centuries&&b++;!(g&256)||b>=f?(a.years+=10*a.decades,delete a.decades):a.decades&&b++;!(g&128)||b>=f?(a.months+=12*a.years,delete a.years):a.years&&b++;!(g&64)||b>=f?(a.months&&(a.days+=v(a.refMonth,a.months)),delete a.months,7<=a.days&&(a.weeks+=m(a.days/7),a.days%=7)):a.months&&b++;!(g&32)||b>=f?(a.days+=7*a.weeks,delete a.weeks):a.weeks&&b++;!(g&16)||b>=f?(a.hours+=24*a.days,delete a.days):a.days&&b++;!(g&8)||b>=f?(a.minutes+=60*a.hours,delete a.hours):a.hours&&b++;!(g&4)||b>=f?(a.seconds+=60*a.minutes,delete a.minutes):a.minutes&&b++;!(g&2)||b>=f?(a.milliseconds+=1E3*a.seconds,delete a.seconds):a.seconds&&b++;if(!(g&1)||b>=f){var e=l(a,0,"milliseconds","seconds",1E3,d);if(e&&(e=l(a,e,"seconds","minutes",60,d))&&(e=l(a,e,"minutes","hours",60,d))&&(e=l(a,e,"hours","days",24,d))&&(e=l(a,e,"days","weeks",7,d))&&(e=l(a,e,"weeks","months",t(a.refMonth)/7,d))){g=e;var n,p=a.refMonth,q=p.getTime(),r=new Date(q);r.setUTCFullYear(p.getUTCFullYear()+1);n=Math.round((r.getTime()-q)/864E5);if(e=l(a,g,"months","years",n/t(a.refMonth),d))if(e=l(a,e,"years","decades",10,d))if(e=l(a,e,"decades","centuries",10,d))if(e=l(a,e,"centuries","millennia",10,d))throw Error("Fractional unit overflow")}}}finally{delete a.refMonth}return a}function d(a,b,c,d,f){var h;c=+c||222;d=0<d?d:NaN;f=0<f?20>f?Math.round(f):20:0;"function"===typeof a?(h=a,a=null):a instanceof Date||(a=null!==a&&isFinite(a)?new Date(a):null);"function"===typeof b?(h=b,b=null):b instanceof Date||(b=null!==b&&isFinite(b)?new Date(b):null);if(!a&&!b)return new n;if(!h)return w(new n,a||new Date,b||new Date,c,d,f);var l=c&1?1E3/30:c&2?1E3:c&4?6E4:c&8?36E5:c&16?864E5:6048E5,k,e=function(){h(w(new n,a||new Date,b||new Date,c,d,f),k)};e();return k=setInterval(e,l)}var s=Math.ceil,m=Math.floor,p,q,u;n.prototype.toString=function(){var a=u(this),b=a.length;if(!b)return"";1<b&&(a[b-1]="and "+a[b-1]);return a.join(" ")};n.prototype.toHTML=function(a){a=a||"span";var b=u(this),c=b.length;if(!c)return"";for(var d=0;d<c;d++)b[d]="\x3c"+a+"\x3e"+b[d]+"\x3c/"+a+"\x3e";--c&&(b[c]="and "+b[c]);return b.join(", ")};u=function(a){var b=[],c=a.millennia;c&&b.push(h(c,10));(c=a.centuries)&&b.push(h(c,9));(c=a.decades)&&b.push(h(c,8));(c=a.years)&&b.push(h(c,7));(c=a.months)&&b.push(h(c,6));(c=a.weeks)&&b.push(h(c,5));(c=a.days)&&b.push(h(c,4));(c=a.hours)&&b.push(h(c,3));(c=a.minutes)&&b.push(h(c,2));(c=a.seconds)&&b.push(h(c,1));(c=a.milliseconds)&&b.push(h(c,0));return b};d.MILLISECONDS=1;d.SECONDS=2;d.MINUTES=4;d.HOURS=8;d.DAYS=16;d.WEEKS=32;d.MONTHS=64;d.YEARS=128;d.DECADES=256;d.CENTURIES=512;d.MILLENNIA=1024;d.DEFAULTS=222;d.ALL=2047;d.setLabels=function(a,b){a=a||[];a.split&&(a=a.split("|"));b=b||[];b.split&&(b=b.split("|"));for(var c=0;10>=c;c++)p[c]=a[c]||p[c],q[c]=b[c]||q[c]};(d.resetLabels=function(){p="millisecond second minute hour day week month year decade century millennium".split(" ");q="milliseconds seconds minutes hours days weeks months years decades centuries millennia".split(" ")})();r&&r.exports&&(r.exports=d);return d}(module);
 
-// fgnass.github.com/spin.js
-!function(a,b){"object"==typeof exports?module.exports=b():"function"==typeof define&&define.amd?define(b):a.Spinner=b()}(this,function(){"use strict";function a(a,b){var c,d=document.createElement(a||"div");for(c in b)d[c]=b[c];return d}function b(a){for(var b=1,c=arguments.length;c>b;b++)a.appendChild(arguments[b]);return a}function c(a,b,c,d){var e=["opacity",b,~~(100*a),c,d].join("-"),f=.01+c/d*100,g=Math.max(1-(1-a)/b*(100-f),a),h=j.substring(0,j.indexOf("Animation")).toLowerCase(),i=h&&"-"+h+"-"||"";return l[e]||(m.insertRule("@"+i+"keyframes "+e+"{0%{opacity:"+g+"}"+f+"%{opacity:"+a+"}"+(f+.01)+"%{opacity:1}"+(f+b)%100+"%{opacity:"+a+"}100%{opacity:"+g+"}}",m.cssRules.length),l[e]=1),e}function d(a,b){var c,d,e=a.style;for(b=b.charAt(0).toUpperCase()+b.slice(1),d=0;d<k.length;d++)if(c=k[d]+b,void 0!==e[c])return c;return void 0!==e[b]?b:void 0}function e(a,b){for(var c in b)a.style[d(a,c)||c]=b[c];return a}function f(a){for(var b=1;b<arguments.length;b++){var c=arguments[b];for(var d in c)void 0===a[d]&&(a[d]=c[d])}return a}function g(a,b){return"string"==typeof a?a:a[b%a.length]}function h(a){this.opts=f(a||{},h.defaults,n)}function i(){function c(b,c){return a("<"+b+' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">',c)}m.addRule(".spin-vml","behavior:url(#default#VML)"),h.prototype.lines=function(a,d){function f(){return e(c("group",{coordsize:k+" "+k,coordorigin:-j+" "+-j}),{width:k,height:k})}function h(a,h,i){b(m,b(e(f(),{rotation:360/d.lines*a+"deg",left:~~h}),b(e(c("roundrect",{arcsize:d.corners}),{width:j,height:d.width,left:d.radius,top:-d.width>>1,filter:i}),c("fill",{color:g(d.color,a),opacity:d.opacity}),c("stroke",{opacity:0}))))}var i,j=d.length+d.width,k=2*j,l=2*-(d.width+d.length)+"px",m=e(f(),{position:"absolute",top:l,left:l});if(d.shadow)for(i=1;i<=d.lines;i++)h(i,-2,"progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");for(i=1;i<=d.lines;i++)h(i);return b(a,m)},h.prototype.opacity=function(a,b,c,d){var e=a.firstChild;d=d.shadow&&d.lines||0,e&&b+d<e.childNodes.length&&(e=e.childNodes[b+d],e=e&&e.firstChild,e=e&&e.firstChild,e&&(e.opacity=c))}}var j,k=["webkit","Moz","ms","O"],l={},m=function(){var c=a("style",{type:"text/css"});return b(document.getElementsByTagName("head")[0],c),c.sheet||c.styleSheet}(),n={lines:12,length:7,width:5,radius:10,rotate:0,corners:1,color:"#000",direction:1,speed:1,trail:100,opacity:.25,fps:20,zIndex:2e9,className:"spinner",top:"50%",left:"50%",position:"absolute"};h.defaults={},f(h.prototype,{spin:function(b){this.stop();{var c=this,d=c.opts,f=c.el=e(a(0,{className:d.className}),{position:d.position,width:0,zIndex:d.zIndex});d.radius+d.length+d.width}if(b&&(b.insertBefore(f,b.firstChild||null),e(f,{left:d.left,top:d.top})),f.setAttribute("role","progressbar"),c.lines(f,c.opts),!j){var g,h=0,i=(d.lines-1)*(1-d.direction)/2,k=d.fps,l=k/d.speed,m=(1-d.opacity)/(l*d.trail/100),n=l/d.lines;!function o(){h++;for(var a=0;a<d.lines;a++)g=Math.max(1-(h+(d.lines-a)*n)%l*m,d.opacity),c.opacity(f,a*d.direction+i,g,d);c.timeout=c.el&&setTimeout(o,~~(1e3/k))}()}return c},stop:function(){var a=this.el;return a&&(clearTimeout(this.timeout),a.parentNode&&a.parentNode.removeChild(a),this.el=void 0),this},lines:function(d,f){function h(b,c){return e(a(),{position:"absolute",width:f.length+f.width+"px",height:f.width+"px",background:b,boxShadow:c,transformOrigin:"left",transform:"rotate("+~~(360/f.lines*k+f.rotate)+"deg) translate("+f.radius+"px,0)",borderRadius:(f.corners*f.width>>1)+"px"})}for(var i,k=0,l=(f.lines-1)*(1-f.direction)/2;k<f.lines;k++)i=e(a(),{position:"absolute",top:1+~(f.width/2)+"px",transform:f.hwaccel?"translate3d(0,0,0)":"",opacity:f.opacity,animation:j&&c(f.opacity,f.trail,l+k*f.direction,f.lines)+" "+1/f.speed+"s linear infinite"}),f.shadow&&b(i,e(h("#000","0 0 4px #000"),{top:"2px"})),b(d,b(i,h(g(f.color,k),"0 0 1px rgba(0,0,0,.1)")));return d},opacity:function(a,b,c){b<a.childNodes.length&&(a.childNodes[b].style.opacity=c)}});var o=e(a("group"),{behavior:"url(#default#VML)"});return!d(o,"transform")&&o.adj?i():j=d(o,"animation"),h});
-(function(e){if(typeof exports=="object"){e(require("jquery"),require("spin"))}else if(typeof define=="function"&&define.amd){define(["jquery","spin"],e)}else{if(!window.Spinner)throw new Error("Spin.js not present");e(window.jQuery,window.Spinner)}})(function(e,t){e.fn.spin=function(n,r){return this.each(function(){var i=e(this),s=i.data();if(s.spinner){s.spinner.stop();delete s.spinner}if(n!==false){n=e.extend({color:r||i.css("color")},e.fn.spin.presets[n]||n);s.spinner=(new t(n)).spin(this)}})};e.fn.spin.presets={tiny:{lines:8,length:2,width:2,radius:3},small:{lines:8,length:4,width:3,radius:5},large:{lines:10,length:8,width:4,radius:8}}})
-
 /* ================= CUSTOM JAVASCRIPT ================= */
 
 /* ################# FUNCTIONS ######################### */
 
-function setup()
-{
-	document.title = "loading...";
+function setup() {
+  document.title = "loading...";
 
-	$("#message").slideUp(100);
-	$("#kitty_img").slideUp(200);
-	$("#results_table").fadeOut(200);
-	$("#results_header").slideUp(200)
+  $("#message").slideUp(100);
+  $("#kitty_img").slideUp(200);
+  $("#results_table").fadeOut(200);
+  $("#results_header").slideUp(200);
 
-	$("#timer").html("");
-	updateTimeout();
-	$("#track_count").html("0")
-    $("#station_id").html("");
-	
-	$("#play_token").html("");
-	$("#mix_id").html("");
-	$("#track_count").html(0);
-	$("#total_tracks").html(0);
-	$("#song_duration").html(0);
+  $("#timer").html("");
+  updateTimeout();
+  $("#track_count").html("0");
+  $("#station_id").html("");
 
-	$(".bar").stop(true).show()
-	$(".bar").animate({width: 0}, 100)
-	$(".bar").animate({opacity: 1}, 0)
+  $("#play_token").html("");
+  $("#mix_id").html("");
+  $("#track_count").html(0);
+  $("#total_tracks").html(0);
+  $("#song_duration").html(0);
 
-	$('#spinner').slideDown(200)
+  $(".bar").stop(true).show();
+  $(".bar").animate({
+    width: 0
+  }, 100);
+  $(".bar").animate({
+    opacity: 1
+  }, 0);
 
-	$('#spinner').spin({
-		color: "#fff",
-		lines: 7, // The number of lines to draw
-		length: 0, // The length of each line
-		width: 10, // The line thickness
-		radius: 18, // The radius of the inner circle
-		corners: 1, // Corner roundness (0..1)
-		speed: 1, // Rounds per second
-		shadow: false, // Whether to render a shadow
-		hwaccel: false, // Whether to use hardware acceleration
-		top: "auto",
-		zIndex:-1
-	});
+  $("#loading").slideDown(200);
 }
 
-function unload()
-{
-	document.title = "Catz";
-	$("#timer").html("")
+function unload() {
+  document.title = "Catz";
+  $("#timer").html("");
 
-	$(".bar").stop(true).animate({width: "100%"}, 300)
-	$(".bar").animate({opacity: 0.5}, 400)
+  $(".bar").stop(true).animate({
+    width: "100%"
+  }, 300);
+  $(".bar").animate({
+    opacity: 0.5
+  }, 400);
 
-	$('#spinner').hide()
+  $('#loading').hide();
 }
 
-function smartAd()
-{
-	if ($(document).height() > $(window).height()) {
-		$(".money_box").css("position", "absolute")
-    } else {
-    	$(".money_box").css("position", "fixed")
+function smartAd() {
+  if ($(document).height() > $(window).height()) {
+    $(".money_box").css("position", "absolute");
+  } else {
+    $(".money_box").css("position", "fixed");
+  }
+}
+
+function returnMessage(message, slideDown) {
+  slideDown = typeof slideDown !== 'undefined' ? slideDown : 1;
+
+  $("#message").html(message);
+
+  if (slideDown) {
+    $("#message").slideDown();
+  }
+}
+
+function howManyChecked() {
+  var count = 0;
+
+  for (var i = 1; i <= parseInt($("#track_count").html()); i++) {
+    if ($('#selected_download' + i).prop('checked')) {
+      count++;
     }
+  }
+  return count;
+
 }
 
-function returnMessage(message, slideDown)
-{
-	slideDown = typeof slideDown !== 'undefined' ? slideDown : 1;
-
-	$("#message").html(message);
-
-	if (slideDown)
-		$("#message").slideDown();
+function preciseRound(num, decimals) {
+  var sign = num >= 0 ? 1 : -1;
+  return (Math.round((num * Math.pow(10, decimals)) + (sign * 0.001)) / Math.pow(10, decimals)).toFixed(decimals);
 }
 
-function howManyChecked()
-{
-    var count = 0;
-    for (var i = 1; i <= parseInt($("#track_count").html()); i++) {
-        if ($('#selected_download' + i).prop('checked')) {
-            count++;
-        }
-    }
-    return count;
+function makeId() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  for (var i = 0; i < 21; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  text += "_";
+  var possible = "0123456789";
+
+  for (var i = 0; i < 15; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
 }
 
-function preciseRound(num,decimals)
-{
-    var sign = num >= 0 ? 1 : -1;
-    return (Math.round((num*Math.pow(10,decimals))+(sign*0.001))/Math.pow(10,decimals)).toFixed(decimals);
-}
-
-function makeId()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    for (var i = 0; i < 21; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    text += "_"
-    var possible = "0123456789";
-    for (var i = 0; i < 15; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-}
-
-function toggleAll()
-{
-    if ($('#select_all_downloads').prop('checked')) {
-        $('.selected_downloads').each(function (index) {
-            if ($(this).is(":visible")) $(this).prop('checked', 'checked');
-        });
-    } else {
-        $('.selected_downloads').prop('checked', false);
-    }
-}
-
-function download(url)
-{
-    iframe = document.getElementById("download_iframe");
-    iframe.src = url;
-}
-
-function downloadSong(position, recursive, downloadId, downloadUrl, zipCount)
-{
-	if (recursive) {
-        var totalSongs = parseInt($("#total_tracks").html());
-        for (position = 1; position <= totalSongs; position++) {
-            var checked = $('#selected_download' + position).prop('checked');
-            if (checked) {
-                break;
-            }
-        }
-        if (!checked) {
-            download(downloadUrl);
-            $(".download_buttons").removeAttr("disabled");
-            $("#recursive_downloads").html("0");
-            return false;
-        }
-    }
-
-    if (!$(".download_buttons").attr("disabled")) {
-        $(".download_buttons").attr("disabled", "disabled");
-    }
-
-    $("#selected_download" + position).hide();
-    $("#selected_download" + position).prop('checked', false);
-    $("#down_loader" + position).show();
-
-    var songTitle = $("#song_title" + position).html();
-    var tagTitle = document.getElementById("tag_title").checked;
-    var songArtist = document.getElementById("tag_artist").checked ? $("#song_artist" + position).html() : "false";
-    var songAlbum = document.getElementById("tag_album").checked ? $("#song_album" + position).html() : "false";
-    
-    if (document.getElementById("tag_img").checked) {
-        if ($("#song_img_url" + position).length > 0) {
-            var songImg = $("#song_img_url" + position).attr("href");
-        } else {
-            var songImg = $("#results_cover_tag").attr("href");
-        }
-    } else {
-        var songImg = "false";
-    }
-    
-    var trackNumber = document.getElementById("tag_num").checked ? position : "false";
-    var totalTracks = $("#total_tracks").html();
-    var songUrl = $("#song_url" + position).attr("href");
-    var mixSlug = $("#slug").html();
-    var songId = $("#song_id" + position).attr("href");
-
-    $.ajax({
-        type: "POST",
-        url: "run/download/fd.php",
-        data: {
-            songTitle: songTitle,
-            tagTitle: tagTitle,
-            songArtist: songArtist,
-            songAlbum: songAlbum,
-            songImg: songImg,
-            trackNumber: trackNumber,
-            totalTracks: totalTracks,
-            songUrl: songUrl,
-            mixSlug: mixSlug,
-            recursive: recursive,
-            downloadId: downloadId,
-            songId: songId
-        },
-        dataType: "json",
-        success: function (data) {
-            var array = data.toString().split('\n');
-            var path = array[0];
-            for (var i = array.length - 1; i >= 0; i--) {
-                array[i]
-            };
-            var fileName = array[1];
-            var extension = array[2];
-
-            if (extension) {
-                fileName = fileName.replace("&", "and");
-                var downloadUrl = "run/download/d.php?p=" + path + "&t=" + fileName;
-
-                if (extension != ".txt") {
-                    $("#row" + position).slideUp();
-                } else {
-                    $("#status" + position).html("failed");
-                }
-
-                var downloadCount = parseInt($("#download_count").html()) + 1;
-                $("#download_count").html(downloadCount);
-
-                $("#download_submit" + position).hide();
-
-                if (recursive) {
-                    $("#completed" + position).html("zipped");
-
-                    var recursiveDownloadCount = parseInt($("#recursiveDownloadCount").html()) + 1;
-                    $("#recursiveDownloadCount").html(recursiveDownloadCount);
-
-                    /* === download progress bar...
-                    var totalChecked = howManyChecked()+recursiveDownloadCount;
-                    var progress = (recursiveDownloadCount/totalChecked)*100;
-                    var progressRounded = preciseRound(progress, 0);
-
-                    $("#progressBar").slideDown(500);
-                    progressBar(progress, progressRounded, $('#progressBar'));
-                    */
-
-                    downloadSong(position, true, downloadId, downloadUrl);
-                } else {
-                    download(downloadUrl);
-                    $(".download_buttons").removeAttr("disabled");
-                    $("#main_button").removeAttr("disabled");
-                    $("#completed" + position).html("complete");
-
-                    var count = parseInt($("#singleDownloadCount").html());
-                    count++;
-                    $("#singleDownloadCount").html(count);
-                }
-            } else {
-                returnMessage('Please clear your browser\'s cache: <a href="http://www.wikihow.com/Clear-Your-Browser%27s-Cache" target="_top">www.wikihow.com</a>.');
-            }
-            $("#completed" + position).show();
-            $("#status" + position).show();
-        },
-        error: function () {
-            returnMessage('Request failed.');
-            $(".download_buttons").removeAttr("disabled");
-            $("#main_button").removeAttr("disabled");
-            $("#selected_download" + position).show();
-        },
-        complete: function () {
-            $("#down_loader" + position).hide();
-        }
+function toggleAll() {
+  if ($('#select_all_downloads').prop('checked')) {
+    $('.selected_downloads').each(function (index) {
+      if ($(this).is(":visible")) $(this).prop('checked', 'checked');
     });
-    return false;
+  } else {
+    $('.selected_downloads').prop('checked', false);
+  }
 }
 
-function postWithRow(position)
-{
-    if (position == -1 && howManyChecked() == 0) {
-        return false;
-    } else if (position == -1) {
-        downloadSong(position, true, makeId());
-    } else {
-        downloadSong(position, false, makeId());
-    }
-
-    return false;
+function download(url) {
+  iframe = document.getElementById("download_iframe");
+  iframe.src = url;
 }
 
-function updateTimeout()
-{
-	if ($("#timer").html() == "") {
-		$("#etr").html("");
-		$("#message").slideUp(100)
-		return;
-	}
-
-    var timer = new Date($("#timer").html());
-    var now = new Date();
-    pretty = countdown(timer).toString();
-
-    if (timer <= now || pretty == "") {
-    	returnMessage("Fetching next song...", 0);
-    	switch ($("#domain").html()) {
-    		case "8tracks":
-    			eight();
-    			break;
-    		case "songza":
-    			songza();
-    	}
-    } else {
-    	returnMessage("Fetching next song in "+pretty+".");
-    	var width = parseFloat($(".bar").width()) / parseFloat($("#progress").width()) * 100;
-    	var etr = parseInt($("#etr").html()) - 1;
-    	$("#etr").html(etr);
-
-    	document.title = "loading... "+width.toFixed(2)+"% "+Math.floor(etr / 60)+"m";
-    	timeoutId = setTimeout(updateTimeout, 1000);
+function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
+  if (recursive) {
+    var totalSongs = parseInt($("#total_tracks").html());
+    for (position = 1; position <= totalSongs; position++) {
+      var checked = $('#selected_download' + position).prop('checked');
+      if (checked) {
+        break;
+      }
     }
+    if (!checked) {
+      download(downloadUrl);
+      $(".download_buttons").removeAttr("disabled");
+      $("#recursive_downloads").html("0");
+      return false;
+    }
+  }
+
+  if (!$(".download_buttons").attr("disabled")) {
+    $(".download_buttons").attr("disabled", "disabled");
+  }
+
+  $("#selected_download" + position).hide();
+  $("#selected_download" + position).prop('checked', false);
+  $("#down_loader" + position).show();
+
+  var songTitle = $("#song_title" + position).html();
+  var tagTitle = document.getElementById("tag_title").checked;
+  var songArtist = document.getElementById("tag_artist").checked ? $("#song_artist" + position).html() : "false";
+  var songAlbum = document.getElementById("tag_album").checked ? $("#song_album" + position).html() : "false";
+
+  if (document.getElementById("tag_img").checked) {
+    if ($("#song_img_url" + position).length > 0) {
+      var songImg = $("#song_img_url" + position).attr("href");
+    } else {
+      var songImg = $("#results_cover_tag").attr("href");
+    }
+  } else {
+    var songImg = "false";
+  }
+
+  var trackNumber = document.getElementById("tag_num").checked ? position : "false";
+  var totalTracks = $("#total_tracks").html();
+  var songUrl = $("#song_url" + position).attr("href");
+  var mixSlug = $("#slug").html();
+  var songId = $("#song_id" + position).attr("href");
+
+  $.ajax({
+    type: "POST",
+    url: "run/download/fd.php",
+    data: {
+      songTitle: songTitle,
+      tagTitle: tagTitle,
+      songArtist: songArtist,
+      songAlbum: songAlbum,
+      songImg: songImg,
+      trackNumber: trackNumber,
+      totalTracks: totalTracks,
+      songUrl: songUrl,
+      mixSlug: mixSlug,
+      recursive: recursive,
+      downloadId: downloadId,
+      songId: songId
+    },
+    dataType: "json",
+    success: function (data) {
+      var array = data.toString().split('\n');
+      var path = array[0];
+
+      for (var i = array.length - 1; i >= 0; i--) {
+        array[i]
+      }
+
+      var fileName = array[1];
+      var extension = array[2];
+
+      if (extension) {
+        fileName = fileName.replace("&", "and");
+        var downloadUrl = "run/download/d.php?p=" + path + "&t=" + fileName;
+
+        if (extension != ".txt") {
+          $("#status" + position).html("ok");
+        } else {
+          $("#status" + position).html("failed");
+        }
+
+        var downloadCount = parseInt($("#download_count").html()) + 1;
+        $("#download_count").html(downloadCount);
+
+        $("#download_submit" + position).hide();
+
+        if (recursive) {
+          $("#completed" + position).html("zipped");
+
+          var recursiveDownloadCount = parseInt($("#recursiveDownloadCount").html()) + 1;
+          $("#recursiveDownloadCount").html(recursiveDownloadCount);
+
+          /* === download progress bar...
+          var totalChecked = howManyChecked()+recursiveDownloadCount;
+          var progress = (recursiveDownloadCount/totalChecked)*100;
+          var progressRounded = preciseRound(progress, 0);
+
+          $("#progressBar").slideDown(500);
+          progressBar(progress, progressRounded, $('#progressBar'));
+          */
+
+          downloadSong(position, true, downloadId, downloadUrl);
+        } else {
+          download(downloadUrl);
+          $(".download_buttons").removeAttr("disabled");
+          $("#main_button").removeAttr("disabled");
+          $(".completed").html("complete");
+
+          var count = parseInt($("#singleDownloadCount").html());
+          count++;
+          $("#singleDownloadCount").html(count);
+        }
+      } else {
+        returnMessage('Please clear your browser\'s cache: <a href="http://www.wikihow.com/Clear-Your-Browser%27s-Cache" target="_top">www.wikihow.com</a>.');
+      }
+      $("#completed" + position).show();
+      $("#status" + position).show();
+    },
+    error: function () {
+      returnMessage('Request failed.');
+      $(".download_buttons").removeAttr("disabled");
+      $("#main_button").removeAttr("disabled");
+      $("#selected_download" + position).show();
+    },
+    complete: function () {
+      $("#down_loader" + position).hide();
+    }
+  });
+
+  return false;
+}
+
+function postWithRow(position) {
+  if (position == -1 && howManyChecked() == 0) {
+    return false;
+  } else if (position == -1) {
+    downloadSong(position, true, makeId());
+  } else {
+    downloadSong(position, false, makeId());
+  }
+
+  return false;
+}
+
+function updateTimeout() {
+  if ($("#timer").html() == "") {
+    $("#etr").html("");
+    $("#message").slideUp(100)
+    return;
+  }
+
+  var timer = new Date($("#timer").html());
+  var now = new Date();
+  pretty = countdown(timer).toString();
+
+  if (timer <= now || pretty == "") {
+    returnMessage("Fetching next song...", 0);
+    switch ($("#domain").html()) {
+    case "8tracks":
+      eight();
+      break;
+    case "songza":
+      songza();
+    }
+  } else {
+    returnMessage("Fetching next song in " + pretty + ".");
+    var width = parseFloat($(".bar").width()) / parseFloat($("#progress").width()) * 100;
+    var etr = parseInt($("#etr").html()) - 1;
+    $("#etr").html(etr);
+
+    document.title = "loading... " + width.toFixed(2) + "% " + Math.floor(etr / 60) + "m";
+    timeoutId = setTimeout(updateTimeout, 1000);
+  }
 }
 
 /*
-    var timer = new Date();
-    timer.setMinutes(timer.getMinutes() + 3);
-    $("#timer").html(timer);
-	updateTimeout("Fetching next song in");
+  var timer = new Date();
+  timer.setMinutes(timer.getMinutes() + 3);
+  $("#timer").html(timer);
+  updateTimeout("Fetching next song in");
 */
 
-function eight()
-{
-	console.log("eight()");
+function eight() {
+  console.log("eight()");
 
-	var url = $("#url").html();
-	var playToken = $("#play_token").html();
-	var mixId = $("#mix_id").html();
-	var trackCount = parseInt($("#track_count").html());
-	var lastSongDuration = parseInt($("#song_duration").html());
-	var extraWait = 7;
+  var url = $("#url").html();
+  var playToken = $("#play_token").html();
+  var mixId = $("#mix_id").html();
+  var trackCount = parseInt($("#track_count").html());
+  var lastSongDuration = parseInt($("#song_duration").html());
+  var extraWait = 7;
 
-	console.log("  url = "+url);
-	console.log("  playToken = "+playToken);
-	console.log("  mixId = "+mixId);
-	console.log("  trackNumber = "+trackCount);
+  console.log("  url = " + url);
+  console.log("  playToken = " + playToken);
+  console.log("  mixId = " + mixId);
+  console.log("  trackNumber = " + trackCount);
 
-	console.log("POST run/fetch/eight.php");
-    $.ajax({
-        type: "POST",
-        url: "run/fetch/eight.php",
-        dataType:'json',
-        data: {
-            url: url,
-            playToken: playToken,
-            mixId: mixId,
-            trackNumber: trackCount
-        },
-        success: function (data) {
-        	var error = data["error"];
-        	
-            if (error == 0) {
-	            if (data["mix"]) {
-	            	$("#play_token").html(data["play_token"]);
-	            	$("#mix_id").html(data["mix"]["id"]);
-	            	$("#slug").html(data["mix"]["web_path"].split('/').pop())
-	            	$("#content_title").html(data["mix"]["name"]);
+  console.log("POST run/fetch/eight.php");
+  $.ajax({
+    type: "POST",
+    url: "run/fetch/eight.php",
+    dataType: 'json',
+    data: {
+      url: url,
+      playToken: playToken,
+      mixId: mixId,
+      trackNumber: trackCount
+    },
+    success: function (data) {
+      var error = data["error"];
 
-	            	var totalTracks = data["mix"]["tracks_count"];
-	            	$("#total_tracks").html(totalTracks);
-	            	$("#etr").html(data["mix"]["duration"] / 2 + totalTracks * extraWait);
+      if (error == 0) {
+        if (data["mix"]) {
+          $("#play_token").html(data["play_token"]);
+          $("#mix_id").html(data["mix"]["id"]);
+          $("#slug").html(data["mix"]["web_path"].split('/').pop())
+          $("#content_title").html(data["mix"]["name"]);
 
-	            	$("#results_cover_tag").attr("href", data["mix"]["cover_urls"]["sq500"]);
-	            	$("#results_cover").attr("src", data["mix"]["cover_urls"]["sq133"]);
-	            	$("#results_cover_big").attr("href", data["mix"]["cover_urls"]["max1024"]);
+          var totalTracks = data["mix"]["tracks_count"];
+          $("#total_tracks").html(totalTracks);
+          $("#etr").html(data["mix"]["duration"] / 2 + totalTracks * extraWait);
 
-	            	console.log("  data['play_token'] = "+data["play_token"]);
-            		console.log("  data['mix']['id'] = "+data["mix"]["id"]);
-            		console.log("  data['mix']['tracks_count'] = "+data["mix"]["tracks_count"]);
-            		console.log("  data['mix']['duration'] = "+data["mix"]["duration"]);
-	            }
+          $("#results_cover_tag").attr("href", data["mix"]["cover_urls"]["sq500"]);
+          $("#results_cover").attr("src", data["mix"]["cover_urls"]["sq133"]);
+          $("#results_cover_big").attr("href", data["mix"]["cover_urls"]["max1024"]);
 
-	        	var i = 0;
-	        	if (typeof data[i] !== "undefined") {
-			    	while (typeof data[i] !== "undefined") {
-			    		trackCount++;
-			    		var duration = data[i]["duration"];
-			    		$("#song_duration").html(duration);
-
-			    		if (lastSongDuration == 0) {
-			    			$("#etr").html(parseInt($("#etr").html()) - Math.floor(duration / 2 - extraWait));
-			    		}
-
-			    		$("#results_header").slideDown(400)
-			            $("#results_table").show()
-						$("#results_table").append('<tr class="songs row'+trackCount+'" id="row'+trackCount+'"><td class="right">'+trackCount+'</td><td id="song_title'+trackCount+'" class="left">'+data[i]["title"]+'</td><td id="song_artist'+trackCount+'" class="left song_artists">'+data[i]["artist"]+'</td><td id="song_album'+trackCount+'" class="left song_albums">'+$("#content_title").html()+'</td><td><a id="song_url'+trackCount+'" href="'+data[i]["songUrl"]+'"></a><a id="song_id'+trackCount+'" href="'+data[i]["songId"]+'"></a><input id="download_submit'+trackCount+'" class="download_buttons" type="button" onclick="postWithRow('+trackCount+');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download'+trackCount+'"><div id="down_loader'+trackCount+'" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div></td></tr>')
-						$("#results_table tr:last").hide()
-						$("#results_table tr:last").fadeIn(400)
-
-						console.log("  "+trackCount+". "+data[i]["title"]);
-
-						i++;
-			    	}
-
-			    	var total = parseInt($("#total_tracks").html());
-			    	var percentage = Math.floor(trackCount / total * 100);
-			    	$("#track_count").html(trackCount);
-
-				    if (trackCount >= total) {
-				    	unload();
-				    	updateTimeout();
-			        } else {
-			        	$(".bar").animate({
-							width: percentage+"%"
-						}, 200, "linear");
-
-				        eight();
-			        }
-			    } else {
-					unload();
-					returnMessage("That's all we could find.");
-			    }
-		    } else if (error == 403) {
-		    	if (error != $("#old_error").html()) {
-			    	console.log("  "+data["message"]);
-
-			    	var timer = new Date();
-			    	var updateTime = lastSongDuration / 2 + extraWait;
-
-				    timer.setSeconds(timer.getSeconds() + updateTime);
-				    $("#timer").html(timer);
-
-				    var speed = updateTime * 1000;
-				    var total = parseInt($("#total_tracks").html());
-			    	var percentage = Math.floor((trackCount + 1) / total * 100);
-
-				    $(".bar").animate({
-						width: percentage+"%"
-					}, speed, "linear");
-
-					updateTimeout();
-				} else {
-					unload();
-					returnMessage("The mix has been modified; this is all we could find.");
-				}
-		    } else {
-		    	unload();
-		    	returnMessage(data["message"]);
-		    }
-
-		    $("#old_error").html(error);
-        },
-        error: function (jqXHR, textStatus) {
-        	unload();
-            returnMessage("Request failed. ("+textStatus+")");
+          console.log("  data['play_token'] = " + data["play_token"]);
+          console.log("  data['mix']['id'] = " + data["mix"]["id"]);
+          console.log("  data['mix']['tracks_count'] = " + data["mix"]["tracks_count"]);
+          console.log("  data['mix']['duration'] = " + data["mix"]["duration"]);
         }
-    });
-}
 
-function songza()
-{
-	var url = $("#url").html();
-	var sessionId = $("#session_id").html();
-	var stationId = $("#station_id").html();
-	var trackCount = parseInt($("#track_count").html());
-	var updateTime = 3;
+        var i = 0;
+        if (typeof data[i] !== "undefined") {
+          while (typeof data[i] !== "undefined") {
+            trackCount++;
+            var duration = data[i]["duration"];
+            $("#song_duration").html(duration);
 
-    $.ajax({
-        type: "POST",
-        url: "run/fetch/songza.php",
-        dataType:'json',
-        data: {
-            url: url,
-            sessionId: sessionId,
-            stationId: stationId,
-        },
-        success: function (data) {
-            if (data["error"] == 0) {
-            	trackCount++;
+            if (lastSongDuration == 0) {
+              $("#etr").html(parseInt($("#etr").html()) - Math.floor(duration / 2 - extraWait));
+            }
 
-	            if (data["station_id"]) {
-	            	$("#session_id").html(data["session_id"]);
-	            	$("#station_id").html(data["station_id"]);
-	            	$("#slug").html(data["station_slug"])
+            $("#results_header").slideDown(400)
+            $("#results_table").show()
+            $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="right">' + trackCount + '</td><td id="song_title' + trackCount + '" class="left">' + data[i]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data[i]["artist"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + $("#content_title").html() + '</td><td><a id="song_url' + trackCount + '" href="' + data[i]["songUrl"] + '"></a><a id="song_id' + trackCount + '" href="' + data[i]["songId"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
+            $("#results_table tr:last").hide()
+            $("#results_table tr:last").fadeIn(400)
 
-	            	var totalTracks = data["total_tracks"];
-	            	$("#total_tracks").html(totalTracks);
-	            	$("#etr").html(totalTracks * updateTime);
+            console.log("  " + trackCount + ". " + data[i]["title"]);
 
-	            	$("#results_cover").attr("src", data["station_100"]);
-	            	$("#results_cover_big").attr("href", data["station_500"]);
-	            }
+            i++;
+          }
 
-	            bigCoverUrl = data["song"]["cover_url"];
-	            smallCoverUrl = bigCoverUrl.replace("g.jpeg", "s.jpeg")
+          var total = parseInt($("#total_tracks").html());
+          var percentage = Math.floor(trackCount / total * 100);
+          $("#track_count").html(trackCount);
 
-	    		$("#results_header").slideDown(400)
-	            $("#results_table").show()
-				$("#results_table").append('<tr class="songs row'+trackCount+'" id="row'+trackCount+'"><td class="song_img_url"><a id="song_img_url'+trackCount+'" target="_blank" href="'+bigCoverUrl+'"><img width="75" height="75" src="'+smallCoverUrl+'"></a></td><td id="song_title'+trackCount+'" class="left">'+data["song"]["title"]+'</td><td id="song_artist'+trackCount+'" class="left song_artists">'+data["song"]["artist"]["name"]+'</td><td id="song_album'+trackCount+'" class="left song_albums">'+data["song"]["album"]+'</td><td><a id="song_url'+trackCount+'" href="'+data["listen_url"]+'"></a><a id="song_id'+trackCount+'" href="'+data["song"]["id"]+'"></a><input id="download_submit'+trackCount+'" class="download_buttons" type="button" onclick="postWithRow('+trackCount+');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download'+trackCount+'"><div id="down_loader'+trackCount+'" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div></td></tr>')
-				$("#results_table tr:last").hide()
-				$("#results_table tr:last").fadeIn(400)
+          if (trackCount >= total) {
+            unload();
+            updateTimeout();
+          } else {
+            $(".bar").animate({
+              width: percentage + "%"
+            }, 200, "linear");
 
-				var total = parseInt($("#total_tracks").html());
-		    	var percentage = Math.floor(trackCount / total * 100);
-
-		    	$("#track_count").html(trackCount);
-
-			    if (trackCount >= total) {
-			    	unload();
-			    	updateTimeout();
-		        } else {
-		        	var timer = new Date();
-
-				    timer.setSeconds(timer.getSeconds() + updateTime);
-				    $("#timer").html(timer);
-
-				    var speed = updateTime * 1000;
-				    var total = parseInt($("#total_tracks").html());
-			    	var percentage = Math.floor((trackCount + 1) / total * 100);
-
-				    $(".bar").animate({
-						width: percentage+"%"
-					}, speed, "linear");
-
-					updateTimeout();
-		        }
-		    }
-        },
-        error: function (jqXHR, textStatus) {
-        	unload();
-            returnMessage("Request failed. ("+textStatus+")");
+            eight();
+          }
+        } else {
+          unload();
+          returnMessage("That's all we could find.");
         }
-    });
-}
+      } else if (error == 403) {
+        if (error != $("#old_error").html()) {
+          console.log("  " + data["message"]);
 
-function displayCat(tag)
-{
-    $.ajax({
-        type: "POST",
-        url: "run/fetch/cat.php",
-        dataType:'json',
-        data: {
-            tag: tag
-        },
-        success: function (data) {
-            if (data.error == 0) {
-            	if (data.imageUrl.split('.').pop() == "gif") {
-            		var speed = 12000;
-            	} else {
-            		var speed = 6000;
-            	}
+          var timer = new Date();
+          var updateTime = lastSongDuration / 2 + extraWait;
 
-				$(".bar").animate({
-					width: "95%"
-				}, speed);
+          timer.setSeconds(timer.getSeconds() + updateTime);
+          $("#timer").html(timer);
 
-		        var img = $("#kitty_img").attr("src", data.imageUrl).load(function () {
-		            $("#kitty_img").fadeIn(500);
+          var speed = updateTime * 1000;
+          var total = parseInt($("#total_tracks").html());
+          var percentage = Math.floor((trackCount + 1) / total * 100);
 
-		            unload();
-		        }).error(function() {
-		        	unload();
-		        	returnMessage("404");
-		        });
-		    } else {
-		    	unload();
-		    	returnMessage("Nothing was found.");
-		    }
-        },
-        error: function () {
-        	unload();
-            returnMessage("Request failed.");
+          $(".bar").animate({
+            width: percentage + "%"
+          }, speed, "linear");
+
+          updateTimeout();
+        } else {
+          unload();
+          returnMessage("The mix has been modified; this is all we could find.");
         }
-    });
-}
+      } else {
+        unload();
+        returnMessage(data["message"]);
+      }
 
-function doStuff()
-{
-	setup();
-
-	var first = $("#main_text").val();
-
-	// we don't like fragments
-    var url = first.split("#")[0];
-
-    // we don't like parameters
-    url = url.split("?")[0];
-
-    // we don't like spaces
-    url = url.replace(/\s+/g, ' ');
-
-    // we don't like mobile subdomains
-    url = url.replace("http://m.", "http://");
-
-    // we don't need to be secure
-    url = url.replace("https://", "http://");
-
-    $("#url").text(url);
-
-    var domain = url.split("/")[2];
-
-    switch (domain) {
-    	case "8tracks.com":
-    		$("#domain").html("8tracks")
-    		$("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
-    		eight();
-    		break;
-    	case "songza.com":
-    		$("#domain").html("songza")
-    		$("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
-    		songza();
-    		break;
-    	default:
-        	displayCat(first);
+      $("#old_error").html(error);
+    },
+    error: function (jqXHR, textStatus) {
+      unload();
+      returnMessage("Request failed. (" + textStatus + ")");
     }
+  });
+}
+
+function songza() {
+  var url = $("#url").html();
+  var sessionId = $("#session_id").html();
+  var stationId = $("#station_id").html();
+  var trackCount = parseInt($("#track_count").html());
+  var updateTime = 3;
+
+  $.ajax({
+    type: "POST",
+    url: "run/fetch/songza.php",
+    dataType: 'json',
+    data: {
+      url: url,
+      sessionId: sessionId,
+      stationId: stationId,
+    },
+    success: function (data) {
+      if (data["error"] == 0) {
+        trackCount++;
+
+        if (data["station_id"]) {
+          $("#session_id").html(data["session_id"]);
+          $("#station_id").html(data["station_id"]);
+          $("#slug").html(data["station_slug"])
+
+          var totalTracks = data["total_tracks"];
+          $("#total_tracks").html(totalTracks);
+          $("#etr").html(totalTracks * updateTime);
+
+          $("#results_cover").attr("src", data["station_100"]);
+          $("#results_cover_big").attr("href", data["station_500"]);
+        }
+
+        bigCoverUrl = data["song"]["cover_url"];
+        smallCoverUrl = bigCoverUrl.replace("g.jpeg", "s.jpeg")
+
+        $("#results_header").slideDown(400)
+        $("#results_table").show()
+        $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="song_img_url"><a id="song_img_url' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song_title' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["song"]["artist"]["name"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + data["song"]["album"] + '</td><td><a id="song_url' + trackCount + '" href="' + data["listen_url"] + '"></a><a id="song_id' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div></td></tr>')
+        $("#results_table tr:last").hide()
+        $("#results_table tr:last").fadeIn(400)
+
+        var total = parseInt($("#total_tracks").html());
+        var percentage = Math.floor(trackCount / total * 100);
+
+        $("#track_count").html(trackCount);
+
+        if (trackCount >= total) {
+          unload();
+          updateTimeout();
+        } else {
+          var timer = new Date();
+
+          timer.setSeconds(timer.getSeconds() + updateTime);
+          $("#timer").html(timer);
+
+          var speed = updateTime * 1000;
+          var total = parseInt($("#total_tracks").html());
+          var percentage = Math.floor((trackCount + 1) / total * 100);
+
+          $(".bar").animate({
+            width: percentage + "%"
+          }, speed, "linear");
+
+          updateTimeout();
+        }
+      }
+    },
+    error: function (jqXHR, textStatus) {
+      unload();
+      returnMessage("Request failed. (" + textStatus + ")");
+    }
+  });
+}
+
+function displayCat(tag) {
+  $.ajax({
+    type: "POST",
+    url: "run/fetch/cat.php",
+    dataType: 'json',
+    data: {
+      tag: tag
+    },
+    success: function (data) {
+      if (data.error == 0) {
+        if (data.imageUrl.split('.').pop() == "gif") {
+          var speed = 12000;
+        } else {
+          var speed = 6000;
+        }
+
+        $(".bar").animate({
+          width: "95%"
+        }, speed);
+
+        var img = $("#kitty_img").attr("src", data.imageUrl).load(function () {
+          $("#kitty_img").fadeIn(500);
+
+          unload();
+        }).error(function () {
+          unload();
+          returnMessage("404");
+        });
+      } else {
+        unload();
+        returnMessage("Nothing was found.");
+      }
+    },
+    error: function () {
+      unload();
+      returnMessage("Request failed.");
+    }
+  });
+}
+
+function doStuff() {
+  setup();
+
+  var first = $("#main_text").val();
+
+  // we don't like fragments
+  var url = first.split("#")[0];
+
+  // we don't like parameters
+  url = url.split("?")[0];
+
+  // we don't like spaces
+  url = url.replace(/\s+/g, ' ');
+
+  // we don't like mobile subdomains
+  url = url.replace("http://m.", "http://");
+
+  // we don't need to be secure
+  url = url.replace("https://", "http://");
+
+  $("#url").text(url);
+
+  var domain = url.split("/")[2];
+
+  switch (domain) {
+  case "8tracks.com":
+    $("#domain").html("8tracks")
+    $("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
+    eight();
+    break;
+  case "songza.com":
+    $("#domain").html("songza")
+    $("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
+    songza();
+    break;
+  default:
+    displayCat(first);
+  }
 }
 
 /* ################# JQUERY FUNCTIONS ##################### */
 
-$(function() {
-	$('a').click(function() {
-		var item = $(this);
-		var frag = item.attr('href');
-		window.location.hash = "";
-		$(".popup").slideUp(50);
-		if (frag == "#about") {
-			$("#about_div").toggle(100);
-		} else if (frag == "#contact") {
-			$("#contact_div").toggle(100);
-		} else if (frag == "#donate") {
-			$("#donate_div").toggle(100);
-		}
-	});
+$(function () {
+  $("a").click(function () {
+    var item = $(this);
+    var frag = item.attr('href');
+    window.location.hash = "";
+    $(".popup").slideUp(50);
+    if (frag == "#about") {
+      $("#about_div").toggle(100);
+    } else if (frag == "#contact") {
+      $("#contact_div").toggle(100);
+    } else if (frag == "#donate") {
+      $("#donate_div").toggle(100);
+    }
+  });
 
-	$("#main_form").submit(function() {
-		doStuff();
-		return false;
-    });
+  $("#main_form").submit(function () {
+    doStuff();
+    return false;
+  });
 });
 
 $(document).ready(function () {
-    if ($("#main_text").val() != "") {
-        doStuff()
-    }
+  if ($("#main_text").val() != "") {
+    doStuff()
+  }
 
-    var frag = window.location.hash;
-    if (frag == "#about") {
-    	$("#about_div").toggle(100);
-    } else if (frag == "#contact") {
-    	$("#contact_div").toggle(100);
-    } else if (frag == "#donate") {
-    	$("#donate_div").toggle(100);
-    }
+  var frag = window.location.hash;
+  if (frag == "#about") {
+    $("#about_div").toggle(100);
+  } else if (frag == "#contact") {
+    $("#contact_div").toggle(100);
+  } else if (frag == "#donate") {
+    $("#donate_div").toggle(100);
+  }
 });
