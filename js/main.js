@@ -125,14 +125,23 @@ function download(url) {
 function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
   if (recursive) {
     var totalSongs = parseInt($("#total_tracks").html());
+
     for (position = 1; position <= totalSongs; position++) {
       var checked = $('#selected_download' + position).prop('checked');
       if (checked) {
         break;
       }
     }
+    
     if (!checked) {
       download(downloadUrl);
+
+      $(".completed").each(function() {
+        if ($(this).html() == "zipped") {
+          $(this).html("completed");
+        };
+      });
+
       $(".download_buttons").removeAttr("disabled");
       $("#recursive_downloads").html("0");
       return false;
@@ -232,7 +241,7 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
           download(downloadUrl);
           $(".download_buttons").removeAttr("disabled");
           $("#main_button").removeAttr("disabled");
-          $(".completed").html("complete");
+          $("#completed" + position).html("complete");
 
           var count = parseInt($("#singleDownloadCount").html());
           count++;
@@ -473,7 +482,7 @@ function songza() {
 
         $("#results_header").slideDown(400)
         $("#results_table").show()
-        $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="song_img_url"><a id="song_img_url' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song_title' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["song"]["artist"]["name"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + data["song"]["album"] + '</td><td><a id="song_url' + trackCount + '" href="' + data["listen_url"] + '"></a><a id="song_id' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div></td></tr>')
+        $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="song_img_url"><a id="song_img_url' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song_title' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["song"]["artist"]["name"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + data["song"]["album"] + '</td><td><a id="song_url' + trackCount + '" href="' + data["listen_url"] + '"></a><a id="song_id' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
         $("#results_table tr:last").hide()
         $("#results_table tr:last").fadeIn(400)
 
