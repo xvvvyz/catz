@@ -47,6 +47,15 @@ else
 	let bad+=1
 fi
 
+printf "$pform" "Checking for find..."
+if [ $(which find) ]; then
+	echo "Success!"
+	ln -fs `which find` ./run/download/archives/find
+else
+	echo "Nada, please install."
+	let bad+=1
+fi
+
 if [ $bad -ne 0 ]; then
 	printf "\nPlease install the missing commands ($bad) and run this script again.\n\n"
 	exit 1
