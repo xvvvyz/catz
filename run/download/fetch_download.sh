@@ -25,8 +25,8 @@ SONG_ID="${12}"
 
 # paths to more stuff
 SONG_SAVE="$SONGS/$SONG_ID"
-ZIP_SAVE="$DOWNLOAD_ID.zip"
-ZIP_DIR="$MIX_TITLE/"
+ZIP_SAVE="$MIX_TITLE.zip"
+ZIP_DIR="$MIX_TITLE/$DOWNLOAD_ID/"
 
 if [ "$(echo "$IMG" | grep -E "(musicnet|sndcdn)")" ]; then
 	ARTWORK_SAVE="$ARTWORK/$SONG_ID.jpeg"
@@ -115,10 +115,7 @@ if [ -n "$RECURSIVE" ]; then
 	# if we are adding to zip
 
 	mkdir -p "$ARCHIVES/$ZIP_DIR"
-	cp "$SONG_SAVE$EXT" "$ARCHIVES/$SAVE_TITLE$EXT"
-  cd "$ARCHIVES"
-	./zip -q -0 -D -r "$ZIP_DIR$ZIP_SAVE" "$SAVE_TITLE$EXT" &> /dev/null
-	rm -f "$SAVE_TITLE$EXT"
+	cp "$SONG_SAVE$EXT" "$ARCHIVES/$ZIP_DIR$SAVE_TITLE$EXT"
 	printf "$ARCHIVES/$ZIP_DIR$ZIP_SAVE\n$MIX_TITLE.zip\n$EXT"
 else
 	# if we are downloading single file

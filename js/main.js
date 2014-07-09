@@ -117,12 +117,43 @@ function toggleAll() {
   }
 }
 
-function download(url) {
-  iframe = document.getElementById("download_iframe");
-  iframe.src = url;
+function archive(path, fileName) {
+  $(".completed").each(function() {
+    if ($(this).html() == "cached") {
+      $(this).html("preparing...");
+    };
+  });
+
+  $.ajax({
+    type: "POST",
+    url: "run/download/a.php",
+    data: {
+      path: path
+    },
+    success: function () {
+      $(".completed").each(function() {
+        if ($(this).html() == "preparing...") {
+          $(this).html("completed");
+        };
+      });
+
+      download(path, fileName);
+    },
+    error: function (jqXHR, textStatus) {
+      unload();
+      returnMessage("Request failed. (" + textStatus + ")");
+    }
+  });
+
+  return false;
 }
 
-function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
+function download(path, fileName) {
+  iframe = document.getElementById("download_iframe");
+  iframe.src = "run/download/d.php?p="+path+"&t="+fileName;
+}
+
+function downloadSong(position, recursive, downloadId, path, fileName) {
   if (recursive) {
     var totalSongs = parseInt($("#total_tracks").html());
 
@@ -134,13 +165,7 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
     }
     
     if (!checked) {
-      download(downloadUrl);
-
-      $(".completed").each(function() {
-        if ($(this).html() == "zipped") {
-          $(this).html("completed");
-        };
-      });
+      archive(path, fileName);
 
       $(".download_buttons").removeAttr("disabled");
       $("#recursive_downloads").html("0");
@@ -208,7 +233,6 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
 
       if (extension) {
         fileName = fileName.replace("&", "and");
-        var downloadUrl = "run/download/d.php?p=" + path + "&t=" + fileName;
 
         if (extension != ".txt") {
           $("#status" + position).html("ok");
@@ -222,9 +246,9 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
         $("#download_submit" + position).hide();
 
         if (recursive) {
-          $("#completed" + position).html("zipped");
-
           var recursiveDownloadCount = parseInt($("#recursiveDownloadCount").html()) + 1;
+
+          $("#completed" + position).html("cached");
           $("#recursiveDownloadCount").html(recursiveDownloadCount);
 
           /* === download progress bar...
@@ -236,9 +260,10 @@ function downloadSong(position, recursive, downloadId, downloadUrl, zipCount) {
           progressBar(progress, progressRounded, $('#progressBar'));
           */
 
-          downloadSong(position, true, downloadId, downloadUrl);
+          downloadSong(position, true, downloadId, path, fileName);
         } else {
-          download(downloadUrl);
+          download(path, fileName);
+
           $(".download_buttons").removeAttr("disabled");
           $("#main_button").removeAttr("disabled");
           $("#completed" + position).html("complete");
