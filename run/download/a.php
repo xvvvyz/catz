@@ -13,5 +13,12 @@ if (!preg_match('|^archives/[^/\.]+/[^/\.]+$|', $dirName)) {
   bail_out(403, "Not acceptable.");
 }
 
-$cmd = "cd $dirName && ../../find . \! -name *.zip -exec ../../zip -0 -D -r $fileName * \; -delete";
+
+// if ionice exists, use it
+if (command_exist("ionice")) {
+  $cmd = "cd $dirName && ../../find . \! -name *.zip -exec ionice -n7 ../../zip -0 -D -r $fileName * \; -delete";
+} else {
+  $cmd = "cd $dirName && ../../find . \! -name *.zip -exec ../../zip -0 -D -r $fileName * \; -delete";
+}
+
 shell_exec($cmd);
