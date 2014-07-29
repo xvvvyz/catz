@@ -4,6 +4,7 @@ Things to be Done
 *** fix http://8tracks.com/musicandcabs/booyah ???
 
 - clean up javascript and make things nice
+- add ability to reset a fetched playlist
 - look into songza and fix er up
 - soundcloud then fratmusic
 - make downloaded playlists page
