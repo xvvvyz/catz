@@ -6,5 +6,5 @@ function command_exist($cmd) {
 }
 
 function bail_out($code, $message) {
-	exit(json_encode(array('error' => $code, 'message' => $message)));
+  exit(json_encode(array('error' => $code, 'message' => $message)));
 }
