@@ -28,7 +28,7 @@ SONG_SAVE="$SONGS/$SONG_ID"
 ZIP_SAVE="$MIX_TITLE.zip"
 ZIP_DIR="$MIX_TITLE/$DOWNLOAD_ID/"
 
-if [ "$(echo "$IMG" | grep -E "(musicnet|sndcdn)")" ]; then
+if [ "$(echo "$IMG" | grep -E "(images)")" ]; then
 	ARTWORK_SAVE="$ARTWORK/$SONG_ID.jpeg"
 else
 	ARTWORK_SAVE="$ARTWORK/$MIX_TITLE.png"
@@ -64,30 +64,30 @@ else
 
 	curl -Lso "$SONG_SAVE".part "$URL"
 
-	if [ "$(file "$SONG_SAVE".part | grep -E "(MPEG ADTS|Audio file with ID3)")" ]; then
-        EXT=".mp3"
-	elif [ "$(file "$SONG_SAVE".part | grep "MPEG v4")" ]; then
-		EXT=".m4a"
-    elif [ "$(file "$SONG_SAVE".part | grep "WAVE audio")" ]; then
-        EXT=".wav"
-    elif [ "$(file "$SONG_SAVE".part | grep "Adaptive Multi-Rate")" ]; then
-        EXT=".amr"
-    elif [ "$(file "$SONG_SAVE".part | grep "Microsoft ASF")" ]; then
-        EXT=".wma"
-    elif [ "$(file "$SONG_SAVE".part | grep "AIFF")" ]; then
-        EXT=".aif"
-    elif [ "$(file "$SONG_SAVE".part | grep "AIFF-C")" ]; then
-        EXT=".aifc"
-    elif [ "$(file "$SONG_SAVE".part | grep "FLAC")" ]; then
-        EXT=".flac"
-    elif [ "$(file "$SONG_SAVE".part | grep "Ogg")" ]; then
-        EXT=".ogg"
-    elif [ "$(file "$SONG_SAVE".part | grep "layer II,")" ]; then
-       	EXT=".mp2"
-    else
-        EXT=".txt"
-		echo "Unable to download: $URL. Sorry ):" > "$SONG_SAVE".part
-    fi
+	if [ "$(file "$SONG_SAVE".part | grep -i -E "(MPEG ADTS|Audio file with ID3)")" ]; then
+    EXT=".mp3"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "MPEG v4")" ]; then
+    EXT=".m4a"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "WAVE audio")" ]; then
+    EXT=".wav"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "Adaptive Multi-Rate")" ]; then
+    EXT=".amr"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "Microsoft ASF")" ]; then
+    EXT=".wma"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "AIFF")" ]; then
+    EXT=".aif"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "AIFF-C")" ]; then
+    EXT=".aifc"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "FLAC")" ]; then
+    EXT=".flac"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "Ogg")" ]; then
+    EXT=".ogg"
+  elif [ "$(file "$SONG_SAVE".part | grep -i "layer II,")" ]; then
+    EXT=".mp2"
+  else
+    EXT=".txt"
+    echo "Unable to download: $URL. Sorry ):" > "$SONG_SAVE".part
+  fi
 
 	mv "$SONG_SAVE".part "$SONG_SAVE$EXT"
 fi
