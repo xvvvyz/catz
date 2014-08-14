@@ -27,7 +27,7 @@
     </div>
 
     <div id="money_header">
-      <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations help me tremendously.<br>Because you block ads, please consider <a href="#donate">donating</a>.</h4>
+      <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations help me tremendously.<br>Because you block ads, please consider <a class="pop_button" href="#donate">donating</a>.</h4>
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <ins class="adsbygoogle" style="display:block;width:728px;height:90px;position:absolute;top:0;left:0;background-color:#2B2B2B" data-ad-client="ca-pub-4166408543945956" data-ad-slot="1162321024"></ins>
       <script>
@@ -73,15 +73,15 @@
         </div>
 
         <div class="popup" id="about_div">
-          <a class="close_popup"><img src="img/x.png" alt="x"></a>
+          <a class="pop_button close_popup"><img src="img/x.png" alt="x"></a>
           <h2>OH FAQ!</h2>
           <p><b>What Is This?</b>This is a cat website (made for cats... like you). With the internet came an unruley amount of cats and cat like things. Maybe the Egyptians understood something we still don't quite understand. Along with cats, this website provides you with a whole bunch of music. Music to the eyes, that is, in the form of cats.</p>
           <p><b>Wait.. Why?</b>Because of <a href="http://www.youtube.com/v/xEhaVhta7sI">this</a>... And because obsessively viewing cat pictures while enjoying my favorite music can turn a bad day into something slightly better. I hope you can find joy from this website, too.</p>
-          <p><b>How can I thank you?</b>You can drop me a line by <a href="mailto:admin@omgcatz.com">email</a>, and you can click <a href="#donate">here</a> if you are interested in donating.</p>
+          <p><b>How can I thank you?</b>You can drop me a line by <a href="mailto:admin@omgcatz.com">email</a>, and you can click <a class="pop_button" href="#donate">here</a> if you are interested in donating.</p>
         </div>
 
         <div class="popup" id="donate_div">
-          <a class="close_popup"><img src="img/x.png" alt="x"></a>
+          <a class="pop_button close_popup"><img src="img/x.png" alt="x"></a>
           <h2>How to Help</h2>
           
           <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -89,6 +89,13 @@
             <input type="hidden" name="hosted_button_id" value="9TA7SKMGJFCZ8">
             <p>This website gets too much traffic, and, due to special kitties, it requires a fairly strong (expensive) server to keep it from crashing. Thus, ads and donations are its lifeblood. You can donate via <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Coinbase</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a>. I promise not to spend your contribution on drugs and hookers (:</p>
           </form>
+        </div>
+
+        <div class="popup" id="songza_issue_div">
+          <a class="pop_button close_popup"><img src="img/x.png" alt="x"></a>
+          <h2>Songza's Song Limit</h2>
+          <p>Songza only allows a certain amount of unique, random songs to be played each time you listen to a playlist. After those songs, it forgets all of the songs that you have played and starts playing songs at random again. That means that, after a few songs, we won't be able to fetch all of the songs for downloading without waiting an exponential amount of time.</p>
+          <p><b>No Comprehendo?</b>No worries, all it means for you is this: if the song you want to download doesn't show up the first time you load the playlist, you will have to fetch the playlist again and hope it shows up the next time.</p>
         </div>
 
         <div id="results_header">
@@ -120,7 +127,7 @@
         </div>
         <div id="info">
           <div><a href="tos">Terms</a></div>
-          <div><a href="#about">About</a></div>
+          <div><a class="pop_button" href="#about">About</a></div>
           <div><a href="mailto:admin@omgcatz.com">Contact</a></div>
         </div>
       </footer>
