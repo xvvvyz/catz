@@ -36,6 +36,8 @@ function setup()
   $("#total_tracks").html(0);
   $("#song_duration").html(0);
 
+  $("#tag_num").removeAttr("disabled");
+
   $(".bar").stop(true).show();
 
   $(".bar").animate({
@@ -316,14 +318,13 @@ function songza()
     },
     success: function (data) {
       if (data["error"] == 0) {
-        trackCount++;
-
         if (data["station_id"]) {
           $("#session_id").html(data["session_id"]);
           $("#station_id").html(data["station_id"]);
           $("#slug").html(data["station_slug"])
 
           var totalTracks = data["total_tracks"];
+
           $("#total_tracks").html(totalTracks);
           $("#etr").html(totalTracks * updateTime);
 
@@ -331,24 +332,23 @@ function songza()
           $("#results_cover_big").attr("href", data["station_500"]);
         }
 
-        bigCoverUrl = data["song"]["cover_url"];
-        smallCoverUrl = bigCoverUrl.replace("g.jpeg", "s.jpeg")
+        if (data["song"]) {
+          trackCount++;
 
-        $("#results_header").slideDown(400)
-        $("#results_table").show()
-        $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="song_img_url"><a id="song_img_url' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song_title' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["song"]["artist"]["name"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + data["song"]["album"] + '</td><td><a id="song_url' + trackCount + '" href="' + data["listen_url"] + '"></a><a id="song_id' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
-        $("#results_table tr:last").hide()
-        $("#results_table tr:last").fadeIn(400)
+          bigCoverUrl = data["song"]["cover_url"].replace("a.jpeg", "g.jpeg");
+          smallCoverUrl = bigCoverUrl.replace("g.jpeg", "s.jpeg");
 
-        var total = parseInt($("#total_tracks").html());
-        var percentage = Math.floor(trackCount / total * 100);
+          $("#results_header").slideDown(400)
+          $("#results_table").show()
+          $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="song_img_url"><a id="song_img_url' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song_title' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["song"]["artist"]["name"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + data["song"]["album"] + '</td><td><a id="song_url' + trackCount + '" href="' + data["listen_url"] + '"></a><a id="song_id' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
+          $("#results_table tr:last").hide()
+          $("#results_table tr:last").fadeIn(400)
 
-        $("#track_count").html(trackCount);
+          var total = parseInt($("#total_tracks").html());
+          var percentage = Math.floor(trackCount / total * 100);
 
-        if (trackCount >= total) {
-          unload();
-          updateTimeout();
-        } else {
+          $("#track_count").html(trackCount);
+
           var timer = new Date();
 
           timer.setSeconds(timer.getSeconds() + updateTime);
@@ -363,6 +363,10 @@ function songza()
           }, speed, "linear");
 
           updateTimeout();
+        } else {
+          unload();
+          updateTimeout();
+          returnMessage('Is a song that you wanted missing? Click <a id="songza_issue" href="#songza_issue">here</a> for more info.');
         }
       }
     },
@@ -642,6 +646,8 @@ function doStuff()
     break;
   case "songza.com":
     $("#domain").html("songza")
+    $("#tag_num").attr("disabled", true);
+    $("#tag_num").attr("checked", false);
     $("#results_table").html('<tr id="tableTitleRow"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download_buttons" type="button" onclick="postWithRow(-1);" value="Download Selected"></th><th><input type="checkbox" class="selected_downloads" id="select_all_downloads" onclick="toggleAll();"></th></tr>')
     songza();
     break;
@@ -653,9 +659,9 @@ function doStuff()
 /* ################# JQUERY FUNCTIONS ##################### */
 
 $(function() {
-  $("a").click(function () {
+  $(".pop_button").click(function () {
     var item = $(this);
-    var frag = item.attr('href');
+    var frag = item.attr("href");
     window.location.hash = "";
 
     $(".popup").slideUp(faster);
@@ -664,7 +670,12 @@ $(function() {
       $("#about_div").toggle(fast);
     } else if (frag == "#donate") {
       $("#donate_div").toggle(fast);
-    } 
+    }
+  });
+
+  $("#message").on('click', '#songza_issue', function(e) {
+    $(".popup").slideUp(faster);
+    $("#songza_issue_div").toggle(fast);
   });
 
   $("#main_form").submit(function() {
@@ -684,5 +695,7 @@ $(document).ready(function() {
     $("#about_div").toggle(fast);
   } else if (frag == "#donate") {
     $("#donate_div").toggle(fast);
+  } else if (frag == "#songza_issue") {
+    $("#songza_issue_div").toggle(fast);
   }
 });
