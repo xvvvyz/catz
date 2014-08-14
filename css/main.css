@@ -28,6 +28,8 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #hidden{display:none;visibility:hidden}
 #kitty_img{display:none;max-width:90%;margin:20px 0 0 0}
 #message{padding:20px;background-color:#F7F4F4;display:none}
+#message a{color:#2B9664}
+#message a:hover{text-decoration:underline}
 
 #results_header{text-align:left;display:none;color:#ededed;background-color:rgba(255,255,255,0.1);text-align:center;padding:20px}
 #results_cover{border-radius:50%}
