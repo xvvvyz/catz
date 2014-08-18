@@ -27,7 +27,7 @@
     </div>
 
     <div id="money_header">
-      <h4>Hi, <?php echo $_SERVER['REMOTE_ADDR']; ?>. Ads and donations help me tremendously.<br>Because you block ads, please consider <a class="pop_button" href="#donate">donating</a>.</h4>
+      <h4>You block ads, I block ads, we all block ads.<br><a class="pop_button" href="#donate">Click here to support omgcatz.</a></h4>
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <ins class="adsbygoogle" style="display:block;width:728px;height:90px;position:absolute;top:0;left:0;background-color:#2B2B2B" data-ad-client="ca-pub-4166408543945956" data-ad-slot="1162321024"></ins>
       <script>
@@ -82,12 +82,13 @@
 
         <div class="popup" id="donate_div">
           <a class="pop_button close_popup"><img src="img/x.png" alt="x"></a>
-          <h2>How to Help</h2>
+          <h2>Help Me Help You</h2>
           
           <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="9TA7SKMGJFCZ8">
-            <p>This website gets too much traffic, and, due to special kitties, it requires a fairly strong (expensive) server to keep it from crashing. Thus, ads and donations are its lifeblood. You can donate via <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Coinbase</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a>. I promise not to spend your contribution on drugs and hookers (:</p>
+            <p>This website gets traffic... a lot of it, and, due to special kittens, it requires a fairly strong (expensive) server to keep it from crashing. Thus, I display ads and accept donations. You can donate via <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Coinbase</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a> if you're feeling supportive and can afford it.</p>
+            <p>Thank you kindly.</p>
           </form>
         </div>
 
@@ -106,6 +107,16 @@
             <label><input id="tag_artist" class="option" type="checkbox">Tag Artist</label><br>
             <label><input id="tag_album" class="option" type="checkbox">Tag Album</label><br>
             <label><input id="tag_img" class="option" type="checkbox">Tag Artwork</label><br>
+          </div>
+        </div>
+
+        <div id="money_footer_container">
+          <div id="money_footer">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" style="display:block;width:728px;height:90px" data-ad-client="ca-pub-4166408543945956" data-ad-slot="6094399027"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
           </div>
         </div>
 
