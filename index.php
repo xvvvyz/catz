@@ -146,5 +146,9 @@
 
     <iframe id="download_iframe" style="display:none"></iframe>
     <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var _bftn_options = { animation: 'banner', theme: 'dark' }
+    </script>
+    <script src="//widget.battleforthenet.com/widget.min.js" async></script>
   </body>
 </html>
