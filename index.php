@@ -110,16 +110,6 @@
           </div>
         </div>
 
-        <div id="money_footer_container">
-          <div id="money_footer">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <ins class="adsbygoogle" style="display:block;width:728px;height:90px" data-ad-client="ca-pub-4166408543945956" data-ad-slot="6094399027"></ins>
-            <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
-        </div>
-
         <div id="main_results">
           <div id="kitty">
             <img id="kitty_img">
@@ -146,9 +136,5 @@
 
     <iframe id="download_iframe" style="display:none"></iframe>
     <script src="js/main.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      var _bftn_options = { animation: 'banner', theme: 'dark' }
-    </script>
-    <script src="//widget.battleforthenet.com/widget.min.js" async></script>
   </body>
 </html>

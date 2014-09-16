@@ -17,9 +17,6 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #money_header h4,#money_footer h4{color:#2B9664;margin:20px;line-height:25px}
 #money_header a:hover{text-decoration:underline}
 
-#money_footer_container{width:100%;height:110px}
-#money_footer{width:728px;height:90px;position:absolute;left:50%;margin-left:-364px;margin-top:20px;background-image:url("/img/grumpy_ad.jpg")}
-
 #everything{margin:auto;max-width:900px}
 #main{width:100%;margin:110px 0 60px 0}
 #main_form{height:3em}
