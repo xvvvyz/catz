@@ -1,15 +1,10 @@
-OMG. Catz Setup Guide
-=====================
+OMG. Catz
+=========
 
-This guide will (hopefully) get you close to having Catz run on your local or remote machine.
+The latest version of omgcatz.com.
 
-Prereqs
--------
-
-* A *NIX box. (Tested with OS X Mavericks and Debain).
-
-Setup
------
+Setup (Tested with OS X Mavericks and Debain)
+---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
 
