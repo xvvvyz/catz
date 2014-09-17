@@ -3,7 +3,7 @@ OMG. Catz
 
 The latest version of omgcatz.com.
 
-Setup (Tested with OS X Mavericks and Debain)
+Setup (Tested with OS X and Debain)
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
