@@ -30,7 +30,7 @@ sudo apt-get install zip
 sudo /etc/init.d/apache2 restart
 ```
 
-* Run ./install/setup.sh to see if you missed any installs. It will also create the DatabaseLogin class, create a database, and install the necessary tables tables. Make sure to run it again when you have everything installed.
+* Run ./install/setup.sh to see if you missed any installs. It will also create the DatabaseLogin class, create a database, and install the necessary tables for you.
 
 * If you don't have unlimited disk space, you should probably put something like this in a crontab (add minutes to the find commands if you have a lot of space).
 
