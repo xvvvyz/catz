@@ -1,9 +1,9 @@
 OMG. Catz
 =========
 
-The latest version of omgcatz.com.
+The latest (broken) version of omgcatz.com.
 
-Setup (Tested with OS X [Mavericks] and Debain 7 [Wheezy])
+Setup (Tested with OSX 10.9 and Debain 7)
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
@@ -30,7 +30,7 @@ sudo apt-get install zip
 sudo /etc/init.d/apache2 restart
 ```
 
-* Run setup.sh to see if you missed any installs and to create database.php. Make sure to run it again when you have everything installed.
+* Run ./install/setup.sh to see if you missed any installs. It will also create the DatabaseLogin class, create a database, and install the necessary tables tables. Make sure to run it again when you have everything installed.
 
 * If you don't have unlimited disk space, you should probably put something like this in a crontab (add minutes to the find commands if you have a lot of space).
 
@@ -40,14 +40,6 @@ sudo /etc/init.d/apache2 restart
 */5 * * * * find /path/to/server/run/artwork -type f -mmin +45 -delete
 ```
 
-* Create the database.
-
-```bash
-mysql -u root -p
-create database lollipop;
-quit
-```
-
 * Fix everything that doesn't work.
 
 * Dance.
@@ -55,12 +47,9 @@ quit
 Things to be Done
 -----------------
 
+* refactor and clean up php, js, and css
+* enable downloading between multiple slave servers
 * add youtube-dl support
 * add ability to reset a fetched playlist
 * make downloaded playlists page
 * convert gif to png when tagging m4a (or something)
-* update cat storing mysql tables
-* make a cat scraper
-* update cat.php to search for exact tags
-* other sites to add: fratmusic, gaana, broadjam
-
