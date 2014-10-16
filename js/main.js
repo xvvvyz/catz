@@ -132,42 +132,16 @@ function toggleAll()
 
 function displayCat(tag)
 {
-  $.ajax({
-    type: "POST",
-    url: "run/fetch/cat.php",
-    dataType: 'json',
-    data: {
-      tag: tag
-    },
-    success: function (data) {
-      if (data.error == 0) {
-        if (data.imageUrl.split('.').pop() == "gif") {
-          var speed = 12000;
-        } else {
-          var speed = 6000;
-        }
+  $(".bar").animate({
+    width: "95%"
+  }, 12000);
 
-        $(".bar").animate({
-          width: "95%"
-        }, speed);
-
-        var img = $("#kitty_img").attr("src", data.imageUrl).load(function () {
-          $("#kitty_img").fadeIn(slowest);
-
-          unload();
-        }).error(function () {
-          unload();
-          returnMessage("404");
-        });
-      } else {
-        unload();
-        returnMessage("Nothing was found.");
-      }
-    },
-    error: function () {
-      unload();
-      returnMessage("Request failed.");
-    }
+  var img = $("#kitty_img").attr("src", "http://thecatapi.com/api/images/get#"+new Date().getTime()).load(function () {
+    $("#kitty_img").fadeIn(slowest);
+    unload();
+  }).error(function () {
+    unload();
+    returnMessage("404");
   });
 }
 
@@ -187,10 +161,10 @@ function eight()
   console.log("  mixId = " + mixId);
   console.log("  trackNumber = " + trackCount);
 
-  console.log("POST run/fetch/eight.php");
+  console.log("POST api/fetch.php");
   $.ajax({
     type: "POST",
-    url: "run/fetch/eight.php",
+    url: "api/fetch.php",
     dataType: 'json',
     data: {
       url: url,
@@ -223,10 +197,10 @@ function eight()
         }
 
         var i = 0;
-        if (typeof data[i] !== "undefined") {
-          while (typeof data[i] !== "undefined") {
+        if (typeof data["songs"][i] !== "undefined") {
+          while (typeof data["songs"][i] !== "undefined") {
             trackCount++;
-            var duration = data[i]["duration"];
+            var duration = data["songs"][i]["duration"];
             $("#song_duration").html(duration);
 
             if (lastSongDuration == 0) {
@@ -235,11 +209,11 @@ function eight()
 
             $("#results_header").slideDown(400)
             $("#results_table").show()
-            $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="right">' + trackCount + '</td><td id="song_title' + trackCount + '" class="left">' + data[i]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data[i]["artist"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + $("#content_title").html() + '</td><td><a id="song_url' + trackCount + '" href="' + data[i]["songUrl"] + '"></a><a id="song_id' + trackCount + '" href="' + data[i]["songId"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
+            $("#results_table").append('<tr class="songs row' + trackCount + '" id="row' + trackCount + '"><td class="right">' + trackCount + '</td><td id="song_title' + trackCount + '" class="left">' + data["songs"][i]["title"] + '</td><td id="song_artist' + trackCount + '" class="left song_artists">' + data["songs"][i]["artist"] + '</td><td id="song_album' + trackCount + '" class="left song_albums">' + $("#content_title").html() + '</td><td><a id="song_url' + trackCount + '" href="' + data["songs"][i]["songUrl"] + '"></a><a id="song_id' + trackCount + '" href="' + data["songs"][i]["songId"] + '"></a><input id="download_submit' + trackCount + '" class="download_buttons" type="button" onclick="postWithRow(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected_downloads" id="selected_download' + trackCount + '"><div id="down_loader' + trackCount + '" class="down_loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed' + trackCount + '" class="completed"></span></td></tr>')
             $("#results_table tr:last").hide()
             $("#results_table tr:last").fadeIn(400)
 
-            console.log("  " + trackCount + ". " + data[i]["title"]);
+            console.log("  " + trackCount + ". " + data["songs"][i]["title"]);
 
             i++;
           }
@@ -262,32 +236,9 @@ function eight()
           unload();
           returnMessage("That's all we could find.");
         }
-      } else if (error == 403) {
-        if (error != $("#old_error").html()) {
-          console.log("  " + data["message"]);
-
-          var timer = new Date();
-          var updateTime = lastSongDuration / 2 + extraWait;
-
-          timer.setSeconds(timer.getSeconds() + updateTime);
-          $("#timer").html(timer);
-
-          var speed = updateTime * 1000;
-          var total = parseInt($("#total_tracks").html());
-          var percentage = Math.floor((trackCount + 1) / total * 100);
-
-          $(".bar").animate({
-            width: percentage + "%"
-          }, speed, "linear");
-
-          updateTimeout();
-        } else {
-          unload();
-          returnMessage("The mix has been modified; this is all we could find.");
-        }
       } else {
         unload();
-        returnMessage(data["message"]);
+        returnMessage(data.status);
       }
 
       $("#old_error").html(error);

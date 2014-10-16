@@ -3,7 +3,7 @@ OMG. Catz
 
 The latest version of omgcatz.com.
 
-Setup (Tested with OS X and Debain)
+Setup (Tested with OS X [Mavericks] and Debain 7 [Wheezy])
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
@@ -51,3 +51,16 @@ quit
 * Fix everything that doesn't work.
 
 * Dance.
+
+Things to be Done
+-----------------
+
+* add youtube-dl support
+* add ability to reset a fetched playlist
+* make downloaded playlists page
+* convert gif to png when tagging m4a (or something)
+* update cat storing mysql tables
+* make a cat scraper
+* update cat.php to search for exact tags
+* other sites to add: fratmusic, gaana, broadjam
+

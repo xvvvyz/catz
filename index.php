@@ -2,41 +2,55 @@
 <html>
 <head>
 
+  <!-- Website Settings -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, user-scalable=no">
-  <title>Catz</title>
 
+  <!-- Title & Description -->
+  <title>Catz</title>
   <meta name="description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <!-- Open Graph Data -->
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Catz">
   <meta property="og:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
   <meta property="og:url" content="http://omgcatz.com">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="http://omgcatz.com/img/omgcatz.png">
+  <meta property="og:image" content="http://omgcatz.com/img/omgcatz-share.jpg">
 
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Catz">
-  <meta name="twitter:creator" content="@thirdletterdev">
   <meta name="twitter:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need &#8211; free kittens.">
   <meta name="twitter:url" content="http://omgcatz.com">
-  <meta name="twitter:image" content="http://omgcatz.com/img/omgcatz.png">
+  <meta name="twitter:image" content="http://omgcatz.com/img/omgcatz-share.jpg">
 
-  <link rel="icon" type="image/png" href="favicon.ico">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!-- Fav Icon -->
+  <link rel="icon" type="image/png" href="img/icons/favicon.ico">
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/icons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/icons/apple-touch-icon-152x152.png">
+  
+  <!-- Windows 8 Tile Icons -->
+  <meta name="msapplication-square70x70logo" content="img/icons/smalltile.png">
+  <meta name="msapplication-square150x150logo" content="img/icons/mediumtile.png">
+  <meta name="msapplication-wide310x150logo" content="img/icons/widetile.png">
+  <meta name="msapplication-square310x310logo" content="img/icons/largetile.png">
 
-    ga('create', 'UA-36603722-3', 'auto');
-    ga('send', 'pageview');
-  </script>
 <body>
-  <div id="progress">
-    <div class="bar"></div>
-  </div>
+
+  <div id="progress"><div class="bar"></div></div>
 
   <div id="money_header">
     <h4>You block ads, I block ads, we all block ads.<br><a class="pop_button" href="#donate">Click here to support omgcatz.</a></h4>
@@ -58,31 +72,6 @@
       </form>
 
       <div id="message"></div>
-
-      <div id="hidden">
-        <!-- ALL -->
-        <span id="content_title"></span>
-        <span id="timer"></span>
-        <span id="domain"></span>
-        <span id="url"></span>
-        <span id="track_count"></span>
-        <span id="total_tracks"></span>
-        <span id="download_count"></span>
-        <span id="song_duration">0</span>
-        <span id="etr"></span>
-        <span id="recursive_downloads">0</span>
-        <span id="slug"></span>
-        <span id="old_error"></span>
-
-        <!-- 8TRACKS -->
-        <span id="play_token"></span>
-        <span id="mix_id"></span>
-        <a id="results_cover_tag"></a>
-
-        <!-- SONGZA -->
-        <span id="session_id"><?php echo substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 18); ?></span>
-        <span id="station_id"></span>
-      </div>
 
       <div class="popup" id="about_div">
         <a class="pop_button close_popup"><img src="img/x.png" alt="x"></a>
@@ -111,16 +100,18 @@
         <p><b>No Comprehendo?</b>No worries, all it means for you is this: if the song you want to download doesn't show up the first time you load the playlist, you will have to fetch the playlist again and hope it shows up the next time.</p>
       </div>
 
-      <div id="results_header">
-        <a target="_blank" id="results_cover_big"><img width="133" height="133" id="results_cover"></a>
-        <div id="results_options">
-          <label><input id="tag_num" class="option" type="checkbox">Tag Track #</label><br>
-          <label><input id="tag_title" class="option" type="checkbox">Tag Title</label><br>
-          <label><input id="tag_artist" class="option" type="checkbox">Tag Artist</label><br>
-          <label><input id="tag_album" class="option" type="checkbox">Tag Album</label><br>
-          <label><input id="tag_img" class="option" type="checkbox">Tag Artwork</label><br>
+      <section class="results-header">
+        <div id="results_header" class="hidden">
+          <a target="_blank" id="results_cover_big"><img width="133" height="133" id="results_cover"></a>
+          <div id="results_options">
+            <label><input id="tag_num" class="option" type="checkbox">Tag Track #</label><br>
+            <label><input id="tag_title" class="option" type="checkbox">Tag Title</label><br>
+            <label><input id="tag_artist" class="option" type="checkbox">Tag Artist</label><br>
+            <label><input id="tag_album" class="option" type="checkbox">Tag Album</label><br>
+            <label><input id="tag_img" class="option" type="checkbox">Tag Artwork</label><br>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div id="main_results">
         <div id="kitty">
@@ -133,21 +124,47 @@
     </main>
 
     <footer id="footer">
-      <div id="social">
-        <div id="s1"><a href="https://twitter.com/cadejscroggins">T</a></div>
-        <div id="s2"><a href="https://www.facebook.com/omgcatzwebsite">F</a></div>
-        <div id="s3"><a href="https://github.com/cadejscroggins/omgcatz">Git</a></div>
-      </div>
-      <div id="info">
-        <div><a href="tos">Terms</a></div>
-        <div><a class="pop_button" href="#about">About</a></div>
-        <div><a href="mailto:admin@omgcatz.com">Contact</a></div>
-      </div>
+      <ul id="info">
+        <li><a href="tos">Terms</a></li>
+        <li><a href="mailto:admin@omgcatz.com">Contact</a></li>
+        <li><a class="pop_button" href="#about">About</a></li>
+      </ul>
+      <ul id="social">
+        <li><a href="//www.facebook.com/omgcatzwebsite">Facebook</a></li>
+        <li><a href="//github.com/omgcatz/omgcatz">GitHub</a></li>
+      </ul>
     </footer>
   </div>
 
-  <iframe id="download_iframe" style="display:none"></iframe>
+  <iframe id="download_iframe" class="hidden"></iframe>
   <script src="js/main.js" type="text/javascript"></script>
+
+  <div class="hidden">
+
+    <!-- Global Data -->
+    <span id="content_title"></span>
+    <span id="timer"></span>
+    <span id="domain"></span>
+    <span id="url"></span>
+    <span id="track_count"></span>
+    <span id="total_tracks"></span>
+    <span id="download_count"></span>
+    <span id="song_duration">0</span>
+    <span id="etr"></span>
+    <span id="recursive_downloads">0</span>
+    <span id="slug"></span>
+    <span id="old_error"></span>
+
+    <!-- 8tracks Data -->
+    <span id="play_token"></span>
+    <span id="mix_id"></span>
+    <a id="results_cover_tag"></a>
+
+    <!-- Songza Data -->
+    <span id="session_id"><?php echo substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 18); ?></span>
+    <span id="station_id"></span>
+
+  </div>
 
 </body>
 </html>

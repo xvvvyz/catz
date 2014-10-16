@@ -6,7 +6,7 @@
 /run/download/artwork/
 /run/download/songs/
 
-*database.php
+*DatabaseLogin.php
 *AtomicParsley
 *eyeD3
 
