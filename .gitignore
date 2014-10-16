@@ -16,3 +16,4 @@
 # other
 /sandbox/
 *log/
+/hook.php
