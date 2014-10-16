@@ -47,7 +47,10 @@ sudo /etc/init.d/apache2 restart
 Things to be Done
 -----------------
 
-* refactor and clean up php, js, and css
+* refactor and clean up php
+* refactor and clean up js
+* use a task manager (probably grunt) for tasks
+* clean css and start using sass
 * enable downloading between multiple slave servers
 * add youtube-dl support
 * add ability to reset a fetched playlist
