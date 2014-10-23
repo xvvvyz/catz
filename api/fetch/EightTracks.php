@@ -123,7 +123,6 @@ class EightTracks extends Database {
    * @param string $mixId
    * @param string $playToken
    * @param int $trackNumber
-   * @return null
    */
   function get($url, $mixId, $playToken, $trackNumber = 0) {
     ignore_user_abort(true);
