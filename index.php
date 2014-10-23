@@ -100,7 +100,7 @@
         <p><b>No Comprehendo?</b>No worries, all it means for you is this: if the song you want to download doesn't show up the first time you load the playlist, you will have to fetch the playlist again and hope it shows up the next time.</p>
       </div>
 
-      <section class="results-header">
+      <section>
         <div id="results_header" class="hidden">
           <a target="_blank" id="results_cover_big"><img width="133" height="133" id="results_cover"></a>
           <div id="results_options">
@@ -161,7 +161,6 @@
     <a id="results_cover_tag"></a>
 
     <!-- Songza Data -->
-    <span id="session_id"><?php echo substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 18); ?></span>
     <span id="station_id"></span>
 
   </div>

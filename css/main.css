@@ -29,8 +29,7 @@ a{color:#fff;text-decoration:none;padding:3px;margin:-3px}
 #message a{color:#2B9664}
 #message a:hover{text-decoration:underline}
 
-.results-header{background-color:rgba(255,255,255,0.1);width:100%;display:none}
-#results_header{text-align:left;display:table;color:#ededed;margin:0 auto}
+#results_header{text-align:left;display:table;color:#ededed;margin:0 auto;display:none;background-color:rgba(255,255,255,0.1);width:100%;}
 #results_cover{display:table-cell;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%}
 #results_options{display:table-cell;vertical-align:middle;font-size:13px;text-align:left}
 .option{margin:5px 5px 5px 10px}
