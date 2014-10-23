@@ -88,7 +88,7 @@
         <form name="paypal_form" class="donate_button" action="https://www.paypal.com/cgi-bin/webscr" method="post">
           <input type="hidden" name="cmd" value="_s-xclick">
           <input type="hidden" name="hosted_button_id" value="9TA7SKMGJFCZ8">
-          <p>This website gets traffic... a lot of it, and, due to special kittens, it requires a fairly strong (expensive) server to keep it from crashing. Thus, I display ads and accept donations. You can donate via <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Coinbase</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a> if you're feeling supportive and can afford it.</p>
+          <p>This website gets traffic... a lot of it, and, due to special kittens, it requires a fairly strong (expensive) server to keep it from crashing. Thus, I display ads and accept donations. You can donate via <a href="https://coinbase.com/checkouts/fb89e8ada9a5ddab49c50b5d3f3854ad">Coinbase</a>, <a href="mailto:admin@omgcatz.com?subject=$5&amp;cc=cash@square.com">Square Cash</a> or <a href="javascript:document.paypal_form.submit()">Paypal</a> if you're feeling supportive and can afford it.</p>
           <p>Thank you kindly.</p>
         </form>
       </div>
@@ -125,13 +125,14 @@
 
     <footer id="footer">
       <ul id="info">
-        <li><a href="tos">Terms</a></li>
+        <li><a href="/tos.html">Terms</a></li>
         <li><a href="mailto:admin@omgcatz.com">Contact</a></li>
         <li><a class="pop_button" href="#about">About</a></li>
       </ul>
       <ul id="social">
         <li><a href="//www.facebook.com/omgcatzwebsite">Facebook</a></li>
         <li><a href="//github.com/omgcatz/omgcatz">GitHub</a></li>
+        <li><a class="pop_button" href="#donate">Donate</a></li>
       </ul>
     </footer>
   </div>
