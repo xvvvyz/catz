@@ -2,6 +2,7 @@
 
 abstract class Output {
 
+  // Output data.
   protected $data = array("error"=>0, "status"=>"OK.");
 
   /**

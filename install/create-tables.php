@@ -16,7 +16,7 @@ if (!$db->tableExists("cats")) {
 if (!$db->tableExists("8tracks_playlists")) {
   $db->query("CREATE TABLE `8tracks_playlists` (
     `mixId` tinyblob NOT NULL,
-    `tracksCount` int(11) NOT NULL,
+    `totalTracks` int(11) NOT NULL,
     `playToken` int(11) DEFAULT NULL,
     `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`mixId`(255))

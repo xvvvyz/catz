@@ -35,6 +35,7 @@ checkCommand "eyeD3" && success && ln -fs `which eyeD3` ../api/download/eyeD3 ||
 checkCommand "AtomicParsley" && success && ln -fs `which AtomicParsley` ../api/download/AtomicParsley || please
 checkCommand "zip" && success && ln -fs `which zip` ../api/download/archives/zip || please
 checkCommand "find" && success && ln -fs `which find` ../api/download/archives/find || please
+checkCommand "file" && success || please
 checkCommand "php" && success || please
 
 # If they need to install stuff let them know.

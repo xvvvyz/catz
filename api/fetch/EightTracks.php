@@ -10,8 +10,8 @@ class EightTracks extends Database {
   private $url;
   private $mixId;
   private $playToken;
+  private $totalTracks;
   private $trackNumber;
-  private $tracksCount;
 
   // Output array.
   private $outputArray = array();
@@ -21,20 +21,31 @@ class EightTracks extends Database {
    */
   private function getMixInfo() {
     $curl = new Curl();
-    $mixArray = $curl->returnTransfer($this->url.".jsonp?api_key=".$this->apiKey."&api_version=3");
+    $array = $curl->returnArray($this->url.".jsonp?api_key=".$this->apiKey."&api_version=3");
 
-    if ($mixArray["errors"]) {
+    if ($array["errors"]) {
       $this->output->error("8tracks said: ".$errors);
     }
 
-    $this->mixId = $mixArray["mix"]["id"];
+    $this->mixId = $array["mix"]["id"];
+    $this->totalTracks = $array["mix"]["tracks_count"];
 
     if (empty($this->mixId)) {
       $this->output->error("Invalid URL: ".$this->url);
     }
 
-    $this->tracksCount = $mixArray["mix"]["tracks_count"];
-    $this->outputArray["mix"] = $mixArray["mix"];
+    $this->outputArray["mix"] = array(
+      "id"=>$this->mixId,
+      "slug"=>basename($array["mix"]["web_path"]),
+      "name"=>$array["mix"]["name"],
+      "imgUrls"=>array(
+        "small"=>$array["mix"]["cover_urls"]["sq133"],
+        "medium"=>$array["mix"]["cover_urls"]["sq500"],
+        "original"=>$array["mix"]["cover_urls"]["original"]
+      ),
+      "creator"=>$array["mix"]["user"]["login"],
+      "totalTracks"=>$array["mix"]["tracks_count"]
+    );
   }
 
   /**
@@ -67,16 +78,12 @@ class EightTracks extends Database {
       $retries++;
 
       $curl = new Curl();
-      $songArray = $curl->returnTransfer("http://8tracks.com/sets/".$this->playToken."/next?format=jsonh&mix_id=".$this->mixId."&api_version=2");
+      $songArray = $curl->returnArray("http://8tracks.com/sets/".$this->playToken."/next?format=jsonh&mix_id=".$this->mixId."&api_version=2");
 
       $status = $songArray["status"];
 
       if ($retries > 1) {
-        if (preg_match('/(403)/', $status)) {
-          $this->output->error("8tracks denied our request.");
-        } else {
-          $this->output->error("8tracks made a boo boo.");
-        } 
+        $this->output->error("8tracks made a boo boo. (".$status.")");
       }
     } while (!preg_match('/(200)/', $status));
 
@@ -103,14 +110,22 @@ class EightTracks extends Database {
   }
 
   /**
+   * Update mix info in DB and $outputArray.
+   */
+  private function updateMixInfo() {
+    $this->outputArray["mix"]["playToken"] = $this->playToken;
+    $this->query("INSERT INTO 8tracks_playlists (mixId, totalTracks, playToken) VALUES ('$this->mixId', '$this->totalTracks', '$this->playToken')");
+  }
+
+  /**
    * Get the playlist.
    * @param string $url
    * @param string $mixId
    * @param string $playToken
    * @param int $trackNumber
-   * @return array
+   * @return null
    */
-  function getPlaylist($url, $mixId, $playToken, $trackNumber = 0) {
+  function get($url, $mixId, $playToken, $trackNumber = 0) {
     ignore_user_abort(true);
 
     $this->url = $url;
@@ -118,23 +133,24 @@ class EightTracks extends Database {
     $this->playToken = $playToken;
     $this->trackNumber = $trackNumber;
 
-    // If no $mixId then fetch $mixId and $tracksCount.
+    // If no $mixId then fetch $mixId and $totalTracks.
     if (empty($mixId)) {
       $this->getMixInfo();
     }
 
-    if (mysqli_num_rows($this->query("SELECT mixId FROM 8tracks_playlists WHERE mixId=".$this->mixId." LIMIT 1")) < 1) {
+    if ($this->numRows("SELECT mixId FROM 8tracks_playlists WHERE mixId=".$this->mixId." LIMIT 1") < 1) {
       // If mix isn't in database.
 
       $this->playToken = rand();
-      $this->query("INSERT INTO 8tracks_playlists (mixId, tracksCount, playToken) VALUES ('$this->mixId', '$this->tracksCount', '$this->playToken')");
+      $this->updateMixInfo();
       $this->nextSong();
     } else if (empty($playToken)) {
       /* If mix has already been entered and this is
        * the clients first time requesting. */
 
-      $row = mysqli_fetch_array($this->query("SELECT tracksCount, playToken FROM 8tracks_playlists WHERE mixId='$mixId' LIMIT 1"));
+      $row = $this->fetchRow("SELECT totalTracks, playToken FROM 8tracks_playlists WHERE mixId='$mixId' LIMIT 1");
       $this->playToken = $row["playToken"];
+      $this->updateMixInfo();
     } else if ($this->getSongsFromDb()) {
       // If mix is in database but doesn't have songs.
 
