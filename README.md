@@ -16,17 +16,7 @@ git clone https://github.com/cadejscroggins/omgcatz /path/to/server/
 
 ```bash
 sudo apt-get update
-sudo apt-get install apache2
-sudo apt-get install mysql-server
-sudo apt-get install php5
-sudo apt-get install php5-mysql
-sudo apt-get install php-pear
-sudo apt-get install php5-suhosin
-sudo apt-get install php5-curl
-sudo apt-get install curl
-sudo apt-get install eyeD3
-sudo apt-get install atomicparsley
-sudo apt-get install zip
+sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl curl eyeD3 atomicparsley zip file
 sudo /etc/init.d/apache2 restart
 ```
 
@@ -35,9 +25,11 @@ sudo /etc/init.d/apache2 restart
 * If you don't have unlimited disk space, you should probably put something like this in a crontab (add minutes to the find commands if you have a lot of space).
 
 ```bash
-*/5 * * * * find /path/to/server/run/songs -type f -mmin +200 -delete
-*/5 * * * * find /path/to/server/run/archives -type f -mmin +45 -delete
-*/5 * * * * find /path/to/server/run/artwork -type f -mmin +45 -delete
+# Remove songs that are older than 200 minutes every 5 minutes.
+*/5 * * * * find /path/to/server/api/download/songs -type f -mmin +200 -delete
+
+# Remove archives and artwork that are older than 45 minutes every 5 minutes.
+*/5 * * * * find /path/to/server/api/download/{archives,artwork} -type f -mmin +45 -delete
 ```
 
 * Fix everything that doesn't work.
