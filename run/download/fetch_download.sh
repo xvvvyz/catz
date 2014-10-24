@@ -94,7 +94,7 @@ fi
 
 # tag artwork
 if [ "$EXT" == ".mp3" ]; then
-	./eyeD3 --remove-images -t "$TITLE" -a "$ARTIST" -A "$ALBUM" -n "$TRACK_NUMBER" -N "$TOTAL_TRACKS" "$SONG_SAVE$EXT" &> /dev/null
+	./eyeD3 --remove-all-objects -t "$TITLE" -a "$ARTIST" -A "$ALBUM" -n "$TRACK_NUMBER" -N "$TOTAL_TRACKS" "$SONG_SAVE$EXT" &> /dev/null
 	if [ -n "$IMG" ]; then
 		[ ! -f "$ARTWORK_SAVE" ] && curl -Lso "$ARTWORK_SAVE" "$IMG"
 		./eyeD3 --add-image="$ARTWORK_SAVE":FRONT_COVER "$SONG_SAVE$EXT" &> /dev/null
