@@ -3,26 +3,26 @@ OMG. Catz
 
 The latest (broken) version of omgcatz.com.
 
-Setup (Tested with OSX 10.9 and Debain 7)
+Setup (Tested with OSX 10.10, CentOS 7 and Debain 7)
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
 
 ```bash
-git clone https://github.com/cadejscroggins/omgcatz /path/to/server/
+git clone https://github.com/omgcatz/omgcatz /path/to/server/
 ```
 
-* Install all of the things (Debian).
+* Install all of the things.
 
 ```bash
+# Debian
 sudo apt-get update
 sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl curl eyeD3 atomicparsley zip file
-sudo /etc/init.d/apache2 restart
 ```
 
 * Run ./install/setup.sh to see if you missed any installs. It will also create the DatabaseLogin class, create a database, and install the necessary tables for you.
 
-* If you don't have unlimited disk space, you should probably put something like this in a crontab (add minutes to the find commands if you have a lot of space).
+* Here are a couple (optional) crontabs to delete older files.
 
 ```bash
 # Remove songs that are older than 200 minutes every 5 minutes.
@@ -39,11 +39,10 @@ sudo /etc/init.d/apache2 restart
 Things to be Done
 -----------------
 
-* refactor and clean up php
+* enable downloading between multiple slave servers
 * refactor and clean up js
 * use a task manager (probably grunt) for tasks
 * clean css and start using sass
-* enable downloading between multiple slave servers
 * add youtube-dl support
 * add ability to reset a fetched playlist
 * make downloaded playlists page
