@@ -12,7 +12,7 @@ This is a cat website (made for cats... like you). With the internet came an unr
 **Wait.. Why?** Because of this... And because obsessively viewing cat pictures while enjoying my favorite music can turn a bad day into something slightly *better*. I hope you can find joy from this website, too.
 How can I thank you?You can drop me a line by email, and you can click here if you are interested in donating.
 
- Setup (Tested with OS X and Debain)
+ Setup (Tested with OS X and Debian)
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
