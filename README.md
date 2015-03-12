@@ -3,7 +3,15 @@ OMG. Catz
 
 The latest version of omgcatz.com.
 
-Setup (Tested with OS X and Debain)
+ About OMG. Catz
+-----------------------------
+[http://omgcatz.com/](http://omgcatz.com/)    
+### **What Is This?**  
+This is a cat website (made for cats... like you). With the internet came an unruley amount of cats and cat like things. Maybe the Egyptians understood something we still don't quite understand. Along with cats, this website provides you with a whole bunch of music. Music to the eyes, that is, in the form of cats.  
+**Wait.. Why?** Because of this... And because obsessively viewing cat pictures while enjoying my favorite music can turn a bad day into something slightly *better*. I hope you can find joy from this website, too.
+How can I thank you?You can drop me a line by email, and you can click here if you are interested in donating.
+
+ Setup (Tested with OS X and Debain)
 ---------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
