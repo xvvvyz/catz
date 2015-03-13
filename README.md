@@ -1,10 +1,10 @@
 OMG. Catz
 =========
 
-The latest (broken) version of omgcatz.com.
+Development version of omgcatz.com (things might be broken).
 
-Setup (Tested with OSX 10.10, CentOS 7 and Debain 7)
----------------------------------------------
+Setup (Tested with OSX 10.10, CentOS 7 and Debian 7)
+----------------------------------------------------
 
 * Clone the repo into a place that serves HTTP requests.
 
@@ -39,9 +39,6 @@ sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl cur
 Things to be Done
 -----------------
 
-* refactor and clean up js
-* clean css
-* add zeros before track numbers eg 01 02 03
 * add youtube-dl support
 * add ability to reset a fetched playlist
 * make downloaded playlists page
