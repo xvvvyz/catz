@@ -54,7 +54,7 @@
           $default = (isset($_GET["q"]) ? $_GET["q"] : "");
           echo '<input id="main_text" type="text" value="'.$default.'">'."\n";
         ?>
-        <input id="main_button" type="submit" value="">
+        <input id="main_button" type="submit" value="Get Playlist!">
       </form>
 
       <div id="message"></div>
