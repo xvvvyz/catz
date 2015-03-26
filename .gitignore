@@ -2,17 +2,9 @@
 .DS_Store
 
 # generated
-/run/download/archives/
-/run/download/artwork/
-/run/download/songs/
+/run/download/
 
-*database.php
-*AtomicParsley
-*eyeD3
+*Config.php
 
 # backup
 *~
-
-# other
-/sandbox/
-*log/
