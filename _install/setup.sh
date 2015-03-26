@@ -35,7 +35,7 @@ if [ "$HAS_SLAVES" == "y" ]; then
 else
 	if [ ! -d "../api/stuff/download" ]; then
 		echo
-		git clone "https://github.com/omgcatz/omgcatz-slave/" "../api/download"
+		git clone "https://github.com/omgcatz/omgcatz-slave/" "../api/stuff/download"
 		echo -e "\nRunning api/download/_install/setup.sh..."
 		../api/stuff/download/_install/setup.sh
 	fi
