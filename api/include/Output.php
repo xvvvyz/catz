@@ -14,10 +14,24 @@ abstract class Output {
   }
 
   /**
+   * Set error message and error.
+   * @param string $message
+   * @param int $error
+   */
+  function setError($message, $error) {
+    if ($error === NULL) {
+      $error = 1;
+    }
+
+    $this->data["error"] = $error;
+    $this->data["status"] = $message;
+  }
+
+  /**
    * Output error message and bail.
    * @param string $message
    */
-  abstract function error($message);
+  abstract function error($message, $error = 1);
 
   /**
    * Output success message.
@@ -33,10 +47,8 @@ abstract class Output {
 
 class OutputArray extends Output {
 
-  function error($message) {
-    $this->data["error"] = 1;
-    $this->data["status"] = $message;
-    
+  function error($message, $error = 1) {
+    $this->setError($message, $error);
     die(print_r($this->data));
   }
 
@@ -51,10 +63,8 @@ class OutputArray extends Output {
 
 class OutputJSON extends Output {
 
-  function error($message) {
-    $this->data["error"] = 1;
-    $this->data["status"] = $message;
-    
+  function error($message, $error = 1) {
+    $this->setError($message, $error);
     die(json_encode($this->data).PHP_EOL);
   }
 

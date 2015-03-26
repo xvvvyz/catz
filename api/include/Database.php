@@ -1,15 +1,15 @@
 <?php
 
-include "DatabaseLogin.php";
+include "Config.php";
 
-class Database extends DatabaseLogin {
+class Database extends Config {
 
   // Output object.
   protected $output;
 
   // Database connection.
   private $connection;
-  private $stmt;
+
 
   /**
    * Constructor.
@@ -26,6 +26,10 @@ class Database extends DatabaseLogin {
       $this->password,
       $this->database
     );
+
+    if ($this->connection->connect_errno) {
+      $this->output->error("Failed to connect to MySQL: (".$this->connection->connect_errno.") ".$this->connection->connect_error.".");
+    }
   }
 
   /**
@@ -41,15 +45,10 @@ class Database extends DatabaseLogin {
    * @return mixed
    */
   function query($query) {
-    // Check connection.
-    if ($this->connection->connect_errno) {
-      $this->output->error("Failed to connect to MySQL: (".$this->connection->connect_errno.") ".$this->connection->connect_error.".");
-    }
-
     $results = $this->connection->query($query);
-    
-    if ($this->connection->connect_errno) {
-      $this->output->error("MySQL query failed: (".$this->connection->connect_errno.") ".$this->connection->connect_error.".");
+
+    if (!$results) {
+      $this->output->error("MySQL query failed: (".$this->connection->errno.") ".$this->connection->error.".");
     }
 
     return $results;
@@ -60,8 +59,8 @@ class Database extends DatabaseLogin {
    * @param string $query
    * @return mixed
    */
-  function fetchRow($query) {
-    return $this->query($query)->fetch_array;
+  function fetchRows($query) {
+    return $this->query($query)->fetch_array();
   }
 
   /**
