@@ -1,0 +1,7 @@
+master if mix already has slave use that slave
+else check database to see if has slave
+else select the oldest slave
+master detect if slave exists
+if not - blacklist for x time
+else - send data
+return status
