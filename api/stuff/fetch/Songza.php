@@ -1,9 +1,8 @@
 <?php
 
-include_once("include/Database.php");
-include_once("include/Curl.php");
+require_once "include/Curl.php";
 
-class Songza extends Database {
+class Songza {
 
   // Mix info.
   private $url;
@@ -12,6 +11,17 @@ class Songza extends Database {
 
   // Output array.
   private $outputArray = array();
+
+  // Output object.
+  private $output;
+
+  /**
+   * Constructor.
+   * @param object $output
+   */
+  public function __construct($output) {
+    $this->output = $output;
+  }
 
   /**
    * Get mix info from URL.
@@ -109,4 +119,5 @@ class Songza extends Database {
 
     $this->output->successWithData($this->outputArray);
   }
+
 }

@@ -1,8 +1,17 @@
 <?php
 
+// master if mix already has slave use that slave
+// else check database to see if has slave
+// else select the oldest slave
+// master detect if slave exists
+// if not - blacklist for x time
+// else - send data
+// return status
+
+
 require "include/Database.php";
 
-$database = new Database($output);
+$database = new Database();
 $usingSlaves = (!empty($database->slaves));
 
 if (empty($_POST["server"])) {

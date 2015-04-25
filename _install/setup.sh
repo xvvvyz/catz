@@ -42,7 +42,7 @@ else
 fi
 
 # Create DatabaseCredentials class.
-echo "<?php class Config { protected \$server=\"$SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightApiKey=\"$EIGHT_API_KEY\"; $SLAVES }" > ../api/include/Config.php
+echo "<?php class Config { public static \$server=\"$SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\"; $SLAVES }" > ../api/include/Config.php
 
 # Optionally create database.
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER

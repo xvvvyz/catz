@@ -9,7 +9,7 @@ if ($url) {
 
 switch ($host) {
   case "8tracks.com":
-    include "stuff/fetch/EightTracks.php";
+    require "stuff/fetch/EightTracks.php";
 
     $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : false);
     $trackNumber = (isset($_POST["trackNumber"]) ? $_POST["trackNumber"] : 0);
@@ -19,7 +19,7 @@ switch ($host) {
     break;
 
   case "songza.com":
-    include "stuff/fetch/Songza.php";
+    require "stuff/fetch/Songza.php";
 
     $stationId = (isset($_POST["stationId"]) ? $_POST["stationId"] : false);
     $sessionId = (isset($_POST["sessionId"]) ? $_POST["sessionId"] : false);
@@ -29,7 +29,7 @@ switch ($host) {
     break;
 
   default:
-    include "stuff/fetch/Cat.php";
+    require "stuff/fetch/Cat.php";
 
     $please = new Cat($output);
     $please->getCat();

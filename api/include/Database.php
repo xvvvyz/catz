@@ -1,23 +1,11 @@
 <?php
 
-include "Config.php";
+require_once "Config.php";
 
-class Database extends Config {
-  
-  // Output object.
-  protected $output;
-
-
-  /**
-   * Constructor.
-   * @param object $output
-   */
-  public function __construct($output) {
-    $this->output = $output;
-  }
+class Database {
 
   protected function connect() {
-    return new mysqli($this->server, $this->user, $this->password, $this->database);
+    return new mysqli(Config::$server, Config::$user, Config::$password, Config::$database);
   }
 
   public function query($query) {
@@ -216,4 +204,5 @@ class Database extends Config {
 
     return $refs; 
   }
+
 }

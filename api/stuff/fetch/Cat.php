@@ -1,8 +1,17 @@
 <?php
 
-include_once("include/Database.php");
+class Cat {
 
-class Cat extends Database {
+  // Output object.
+  private $output;
+
+  /**
+   * Constructor.
+   * @param object $output
+   */
+  public function __construct($output) {
+    $this->output = $output;
+  }
 
   /**
    * Get cat.
@@ -22,4 +31,5 @@ class Cat extends Database {
   function getCatUrl() {
     $this->output->text("http://thecatapi.com/api/images/get");
   }
+
 }

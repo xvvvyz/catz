@@ -2,16 +2,11 @@
 
 class Curl {
 
+  // PHP cURL object.
   private $ch;
-  private $defaultUa = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0";
 
-  /**
-   * Destructor.
-   */
-  function __destruct() {
-    // Close connection to ch.
-    curl_close($this->ch);
-  }
+  // Default user agent.
+  private $defaultUa = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0";
 
   /**
    * Return source from URL.
@@ -27,8 +22,10 @@ class Curl {
     curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($this->ch, CURLOPT_USERAGENT, $userAgent);
     curl_setopt($this->ch, CURLOPT_COOKIE, $cookie);
+    $results = curl_exec($this->ch);
+    curl_close($this->ch);
 
-    return curl_exec($this->ch);
+    return $results;
   }
 
   /**
@@ -61,8 +58,10 @@ class Curl {
     curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->ch, CURLOPT_POST, 1);
     curl_setopt($this->ch, CURLOPT_POSTFIELDS, $payload);
+    $results = curl_exec($this->ch);
+    curl_close($this->ch);
 
-    return curl_exec($this->ch);
+    return $results;
   }
 
 }

@@ -1,9 +1,9 @@
 <?php
 
-include_once("include/Database.php");
-include_once("include/Curl.php");
+require_once "include/Database.php";
+require_once "include/Curl.php";
 
-class EightTracks extends Database {
+class EightTracks {
 
   // Mix info.
   private $url;
@@ -15,12 +15,27 @@ class EightTracks extends Database {
   // Output array.
   private $outputArray = array();
 
+  // Output object.
+  private $output;
+
+  // Database object.
+  private $db;
+
+  /**
+   * Constructor.
+   * @param object $output
+   */
+  public function __construct($output) {
+    $this->output = $output;
+    $this->db = new Database();
+  }
+
   /**
    * Get mix info from URL.
    */
   private function getMixInfo() {
     $curl = new Curl();
-    $array = $curl->getArray($this->url.".jsonp?api_key=".$this->eightApiKey."&api_version=3");
+    $array = $curl->getArray($this->url.".jsonp?api_key=".Config::$eightTracksApiKey."&api_version=3");
 
     if ($array["errors"]) {
       $this->output->error("8tracks said: ".$errors);
@@ -53,7 +68,7 @@ class EightTracks extends Database {
    * @return boolean
    */
   private function getSongsFromDb() {
-    $playlistSongs = $this->select(
+    $playlistSongs = $this->db->select(
       "SELECT songId FROM 8tracks_playlists_songs WHERE mixId=? AND trackNumber>=? ORDER BY trackNumber",
       array($this->mixId, $this->trackNumber),
       array("%d", "%d")
@@ -61,7 +76,7 @@ class EightTracks extends Database {
 
     if (!empty($playlistSongs)) {
       foreach ($playlistSongs as $playlistSong) {
-        $songs = $this->select(
+        $songs = $this->db->select(
           "SELECT * FROM 8tracks_songs WHERE songId=?",
           array($playlistSong["songId"]),
           array("%d")
@@ -109,14 +124,14 @@ class EightTracks extends Database {
       $duration = $songArray["set"]["track"]["play_duration"];
       $songUrl = $songArray["set"]["track"]["url"];
 
-      $song = $this->select(
+      $song = $this->db->select(
         "SELECT mixId FROM 8tracks_playlists_songs WHERE mixId=? AND songId=? LIMIT 1",
         array($this->mixId, $songId),
         array("%d", "%d")
       );
 
       if (empty($song)) {
-        $this->insert(
+        $this->db->insert(
           "8tracks_playlists_songs",
           array(
             "mixId" => $this->mixId,
@@ -126,14 +141,14 @@ class EightTracks extends Database {
           array("%d", "%d", "%d")
         );
 
-        $song = $this->select(
+        $song = $this->db->select(
           "SELECT songId FROM 8tracks_songs WHERE songId=? LIMIT 1",
           array($songId),
           array("%d")
         );
 
         if (empty($song)) {
-          $this->insert(
+          $this->db->insert(
             "8tracks_songs",
             array(
               "songId" => $songId,
@@ -154,14 +169,14 @@ class EightTracks extends Database {
 
   // TODO: properly document
   private function updateMixInfo() {
-    $mix = $this->select(
+    $mix = $this->db->select(
       "SELECT totalTracks FROM 8tracks_playlists WHERE mixId=? LIMIT 1",
       array($this->mixId),
       array("%d")
     );
 
     if (empty($mix)) {
-      $this->insert(
+      $this->db->insert(
         "8tracks_playlists",
         array(
           "mixId" => $this->mixId,
@@ -197,7 +212,7 @@ class EightTracks extends Database {
       $this->updateMixInfo();
     }
 
-    $songs = $this->select(
+    $songs = $this->db->select(
       "SELECT mixId FROM 8tracks_playlists_songs WHERE mixId=? LIMIT 1",
       array($this->mixId),
       array("%d")
@@ -211,7 +226,7 @@ class EightTracks extends Database {
     } else if ($this->getSongsFromDb()) {
       // If mix is in database and we need a new song.
 
-      $mix = $this->select(
+      $mix = $this->db->select(
         "SELECT playToken FROM 8tracks_playlists WHERE mixId=?",
         array($this->mixId),
         array("%d")
@@ -224,4 +239,5 @@ class EightTracks extends Database {
 
     $this->output->successWithData($this->outputArray);
   }
+
 }
