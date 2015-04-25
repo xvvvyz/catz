@@ -38,7 +38,6 @@ If you are using slave servers, adjust accordingly.
 Things to be Done
 -----------------
 
-* use prepared mysql statements
 * real slave functionality
 * get play tokens from 8tracks
 * store in database when mix is done

@@ -53,15 +53,25 @@ class EightTracks extends Database {
    * @return boolean
    */
   private function getSongsFromDb() {
-    $playlistSongs = $this->query("SELECT songId FROM 8tracks_playlists_songs WHERE mixId='".$this->mixId."' AND trackNumber >= ".$this->trackNumber." ORDER BY trackNumber");
+    $playlistSongs = $this->select(
+      "SELECT songId FROM 8tracks_playlists_songs WHERE mixId=? AND trackNumber>=? ORDER BY trackNumber",
+      array($this->mixId, $this->trackNumber),
+      array("%d", "%d")
+    );
 
-    if (mysqli_num_rows($playlistSongs) > 0) {
-      while ($playlistSong = mysqli_fetch_assoc($playlistSongs)) {
-        $songs = $this->query("SELECT * FROM 8tracks_songs WHERE songId='".$playlistSong["songId"]."'");
-        while ($song = mysqli_fetch_assoc($songs)) {
+    if (!empty($playlistSongs)) {
+      foreach ($playlistSongs as $playlistSong) {
+        $songs = $this->select(
+          "SELECT * FROM 8tracks_songs WHERE songId=?",
+          array($playlistSong["songId"]),
+          array("%d")
+        );
+
+        foreach ($songs as $song) {
           $this->outputArray["songs"][] = $song;
         }
       }
+
       return 0;
     }
 
@@ -91,21 +101,50 @@ class EightTracks extends Database {
       }
     }
 
-    $songId = $songArray["set"]["track"]["id"];
-
-    if (isset($songId)) {
-      $title = addslashes($songArray["set"]["track"]["name"]);
-      $artist = addslashes($songArray["set"]["track"]["performer"]);
-      $album = addslashes($songArray["set"]["track"]["release_name"]);
+    if (isset($songArray["set"]["track"]["id"])) {
+      $songId = $songArray["set"]["track"]["id"];
+      $title = $songArray["set"]["track"]["name"];
+      $artist = $songArray["set"]["track"]["performer"];
+      $album = $songArray["set"]["track"]["release_name"];
       $duration = $songArray["set"]["track"]["play_duration"];
       $songUrl = $songArray["set"]["track"]["url"];
 
-      // If $songId isn't in the table, add a new row.
-      if (mysqli_num_rows($this->query("SELECT mixId FROM 8tracks_playlists_songs WHERE mixId='$this->mixId' AND songId='$songId' LIMIT 1")) == 0) {
-        $this->query("INSERT INTO 8tracks_playlists_songs (mixId, songId, trackNumber) VALUES ('$this->mixId', '$songId', '$this->trackNumber')");
+      $song = $this->select(
+        "SELECT mixId FROM 8tracks_playlists_songs WHERE mixId=? AND songId=? LIMIT 1",
+        array($this->mixId, $songId),
+        array("%d", "%d")
+      );
 
-        if (mysqli_num_rows($this->query("SELECT songId FROM 8tracks_songs WHERE songId='$songId' LIMIT 1")) == 0) {
-          $this->query("INSERT INTO 8tracks_songs (songId, title, artist, album, duration, songUrl) VALUES ('$songId', '$title', '$artist', '$album', '$duration', '$songUrl')");
+      if (empty($song)) {
+        $this->insert(
+          "8tracks_playlists_songs",
+          array(
+            "mixId" => $this->mixId,
+            "songId" => $songId,
+            "trackNumber" => $this->trackNumber
+          ),
+          array("%d", "%d", "%d")
+        );
+
+        $song = $this->select(
+          "SELECT songId FROM 8tracks_songs WHERE songId=? LIMIT 1",
+          array($songId),
+          array("%d")
+        );
+
+        if (empty($song)) {
+          $this->insert(
+            "8tracks_songs",
+            array(
+              "songId" => $songId,
+              "title" => $title,
+              "artist" => $artist,
+              "album" => $album,
+              "duration" => $duration,
+              "songUrl" => $songUrl
+            ),
+            array("%d", "%s", "%s", "%s", "%d", "%s")
+          );
         }
       }
     } else {
@@ -113,12 +152,29 @@ class EightTracks extends Database {
     }
   }
 
-  /**
-   * Update mix info in DB and $outputArray.
-   */
+  // TODO: properly document
   private function updateMixInfo() {
-    if (!$this->numRows("SELECT * FROM 8tracks_playlists WHERE mixId = $this->mixId LIMIT 1"))
-      $this->query("INSERT INTO 8tracks_playlists (mixId, totalTracks, playToken) VALUES ('$this->mixId', '$this->totalTracks', '$this->playToken')");
+    $mix = $this->select(
+      "SELECT totalTracks FROM 8tracks_playlists WHERE mixId=? LIMIT 1",
+      array($this->mixId),
+      array("%d")
+    );
+
+    if (empty($mix)) {
+      $this->insert(
+        "8tracks_playlists",
+        array(
+          "mixId" => $this->mixId,
+          "totalTracks" => $this->totalTracks,
+          "playToken" => $this->playToken
+        ),
+        array("%d", "%d", "%s")
+      );
+    } else {
+      if ($mix[0]["totalTracks"] != $this->totalTracks) {
+        // TODO: if total tracks differ, reset mix and all songs
+      }
+    }
   }
 
   /**
@@ -141,7 +197,13 @@ class EightTracks extends Database {
       $this->updateMixInfo();
     }
 
-    if ($this->numRows("SELECT mixId FROM 8tracks_playlists_songs WHERE mixId=".$this->mixId." LIMIT 1") == 0) {
+    $songs = $this->select(
+      "SELECT mixId FROM 8tracks_playlists_songs WHERE mixId=? LIMIT 1",
+      array($this->mixId),
+      array("%d")
+    );
+
+    if (empty($songs)) {
       // If there aren't any songs in the database.
 
       $this->nextSong();
@@ -149,8 +211,13 @@ class EightTracks extends Database {
     } else if ($this->getSongsFromDb()) {
       // If mix is in database and we need a new song.
 
-      $row = $this->fetchRows("SELECT playToken FROM 8tracks_playlists WHERE mixId=".$this->mixId);
-      $this->playToken = $row["playToken"];
+      $mix = $this->select(
+        "SELECT playToken FROM 8tracks_playlists WHERE mixId=?",
+        array($this->mixId),
+        array("%d")
+      );
+
+      $this->playToken = $mix[0]["playToken"];
       $this->nextSong();
       $this->getSongsFromDb();
     }
