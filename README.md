@@ -37,9 +37,8 @@ If you are using slave servers, adjust accordingly.
 
 Things to be Done
 -----------------
-==> Means I'm currently working on it.
 
-==> real slave functionality
+* real slave functionality (in progress)
 * get play tokens from 8tracks
 * store in database when mix is done
 * always tag songs
