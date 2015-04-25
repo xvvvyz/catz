@@ -15,11 +15,7 @@ switch ($host) {
     $trackNumber = (isset($_POST["trackNumber"]) ? $_POST["trackNumber"] : 0);
 
     $please = new EightTracks($output);
-    $please->get(
-      $url,
-      $mixId,
-      $trackNumber
-    );
+    $please->get($url, $mixId, $trackNumber);
     break;
 
   case "songza.com":
@@ -29,11 +25,7 @@ switch ($host) {
     $sessionId = (isset($_POST["sessionId"]) ? $_POST["sessionId"] : false);
 
     $please = new Songza($output);
-    $please->get(
-      $url,
-      $stationId,
-      $sessionId
-    );
+    $please->get($url, $stationId, $sessionId);
     break;
 
   default:
