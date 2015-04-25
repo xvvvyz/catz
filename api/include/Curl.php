@@ -49,8 +49,11 @@ class Curl {
    */
   function post($url, $postData) {
     $payload = "";
-    foreach($postData as $key=>$value)
+
+    foreach($postData as $key=>$value) {
       $payload .= $key.'='.urlencode($value).'&';
+    }
+
     $payload = rtrim($payload, '&');
 
     $this->ch = curl_init($url);
