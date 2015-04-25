@@ -18,7 +18,7 @@ abstract class Output {
    * @param string $message
    * @param int $error
    */
-  function setError($message, $error) {
+  protected function setError($message, $error) {
     if ($error === NULL) {
       $error = 1;
     }
