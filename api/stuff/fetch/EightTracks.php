@@ -6,7 +6,6 @@ require_once "include/Curl.php";
 class EightTracks {
 
   // Mix info.
-  private $url;
   private $mixId;
   private $playToken;
   private $totalTracks;
@@ -30,37 +29,75 @@ class EightTracks {
     $this->db = new Database();
   }
 
-  /**
-   * Get mix info from URL.
-   */
-  private function getMixInfo() {
+  private function getPlayToken() {
     $curl = new Curl();
-    $array = $curl->getArray($this->url.".jsonp?api_key=".Config::$eightTracksApiKey."&api_version=3");
+    $response = $curl->getArray("http://8tracks.com/sets/new.json?api_key=".Config::$eightTracksApiKey."&api_version=3");
+    return $response["play_token"];
+  }
 
-    if ($array["errors"]) {
+  /**
+   * Get mix info from URL and put it into the database.
+   */
+  private function updateMixInfo($url) {
+    $curl = new Curl();
+
+    // Get fresh mix info.
+    $response = $curl->getArray($url.".jsonp?api_key=".Config::$eightTracksApiKey."&api_version=3");
+
+    if ($response["errors"]) {
       $this->output->error("8tracks said: ".$errors);
     }
 
-    $this->mixId = $array["mix"]["id"];
-    $this->totalTracks = $array["mix"]["tracks_count"];
+    $this->mixId = $response["mix"]["id"];
+    $this->totalTracks = $response["mix"]["tracks_count"];
 
     if (empty($this->mixId)) {
-      $this->output->error("Invalid URL: ".$this->url);
+      $this->output->error("Invalid URL: ".$url);
     }
 
+    // Add info to $outputArray.
     $this->outputArray["mix"] = array(
       "id"=>$this->mixId,
-      "slug"=>basename($array["mix"]["web_path"]),
-      "name"=>$array["mix"]["name"],
+      "slug"=>basename($response["mix"]["web_path"]),
+      "name"=>$response["mix"]["name"],
       "imgUrls"=>array(
-        "small"=>$array["mix"]["cover_urls"]["sq133"],
-        "medium"=>$array["mix"]["cover_urls"]["sq500"],
-        "original"=>$array["mix"]["cover_urls"]["original"]
+        "small"=>$response["mix"]["cover_urls"]["sq133"],
+        "medium"=>$response["mix"]["cover_urls"]["sq500"],
+        "original"=>$response["mix"]["cover_urls"]["original"]
       ),
-      "creator"=>$array["mix"]["user"]["login"],
-      "totalTracks"=>$array["mix"]["tracks_count"],
-      "duration"=>$array["mix"]["duration"]
+      "creator"=>$response["mix"]["user"]["login"],
+      "totalTracks"=>$response["mix"]["tracks_count"],
+      "duration"=>$response["mix"]["duration"]
     );
+
+    // Get old info from database if it exists.
+    $mix = $this->db->select(
+      "SELECT totalTracks FROM 8tracks_playlists WHERE mixId=? LIMIT 1",
+      array($this->mixId),
+      array("%d")
+    );
+
+    if (empty($mix)) {
+      // If it doesn't exist, create a play token and add the new info.
+
+      $this->playToken = $this->getPlayToken();
+
+      $this->db->insert(
+        "8tracks_playlists",
+        array(
+          "mixId" => $this->mixId,
+          "totalTracks" => $this->totalTracks,
+          "playToken" => $this->playToken
+        ),
+        array("%d", "%d", "%s")
+      );
+    } else {
+      // If it does, make sure nothing has changed.
+
+      if ($mix[0]["totalTracks"] != $this->totalTracks) {
+        // TODO: if total tracks differ, reset mix and all songs.
+      }
+    }
   }
 
   /**
@@ -167,31 +204,6 @@ class EightTracks {
     }
   }
 
-  // TODO: properly document
-  private function updateMixInfo() {
-    $mix = $this->db->select(
-      "SELECT totalTracks FROM 8tracks_playlists WHERE mixId=? LIMIT 1",
-      array($this->mixId),
-      array("%d")
-    );
-
-    if (empty($mix)) {
-      $this->db->insert(
-        "8tracks_playlists",
-        array(
-          "mixId" => $this->mixId,
-          "totalTracks" => $this->totalTracks,
-          "playToken" => $this->playToken
-        ),
-        array("%d", "%d", "%s")
-      );
-    } else {
-      if ($mix[0]["totalTracks"] != $this->totalTracks) {
-        // TODO: if total tracks differ, reset mix and all songs
-      }
-    }
-  }
-
   /**
    * Get the playlist.
    * @param string $url
@@ -201,15 +213,12 @@ class EightTracks {
   function get($url, $mixId, $trackNumber) {
     ignore_user_abort(true);
 
-    $this->url = $url;
     $this->mixId = $mixId;
     $this->trackNumber = $trackNumber;
 
     // If no $mixId then fetch $mixId and $totalTracks.
     if (empty($mixId)) {
-      $this->playToken = rand();
-      $this->getMixInfo();
-      $this->updateMixInfo();
+      $this->updateMixInfo($url);
     }
 
     $songs = $this->db->select(
