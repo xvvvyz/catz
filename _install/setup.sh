@@ -17,8 +17,8 @@ cd "$DIR"
 echo -en "MySQL username (root): "; read NAME
 NAME=${NAME:-root}
 echo -en "MySQL password: "; read -s PASS
-echo -en "\nMySQL server (localhost): "; read SERVER
-SERVER=${SERVER:-localhost}
+echo -en "\nMySQL server (localhost): "; read SQL_SERVER
+SQL_SERVER=${SQL_SERVER:-localhost}
 echo -en "MySQL db name (omgcatz): "; read DB_NAME
 DB_NAME=${DB_NAME:-omgcatz}
 echo -en "\n8tracks API key: "; read EIGHT_API_KEY
@@ -26,12 +26,12 @@ echo -en "\n8tracks API key: "; read EIGHT_API_KEY
 echo -en "\nAre you going to use slave servers? [y/n]: "; read HAS_SLAVES
 if [ "$HAS_SLAVES" == "y" ]; then
 	while :; do
-		echo -en "Domain, IP, or blank to continue: "; read SERVER
+		echo -en "Slave root (e.g. http://s1.omgcatz.com/): "; read SERVER
 		[ -z "$SERVER" ] && break
 		SERVERS="$SERVERS\"$SERVER\","
 	done
 
-	SLAVES="public \$slaves = array($SERVERS);"
+	SLAVES="\$slaves = array($SERVERS);"
 else
 	if [ ! -d "../api/stuff/download" ]; then
 		echo
@@ -42,13 +42,13 @@ else
 fi
 
 # Create DatabaseCredentials class.
-echo "<?php class Config { public static \$server=\"$SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\"; $SLAVES }" > ../api/include/Config.php
+echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\",$SLAVES }" > ../api/include/Config.php
 
 # Optionally create database.
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER
 if [ "$ANSWER" == "y" ]; then
 	echo -en "Creating database..."
-	echo "create database $DB_NAME" | mysql -u"$NAME" -h"$SERVER" -p"$PASS" &> /dev/null && success || failure
+	echo "create database $DB_NAME" | mysql -u"$NAME" -h"$SQL_SERVER" -p"$PASS" &> /dev/null && success || failure
 fi
 
 # Optionally create tables.

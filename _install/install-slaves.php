@@ -2,13 +2,12 @@
 
 (PHP_SAPI !== "cli" || isset($_SERVER["HTTP_USER_AGENT"])) && die();
 
-include "../api/include/Output.php";
 include "../api/include/Database.php";
 
-$db = new Database(new OutputArray());
+$db = new Database();
 
-$db->query("TRUNCATE TABLE slaves");
+$db->simpleQuery("TRUNCATE TABLE slaves");
 
-foreach ($db->slaves as $slave) {
-  $db->query("INSERT INTO slaves (domain) VALUES ('$slave')");
+foreach (Config::$slaves as $slave) {
+  $db->simpleQuery("INSERT INTO slaves (`slaveRoot`,`load`) VALUES ('{$slave}',0)");
 }
