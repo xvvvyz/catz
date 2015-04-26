@@ -507,6 +507,7 @@ function Slave() {
         song_url: songUrl,
         song_number: songNumber,
         total_songs: totalSongs,
+        mix_id: mixId,
         mix_artwork: mixArtwork,
         mix_slug: mixSlug,
         itunes_compilation: null,
