@@ -1,29 +1,52 @@
 <?php
 
-// master if mix already has slave use that slave
-// else check database to see if has slave
-// else select the oldest slave
-// master detect if slave exists
-// if not - blacklist for x time
-// else - send data
-// return status
-
-
 require "include/Database.php";
 
-$database = new Database();
-$usingSlaves = (!empty($database->slaves));
+$db = new Database();
+$usingSlaves = (!empty(Config::$slaves));
 
 if (empty($_POST["server"])) {
   if ($usingSlaves) {
-    //$slave = $database->fetchRows("SELECT slaveId FROM 8tracks_playlists WHERE mixId='".$_POST["id"]."' LIMIT 1");
-
-    if (!$slave) {
-      $slave = array_rand($database->slaves);
+    if (isset($_POST["mix_id"])) {
+      $mixId = $_POST["mix_id"];
+    } else {
+      $output->error();
     }
+
+    $table = "8tracks_playlists"; // need to set this dynamically for songza support
     
-    $server = $database->slaves[$slave];
-    //$database->query("INSERT INTO 8tracks_playlists (slaveId) VALUES ('".$slave."')");
+    $playlist = $db->select(
+      "SELECT slaveId FROM {$table} WHERE mixId=? LIMIT 1",
+      array($mixId),
+      array("%d")
+    );
+
+    if (empty($playlist[0]["slaveId"])) {
+      // Currently we are selecting a random slave, this should be a fancy algorithm.
+      $slave = $db->query("SELECT * FROM `slaves` ORDER BY RAND() LIMIT 1");
+
+      $slaveId = $slave[0]["slaveId"];
+      $server = $slave[0]["slaveRoot"];
+
+      // Set mix slave.
+      $db->update(
+        $table,
+        array("slaveId" => $slaveId),
+        array("%d"),
+        array("mixId" => $mixId),
+        array("%d")
+      );
+    } else {
+      $slaveId = $playlist[0]["slaveId"];
+
+      $slave = $db->select(
+        "SELECT slaveRoot FROM slaves WHERE slaveId=?",
+        array($slaveId),
+        array("%d")
+      );
+
+      $server = $slave[0]["slaveRoot"];
+    }
   } else {
     $server = "/api/stuff/download/";
   }
