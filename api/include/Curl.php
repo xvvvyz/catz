@@ -55,9 +55,9 @@ class Curl {
 
     $this->ch = curl_init($url);
 
-    curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->ch, CURLOPT_POST, 1);
     curl_setopt($this->ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
     $results = curl_exec($this->ch);
     curl_close($this->ch);
 
