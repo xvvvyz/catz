@@ -1,26 +1,25 @@
-OMG. Catz
-=========
+Catz Installations
+==================
 
-Setup (Tested with OSX 10.10, CentOS 7 and Debian 7)
-----------------------------------------------------
-
-* Clone the repo into a place that serves HTTP requests.
+Clone the repo into a place that serves HTTP requests.
 
 ```bash
 git clone https://github.com/omgcatz/omgcatz /path/to/server/
 ```
 
-* Install all of the things.
+Install all of the things.
 
 ```bash
-# Debian
-sudo apt-get update
-sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl curl eyeD3 atomicparsley zip file
+# brew (assuming you already have a webserver/PHP/MySQL)
+brew install atomicparsley eyed3
+
+# apt-get
+apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley zip file
 ```
 
-* Run ./_install/setup.sh to see if you missed any installs. It will also create the Config class, create a database, and install the necessary tables for you.
+Run ./_install/setup.sh to see if you missed any installs. It will also create the Config class, create a database, and install the necessary tables for you.
 
-* Here are a couple (optional) crontabs to delete older files.
+Here are a couple (optional) crontabs to delete older downloads.
 
 ```bash
 # Remove songs that are older than 200 minutes every 5 minutes.
@@ -32,12 +31,9 @@ sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl cur
 
 * Fix everything that doesn't work.
 
-* Dance.
-
 Things to be Done
 -----------------
 
-* get play tokens from 8tracks
 * always tag songs
 * look into downloading huge mixes
 * songza support
