@@ -38,9 +38,7 @@ If you are using slave servers, adjust accordingly.
 Things to be Done
 -----------------
 
-* real slave functionality (in progress)
 * get play tokens from 8tracks
-* store in database when mix is done
 * always tag songs
 * look into downloading huge mixes
 * songza support
