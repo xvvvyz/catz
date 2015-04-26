@@ -1,4 +1,7 @@
-Catz Setup Guide
+Catz
+====
+
+Setup Guide
 ----------------
 
 Clone the repo into a place that serves HTTP requests.
