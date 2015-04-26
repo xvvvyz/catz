@@ -24,12 +24,11 @@ sudo apt-get install apache2 mysql-server php5 php5-mysql php-pear php5-curl cur
 
 ```bash
 # Remove songs that are older than 200 minutes every 5 minutes.
-*/5 * * * * find /path/to/server/api/fetch/download/songs -type f -mmin +200 -delete
+*/5 * * * * find /path/to/songs -type f -mmin +200 -delete
 
 # Remove archives and artwork that are older than 45 minutes every 5 minutes.
-*/5 * * * * find /path/to/server/api/fetch/download/{archives,artwork} -type f -mmin +45 -delete
+*/5 * * * * find /path/to/{archives,artwork} -type f -mmin +45 -delete
 ```
-If you are using slave servers, adjust accordingly.
 
 * Fix everything that doesn't work.
 
