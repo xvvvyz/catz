@@ -14,7 +14,7 @@ Install all of the things.
 
 ```bash
 # Debian
-apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley zip file
+apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley imagemagick zip file
 ```
 
 Run ./_install/setup.sh to see if you missed any installs. It will also create the Config class, create a database, and install the necessary tables for you.
@@ -32,12 +32,11 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
-* always tag songs
+* mark mix as done when done (even if total tracks don't match)
 * look into downloading huge mixes
 * songza support
 * fix unicode character support with tagging
 * add ability to reset a fetched playlist
 * make downloaded playlists page
-* convert gif to png when tagging m4a (or something)
 * add any apache changes to readme
 * add youtube-dl support
