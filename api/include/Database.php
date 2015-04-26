@@ -13,11 +13,17 @@ class Database {
     $result = $db->query($query);
     
     $results = array();
-    while ($row = $result->fetch_object()) {
+    while ($row = $result->fetch_assoc()) {
       $results[] = $row;
     }
     
     return $results;
+  }
+
+  public function simpleQuery($query) {
+    $db = $this->connect();
+    $result = $db->query($query);
+    return $result;
   }
 
   public function insert($table, $data, $format) {
