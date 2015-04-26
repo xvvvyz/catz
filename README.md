@@ -1,5 +1,5 @@
-Catz Installations
-==================
+Catz Installation
+=================
 
 Clone the repo into a place that serves HTTP requests.
 
@@ -10,7 +10,7 @@ git clone https://github.com/omgcatz/omgcatz /path/to/server/
 Install all of the things.
 
 ```bash
-# brew (assuming you already have a webserver/PHP/MySQL)
+# brew (assuming you already have a web server / PHP / MySQL)
 brew install atomicparsley eyed3
 
 # apt-get
@@ -29,7 +29,7 @@ Here are a couple (optional) crontabs to delete older downloads.
 */5 * * * * find /path/to/{archives,artwork} -type f -mmin +45 -delete
 ```
 
-* Fix everything that doesn't work.
+Fix everything that doesn't work.
 
 Things to be Done
 -----------------
