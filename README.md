@@ -7,14 +7,14 @@ Clone the repo into a place that serves HTTP requests.
 git clone https://github.com/omgcatz/omgcatz /path/to/server/
 ```
 
-Install all of the things.
+Install all of the things (assuming you already have a web server, mysql-server, php5, php5-mysql and php5-curl).
 
 ```bash
-# brew (assuming you already have a web server / PHP / MySQL)
+# brew 
 brew install atomicparsley eyed3
 
 # apt-get
-apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley zip file
+apt-get install eyeD3 atomicparsley curl zip file
 ```
 
 Run ./_install/setup.sh to see if you missed any installs. It will also create the Config class, create a database, and install the necessary tables for you.
