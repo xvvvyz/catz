@@ -13,7 +13,7 @@ git clone https://github.com/omgcatz/omgcatz /path/to/server/
 Install all of the things.
 
 ```bash
-# apt-get
+# Debian
 apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley zip file
 ```
 
