@@ -512,7 +512,6 @@ function Slave() {
         mix_slug: mixSlug,
         itunes_compilation: null,
         recursive: recursive,
-        img_ext: "jpg",
         download_id: downloadId
       },
       success: function (data) {
