@@ -295,7 +295,7 @@ function Fetch() {
             }
           } else {
             PROGRESS.done();
-            MESSAGE.show("That's all we could find. Click <a onclick='javascript:PURGE.eightTracks();'>here</a> to refetch the playlist...");
+            MESSAGE.show("That's all we could find.");
           }
         } else if (error == 403) {
           if (previousError != 403) {
@@ -419,15 +419,6 @@ function Fetch() {
 
   this.domain = function() {
     return domain;
-  }
-
-}
-
-
-function Purge() {
-
-  this.eightTracks = function() {
-    console.log("purging" + mixId + "!!!");
   }
 
 }
@@ -642,7 +633,6 @@ var UI = new UserInterface(),
   MODAL = new Modal(),
   CHECK_BOXES = new Checkboxes(),
   FETCH,
-  PURGE = new Purge(),
   SLAVE = new Slave();
   RESULTS = new Results(),
 
