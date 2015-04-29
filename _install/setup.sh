@@ -31,7 +31,7 @@ if [ "$HAS_SLAVES" == "y" ]; then
 		SERVERS="$SERVERS\"$SERVER\","
 	done
 
-	SLAVES="\$slaves = array($SERVERS);"
+	SLAVES="public static \$slaves = array($SERVERS);"
 else
 	if [ ! -d "../api/stuff/download" ]; then
 		echo
@@ -42,7 +42,7 @@ else
 fi
 
 # Create DatabaseCredentials class.
-echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\",$SLAVES }" > ../api/include/Config.php
+echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\";$SLAVES }" > ../api/include/Config.php
 
 # Optionally create database.
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER
