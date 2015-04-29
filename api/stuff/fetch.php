@@ -11,8 +11,8 @@ switch ($host) {
   case "8tracks.com":
     require "stuff/fetch/EightTracks.php";
 
-    $mixId = (isset($_POST["mixId"]) ? $_POST["mixId"] : false);
-    $trackNumber = (isset($_POST["trackNumber"]) ? $_POST["trackNumber"] : 0);
+    $mixId = (isset($_POST["mix_id"]) ? $_POST["mix_id"] : false);
+    $trackNumber = (isset($_POST["track_number"]) ? $_POST["track_number"] : 0);
 
     $please = new EightTracks($output);
     $please->get($url, $mixId, $trackNumber);
@@ -21,8 +21,8 @@ switch ($host) {
   case "songza.com":
     require "stuff/fetch/Songza.php";
 
-    $stationId = (isset($_POST["stationId"]) ? $_POST["stationId"] : false);
-    $sessionId = (isset($_POST["sessionId"]) ? $_POST["sessionId"] : false);
+    $stationId = (isset($_POST["station_id"]) ? $_POST["station_id"] : false);
+    $sessionId = (isset($_POST["session_id"]) ? $_POST["session_id"] : false);
 
     $please = new Songza($output);
     $please->get($url, $stationId, $sessionId);
