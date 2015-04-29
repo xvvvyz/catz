@@ -26,7 +26,7 @@ echo -en "\n8tracks API key: "; read EIGHT_API_KEY
 echo -en "\nAre you going to use slave servers? [y/n]: "; read HAS_SLAVES
 if [ "$HAS_SLAVES" == "y" ]; then
 	while :; do
-		echo -en "Slave root (e.g. http://s1.omgcatz.com/): "; read SERVER
+		echo -en "Slave root (e.g. http://s1.catz.io/): "; read SERVER
 		[ -z "$SERVER" ] && break
 		SERVERS="$SERVERS\"$SERVER\","
 	done
