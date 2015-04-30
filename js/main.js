@@ -195,7 +195,7 @@ function Fetch() {
 
 
   this.getDomain = function() { return domain; }
-  this.getmixSlug = function() { return mixSlug; }
+  this.getMixSlug = function() { return mixSlug; }
   this.getMixId = function() { return mixId; }
   this.getMixArtwork = function() { return mixArtwork; }
   this.getTrackCount = function() { return trackCount; }
