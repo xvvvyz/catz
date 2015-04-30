@@ -64,4 +64,17 @@ class Curl {
     return $results;
   }
 
+  /**
+   * Return results of a local script as if it was posted to.
+   * @param string $dirPath
+   * @param string $script
+   * @return string
+   */
+  function localPost($dirPath, $script) {
+    chdir($dirPath);
+    ob_start();
+    require $script;
+    return ob_get_clean();
+  }
+
 }

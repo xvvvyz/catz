@@ -1,6 +1,6 @@
 <?php
 
-include "include/Output.php";
+require_once "include/Output.php";
 
 $debugging = (isset($debugging) ? $debugging : false);
 $dataType = (isset($_POST["datatype"]) ? $_POST["datatype"] : "json");
@@ -30,11 +30,12 @@ if (isset($_POST["what"])) {
   switch ($what) {
     case "archive":
     case "download":
-      include "stuff/route.php";
+      $script = $what.".php";
+      require "stuff/delegate.php";
       break;
 
     case "fetch":
-      include "stuff/fetch.php";
+      require "stuff/fetch.php";
       break;
 
     default:
