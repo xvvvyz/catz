@@ -32,8 +32,6 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
-* look into downloading huge mixes
-* add any apache/php/mysql changes to readme
 * songza support
 * reset playlist when trackcount changes
 * add soundcloud
