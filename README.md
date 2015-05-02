@@ -32,10 +32,11 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
-* songza support
+* round robin slave servers
+* mark mix as done when done
 * reset playlist when trackcount changes
-* add soundcloud
-* make downloaded playlists page
-* add youtube-dl support
+* songza support
+* soundcloud support
+* youtube-dl support
 * fix unicode character support with tagging
-* mark mix as done when done (even if total tracks don't match)
+* make downloaded playlists page
