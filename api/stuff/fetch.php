@@ -1,8 +1,7 @@
 <?php
 
-$url = (isset($_POST["url"]) ? $_POST["url"] : "cat");
-
-if ($url) {
+if (isset($_POST["url"])) {
+  $url = $_POST["url"];
   $subdomains = array("m.", "www.", "mobile.");
   $host = str_ireplace($subdomains, "", parse_url($url, PHP_URL_HOST));
 }
