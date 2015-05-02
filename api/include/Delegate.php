@@ -20,6 +20,7 @@ class Delegate {
       array("%d")
     );
 
+    $mixSlave = $mixSlave + array(null);
     $slaveId = $mixSlave[0]["slaveId"];
 
     if (!empty($slaveId)) {
@@ -36,19 +37,31 @@ class Delegate {
   }
 
   private function getNewServer() {
-    // TODO: currently we are selecting a random slave, this should be a fancy algorithm.
+    // Shitty load balancing.
 
-    $slave = $this->db->query("SELECT slaveId,slaveRoot FROM `slaves` ORDER BY RAND() LIMIT 1");
+    $slaves = $this->db->query("SELECT * FROM `slaves` WHERE `load`=0");
+
+    if (empty($slaves[0]["slaveId"])) {
+      $this->db->simpleQuery("UPDATE `slaves` SET `load`=0");
+      $slave = $this->db->query("SELECT * FROM `slaves` ORDER BY RAND() LIMIT 1");
+      $slave = $slave[0];
+    } else {
+      $slave = $slaves[array_rand($slaves)];
+    }
+
+    $slaveId = $slave["slaveId"];
+
+    $this->db->simpleQuery("UPDATE `slaves` SET `load`=1 WHERE `slaveId`={$slaveId}");
 
     $this->db->update(
       $this->table,
-      array("slaveId" => $slave[0]["slaveId"]),
+      array("slaveId" => $slaveId),
       array("%d"),
       array("mixId" => $this->mixId),
       array("%d")
     );
 
-    return $slave[0]["slaveRoot"];
+    return $slave["slaveRoot"];
   }
 
   function usingSlaves() {
@@ -57,7 +70,7 @@ class Delegate {
 
   function verifyServer($server) {
     $slave = $this->db->select(
-      "SELECT slaveId FROM `slaves` WHERE slaveRoot=? LIMIT 1",
+      "SELECT slaveId FROM slaves WHERE slaveRoot=? LIMIT 1",
       array($server),
       array("%s")
     );
