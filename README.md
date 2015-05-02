@@ -32,7 +32,6 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
-* round robin slave servers
 * mark mix as done when done
 * reset playlist when trackcount changes
 * songza support
