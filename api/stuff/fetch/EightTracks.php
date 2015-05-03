@@ -35,6 +35,25 @@ class EightTracks {
     return $response["play_token"];
   }
 
+  private function removeMixInfoDb() {
+    $this->db->simpleQuery("delete from `8tracks_playlists` where `mixId`={$this->mixId}");
+    $this->db->simpleQuery("delete from `8tracks_playlists_songs` where `mixId`={$this->mixId}");
+  }
+
+  private function updateMixInfoDb() {
+      $this->playToken = $this->getPlayToken();
+
+      $this->db->insert(
+        "8tracks_playlists",
+        array(
+          "mixId" => $this->mixId,
+          "totalTracks" => $this->totalTracks,
+          "playToken" => $this->playToken
+        ),
+        array("%d", "%d", "%s")
+      );
+  }
+
   /**
    * Get mix info from URL and put it into the database.
    */
@@ -80,22 +99,15 @@ class EightTracks {
     if (empty($mix)) {
       // If it doesn't exist, create a play token and add the new info.
 
-      $this->playToken = $this->getPlayToken();
-
-      $this->db->insert(
-        "8tracks_playlists",
-        array(
-          "mixId" => $this->mixId,
-          "totalTracks" => $this->totalTracks,
-          "playToken" => $this->playToken
-        ),
-        array("%d", "%d", "%s")
-      );
+      $this->updateMixInfoDb();
     } else {
       // If it does, make sure nothing has changed.
 
       if ($mix[0]["totalTracks"] != $this->totalTracks) {
-        // TODO: if total tracks differ, reset mix and all songs.
+        // If things have changed, wipe the playlist.
+
+        $this->removeMixInfoDb();
+        $this->updateMixInfoDb();
       }
     }
   }
