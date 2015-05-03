@@ -32,7 +32,6 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
-* fix tagging only some tags
 * songza support
 * soundcloud support
 * youtube-dl support
