@@ -399,9 +399,6 @@ function Fetch() {
       case "8tracks.com":
         FETCH.eightTracks();
         break;
-      case "songza.com":
-        FETCH.songza();
-        break;
       default:
         FETCH.cat(original);
     }
