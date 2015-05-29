@@ -32,9 +32,11 @@ Here are a couple (optional) crontabs to delete older downloads.
 Things to be Done
 -----------------
 
+* optimize mysql select where statements
 * songza support
 * soundcloud support
 * youtube-dl support
 * mark mix as done when done
 * fix unicode character support with tagging
 * make downloaded playlists page
+* fancy slave server selection
