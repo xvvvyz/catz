@@ -39,5 +39,6 @@ PRIMARY KEY (`songId`(255))
 $db->simpleQuery("CREATE TABLE `8tracks_playlists_songs` (
 `mixId` tinyblob NOT NULL,
 `songId` int(11) NOT NULL,
-`trackNumber` tinyblob NOT NULL
+`trackNumber` tinyblob NOT NULL,
+KEY `songId` (`songId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
