@@ -5,23 +5,23 @@ require_once "include/Curl.php";
 
 class EightTracks {
 
-  // Mix info.
+  // Mix info
   private $mixId;
   private $playToken;
   private $totalTracks;
   private $trackNumber;
 
-  // Output array.
+  // Output array
   private $outputArray = array();
 
-  // Output object.
+  // Output object
   private $output;
 
-  // Database object.
+  // Database object
   private $db;
 
   /**
-   * Constructor.
+   * Constructor
    * @param object $output
    */
   public function __construct($output) {
@@ -55,12 +55,12 @@ class EightTracks {
   }
 
   /**
-   * Get mix info from URL and put it into the database.
+   * Get mix info from URL and put it into the database
    */
   private function updateMixInfo($url) {
     $curl = new Curl();
 
-    // Get fresh mix info.
+    // Get fresh mix info
     $response = $curl->getArray($url.".jsonp?api_key=".Config::$eightTracksApiKey."&api_version=3");
 
     if ($response["errors"]) {
@@ -74,7 +74,7 @@ class EightTracks {
       $this->output->error("Invalid URL: ".$url);
     }
 
-    // Add info to $outputArray.
+    // Add info to $outputArray
     $this->outputArray["mix"] = array(
       "id"=>$this->mixId,
       "slug"=>basename($response["mix"]["web_path"]),
@@ -89,7 +89,7 @@ class EightTracks {
       "duration"=>$response["mix"]["duration"]
     );
 
-    // Get old info from database if it exists.
+    // Get old info from database if it exists
     $mix = $this->db->select(
       "SELECT totalTracks FROM 8tracks_playlists WHERE mixId=? LIMIT 1",
       array($this->mixId),
@@ -97,14 +97,14 @@ class EightTracks {
     );
 
     if (empty($mix)) {
-      // If it doesn't exist, create a play token and add the new info.
+      // If it doesn't exist, create a play token and add the new info
 
       $this->updateMixInfoDb();
     } else {
-      // If it does, make sure nothing has changed.
+      // If it does, make sure nothing has changed
 
       if ($mix[0]["totalTracks"] != $this->totalTracks) {
-        // If things have changed, wipe the playlist.
+        // If things have changed, wipe the playlist
 
         $this->removeMixInfoDb();
         $this->updateMixInfoDb();
@@ -113,7 +113,7 @@ class EightTracks {
   }
 
   /**
-   * Get existing songs from database.
+   * Get existing songs from database
    * @return boolean
    */
   private function getSongsFromDb() {
@@ -143,7 +143,7 @@ class EightTracks {
   }
 
   /**
-   * Get the next song in the playlist.
+   * Get the next song in the playlist
    */
   private function nextSong() {
     $retries = 0;
@@ -217,7 +217,7 @@ class EightTracks {
   }
 
   /**
-   * Get the playlist.
+   * Get the playlist
    * @param string $url
    * @param string $mixId
    * @param int $trackNumber
@@ -228,7 +228,7 @@ class EightTracks {
     $this->mixId = $mixId;
     $this->trackNumber = $trackNumber;
 
-    // If no $mixId then fetch $mixId and $totalTracks.
+    // If no $mixId then fetch $mixId and $totalTracks
     if (empty($mixId)) {
       $this->updateMixInfo($url);
     }
@@ -240,12 +240,12 @@ class EightTracks {
     );
 
     if (empty($songs)) {
-      // If there aren't any songs in the database.
+      // If there aren't any songs in the database
 
       $this->nextSong();
       $this->getSongsFromDb();
     } else if ($this->getSongsFromDb()) {
-      // If mix is in database and we need a new song.
+      // If mix is in database and we need a new song
 
       $mix = $this->db->select(
         "SELECT playToken FROM 8tracks_playlists WHERE mixId=?",
