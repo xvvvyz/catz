@@ -18,27 +18,27 @@ PRIMARY KEY (`slaveId`)
 // 8tracks tables.
 
 $db->simpleQuery("CREATE TABLE `8tracks_playlists` (
-`mixId` tinyblob NOT NULL,
+`mixId` int(11) NOT NULL,
 `totalTracks` int(11) NOT NULL,
 `playToken` int(11) DEFAULT NULL,
 `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 `slaveId` int(11) DEFAULT NULL,
-PRIMARY KEY (`mixId`(255))
+PRIMARY KEY (`mixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 $db->simpleQuery("CREATE TABLE `8tracks_songs` (
-`songId` tinyblob NOT NULL,
+`songId` int(11) NOT NULL,
 `title` tinyblob NOT NULL,
 `artist` tinyblob,
 `album` tinyblob,
 `duration` int(11) NOT NULL,
 `songUrl` varchar(2083) NOT NULL DEFAULT '',
-PRIMARY KEY (`songId`(255))
+PRIMARY KEY (`songId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 $db->simpleQuery("CREATE TABLE `8tracks_playlists_songs` (
-`mixId` tinyblob NOT NULL,
+`mixId` int(11) NOT NULL,
 `songId` int(11) NOT NULL,
-`trackNumber` tinyblob NOT NULL,
-KEY `songId` (`songId`)
+`trackNumber` int(11) NOT NULL,
+KEY `mixId` (`mixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
