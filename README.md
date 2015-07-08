@@ -35,6 +35,7 @@ Things to be Done
 * fix character issues when downloading
 * fix mixes that don't show all songs
 * songza support
+* refactor code
 * soundcloud support
 * youtube-dl support
 * mark mix as done when done
