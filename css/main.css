@@ -30,13 +30,8 @@ a:hover{cursor:pointer}
 #progress-bar{width:100%;height:10px;background-color:rgba(25,25,25,0.5)}
 #progress{background-color:#fff;width:0%;height:100%}
 
-#money-wrapper{position:absolute;top:10px;left:50%;width:728px;height:90px;margin-left:-364px;background-color:rgba(25,25,25,0.9)}
-#money-wrapper h4{color:#2B9664;margin:20px;line-height:25px}
-#money-wrapper a:hover{text-decoration:underline}
-#money{display:block;position:absolute;top:0;left:0;width:728px;height:90px;background-color:#2B2B2B}
-
 #god-wrapper{margin:auto;max-width:900px}
-#main{width:100%;margin:110px 0 60px 0}
+#main{width:100%;margin:10px 0 60px 0}
 #main-form{height:3em}
 #main-text,#main-button{float:left;height:3em;border:0;border-radius:0;margin:0;padding:0 1em;box-sizing:border-box}
 #main-text{width:75%;text-align:center}
@@ -97,7 +92,7 @@ a:hover{cursor:pointer}
   #progress-bar{height:20px}
 
   #money-wrapper{display:none}
-  
+
   #main{width:100%;margin:0 0 40px 0}
   #main-text,#main-button,#main-form{height:4em}
 
