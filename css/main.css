@@ -91,8 +91,6 @@ a:hover{cursor:pointer}
 @media only screen and (max-width:728px) {
   #progress-bar{height:20px}
 
-  #money-wrapper{display:none}
-
   #main{width:100%;margin:0 0 40px 0}
   #main-text,#main-button,#main-form{height:4em}
 
