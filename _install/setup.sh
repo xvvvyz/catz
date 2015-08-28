@@ -23,26 +23,26 @@ echo -en "MySQL db name (omgcatz): "; read DB_NAME
 DB_NAME=${DB_NAME:-omgcatz}
 echo -en "\n8tracks API key: "; read EIGHT_API_KEY
 
-echo -en "\nAre you going to use slave servers? [y/n]: "; read HAS_SLAVES
-if [ "$HAS_SLAVES" == "y" ]; then
+echo -en "\nAre you going to use minion servers? [y/n]: "; read HAS_minionS
+if [ "$HAS_minionS" == "y" ]; then
 	while :; do
-		echo -en "Slave root (e.g. http://s1.catz.io/): "; read SERVER
+		echo -en "minion root (e.g. http://s1.catz.io/): "; read SERVER
 		[ -z "$SERVER" ] && break
 		SERVERS="$SERVERS\"$SERVER\","
 	done
 
-	SLAVES="public static \$slaves = array($SERVERS);"
+	minionS="public static \$minions = array($SERVERS);"
 else
 	if [ ! -d "../api/stuff/download" ]; then
 		echo
-		git clone "https://github.com/omgcatz/omgcatz-slave/" "../api/stuff/download"
+		git clone "https://github.com/cadejscroggins/omgcatz-minion/" "../api/stuff/download"
 		echo -e "\nRunning api/download/_install/setup.sh..."
 		../api/stuff/download/_install/setup.sh
 	fi
 fi
 
 # Create DatabaseCredentials class.
-echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\";$SLAVES }" > ../api/include/Config.php
+echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\",\$eightTracksApiKey=\"$EIGHT_API_KEY\";$minionS }" > ../api/include/Config.php
 
 # Optionally create database.
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER
@@ -57,8 +57,8 @@ if [ "$ANSWER" == "y" ]; then
 	echo -en "Creating tables..."
 	php ./create-tables.php && success || failure
 
-	if [ "$HAS_SLAVES" == "y" ]; then
-		echo -en "Adding slave servers..."
-		php ./install-slaves.php && success || failure
+	if [ "$HAS_minionS" == "y" ]; then
+		echo -en "Adding minion servers..."
+		php ./install-minions.php && success || failure
 	fi
 fi

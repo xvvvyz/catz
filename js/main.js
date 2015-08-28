@@ -215,7 +215,7 @@ function Fetch() {
 
     PROGRESS_BAR.init();
     TIMER.clear();
-    SLAVE.init();
+    MINION.init();
     UI.enableElement(".option");
   }
 
@@ -275,7 +275,7 @@ function Fetch() {
               trackCount++;
               var songDuration = parseInt(data["songs"][i]["duration"]);
 
-              RESULTS.append('<tr class="songs row-' + trackCount + '" id="row-' + trackCount + '"><td class="right">' + trackCount + '</td><td id="song-title-' + trackCount + '" class="left">' + data["songs"][i]["title"] + '</td><td id="song-artist-' + trackCount + '" class="left song-artists">' + data["songs"][i]["artist"] + '</td><td id="song-album-' + trackCount + '" class="left song-albums">' + mixName + '</td><td><a id="song-url-' + trackCount + '" href="' + data["songs"][i]["songUrl"] + '"></a><a id="song-id-' + trackCount + '" href="' + data["songs"][i]["songId"] + '"></a><input id="download-submit-' + trackCount + '" class="download-buttons" type="button" onclick="SLAVE.download(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected-downloads" id="selected-download-' + trackCount + '"><div id="down-loader-' + trackCount + '" class="down-loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed-' + trackCount + '" class="completed"></span></td></tr>');
+              RESULTS.append('<tr class="songs row-' + trackCount + '" id="row-' + trackCount + '"><td class="right">' + trackCount + '</td><td id="song-title-' + trackCount + '" class="left">' + data["songs"][i]["title"] + '</td><td id="song-artist-' + trackCount + '" class="left song-artists">' + data["songs"][i]["artist"] + '</td><td id="song-album-' + trackCount + '" class="left song-albums">' + mixName + '</td><td><a id="song-url-' + trackCount + '" href="' + data["songs"][i]["songUrl"] + '"></a><a id="song-id-' + trackCount + '" href="' + data["songs"][i]["songId"] + '"></a><input id="download-submit-' + trackCount + '" class="download-buttons" type="button" onclick="MINION.download(' + trackCount + ');" value="Download"><span id="status' + trackCount + '"></span></td><td><input type="checkbox" class="selected-downloads" id="selected-download-' + trackCount + '"><div id="down-loader-' + trackCount + '" class="down-loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed-' + trackCount + '" class="completed"></span></td></tr>');
             }
 
             if (trackCount >= totalTracks) {
@@ -321,7 +321,7 @@ function Fetch() {
 
   this.songza = function() {
     UI.disableElement("#tag-num");
-    
+
     $.ajax({
       type: "POST",
       url: "api/do.php",
@@ -349,7 +349,7 @@ function Fetch() {
             var smallCoverUrl = data["song"]["coverUrls"]["small"];
             var bigCoverUrl = data["song"]["coverUrls"]["large"];
 
-            RESULTS.append('<tr class="songs row-' + trackCount + '" id="row-' + trackCount + '"><td class="song-img-url"><a id="song-artwork-' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song-title-' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song-artist-' + trackCount + '" class="left song-artists">' + data["song"]["artist"] + '</td><td id="song-album-' + trackCount + '" class="left song-albums">' + data["song"]["album"] + '</td><td><a id="song-url-' + trackCount + '" href="' + data["song"]["url"] + '"></a><a id="song-id-' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download-submit-' + trackCount + '" class="download-buttons" type="button" onclick="SLAVE.download(' + trackCount + ');" value="Download"><span id="status-' + trackCount + '"></span></td><td><input type="checkbox" class="selected-downloads" id="selected-download-' + trackCount + '"><div id="down-loader-' + trackCount + '" class="down-loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed-' + trackCount + '" class="completed"></span></td></tr>');
+            RESULTS.append('<tr class="songs row-' + trackCount + '" id="row-' + trackCount + '"><td class="song-img-url"><a id="song-artwork-' + trackCount + '" target="_blank" href="' + bigCoverUrl + '"><img width="75" height="75" src="' + smallCoverUrl + '"></a></td><td id="song-title-' + trackCount + '" class="left">' + data["song"]["title"] + '</td><td id="song-artist-' + trackCount + '" class="left song-artists">' + data["song"]["artist"] + '</td><td id="song-album-' + trackCount + '" class="left song-albums">' + data["song"]["album"] + '</td><td><a id="song-url-' + trackCount + '" href="' + data["song"]["url"] + '"></a><a id="song-id-' + trackCount + '" href="' + data["song"]["id"] + '"></a><input id="download-submit-' + trackCount + '" class="download-buttons" type="button" onclick="MINION.download(' + trackCount + ');" value="Download"><span id="status-' + trackCount + '"></span></td><td><input type="checkbox" class="selected-downloads" id="selected-download-' + trackCount + '"><div id="down-loader-' + trackCount + '" class="down-loaders"><img width="20" height="20" src="/img/download.gif" alt=""/></div><span id="completed-' + trackCount + '" class="completed"></span></td></tr>');
 
             var percentage = Math.floor((trackCount + 1) / totalTracks * 100);
             var speed = SONGZA_FETCH_PADDING * 1000;
@@ -407,7 +407,7 @@ function Fetch() {
 }
 
 
-function Slave() {
+function Minion() {
 
   var downloadCount;
   var recursiveDownloadCount;
@@ -435,7 +435,7 @@ function Slave() {
 
   this.download = function(position, recursive, downloadId) {
     recursive = typeof recursive !== "undefined" ? recursive : null;
-    downloadId = typeof downloadId !== "undefined" ? downloadId : SLAVE.downloadId();
+    downloadId = typeof downloadId !== "undefined" ? downloadId : MINION.downloadId();
 
     var mixId = FETCH.getMixId();
     var mixSlug = FETCH.getMixSlug();
@@ -446,9 +446,9 @@ function Slave() {
         var checked = $("#selected-download-" + position).prop("checked");
         if (checked) break;
       }
-      
+
       if (!checked) {
-        SLAVE.archive(downloadId, mixSlug);
+        MINION.archive(downloadId, mixSlug);
 
         recursiveDownloadCount = 0;
         $(".download-buttons").removeAttr("disabled");
@@ -464,7 +464,7 @@ function Slave() {
     var songAlbum = $("#tag-album").prop("checked") ? $("#song-album-" + position).html() : null;
     var songUrl = $("#song-url-" + position).attr("href");
     var songNumber = $("#tag-num").prop("checked") ? position : null;
-    
+
     $(".download-buttons").attr("disabled", "disabled");
     $("#selected-download-" + position).hide();
     $("#selected-download-" + position).prop("checked", false);
@@ -515,11 +515,11 @@ function Slave() {
 
             $("#completed-" + position).html("cached");
 
-            SLAVE.download(position, recursive, downloadId);
+            MINION.download(position, recursive, downloadId);
           } else {
             downloadCount++;
 
-            SLAVE.clientDownload(server, data["path"], data["save"]);
+            MINION.clientDownload(server, data["path"], data["save"]);
 
             $(".download-buttons").removeAttr("disabled");
             $("#main-button").removeAttr("disabled");
@@ -573,7 +573,7 @@ function Slave() {
         var path = "archives" + "/" + mixSlug + "/" + downloadId + "/" + mixSlug + ".zip";
         var fileName = mixSlug + ".zip";
 
-        SLAVE.clientDownload(server, path, fileName);
+        MINION.clientDownload(server, path, fileName);
       },
       error: function(jqXHR, textStatus) {
         $(".completed").each(function() {
@@ -621,7 +621,7 @@ const NORMAL = 300;
 const SLOW   = 400;
 const SLOWER = 500;
 
-const EIGHT_TRACKS_RESULTS_HEADER = '<tr id="table-title-row"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download-buttons" type="button" onclick="SLAVE.download(1, 1);" value="Download Selected"></th><th><input type="checkbox" class="selected-downloads" id="select-downloads" onclick="CHECKBOXES.toggleAll();"></th></tr>';
+const EIGHT_TRACKS_RESULTS_HEADER = '<tr id="table-title-row"><th></th><th class="left">Title</th><th class="left">Artist</th><th class="left">Album</th><th><input class="download-buttons" type="button" onclick="MINION.download(1, 1);" value="Download Selected"></th><th><input type="checkbox" class="selected-downloads" id="select-downloads" onclick="CHECKBOXES.toggleAll();"></th></tr>';
 const SONGZA_RESULTS_HEADER = EIGHT_TRACKS_RESULTS_HEADER;
 
 const EIGHT_TRACKS_FETCH_PADDING = 7;
@@ -634,7 +634,7 @@ const MODAL        = new Modal();
 const CHECKBOXES   = new Checkboxes();
 const TIMER        = new Timer();
 const FETCH        = new Fetch();
-const SLAVE        = new Slave();
+const MINION       = new Minion();
 const RESULTS      = new Results();
 
 

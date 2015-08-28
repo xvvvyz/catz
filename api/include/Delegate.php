@@ -14,23 +14,23 @@ class Delegate {
   }
 
   private function getOldServer() {
-    $mixSlave = $this->db->select(
-      "SELECT slaveId FROM {$this->table} WHERE mixId=? LIMIT 1",
+    $mixminion = $this->db->select(
+      "SELECT minionId FROM {$this->table} WHERE mixId=? LIMIT 1",
       array($this->mixId),
       array("%d")
     );
 
-    $mixSlave = $mixSlave + array(null);
-    $slaveId = $mixSlave[0]["slaveId"];
+    $mixminion = $mixminion + array(null);
+    $minionId = $mixminion[0]["minionId"];
 
-    if (!empty($slaveId)) {
-      $slave = $this->db->select(
-        "SELECT slaveRoot FROM slaves WHERE slaveId=?",
-        array($slaveId),
+    if (!empty($minionId)) {
+      $minion = $this->db->select(
+        "SELECT minionRoot FROM minions WHERE minionId=?",
+        array($minionId),
         array("%d")
       );
 
-      return $slave[0]["slaveRoot"];
+      return $minion[0]["minionRoot"];
     } else {
       return false;
     }
@@ -39,43 +39,43 @@ class Delegate {
   private function getNewServer() {
     // Shitty load balancing.
 
-    $slaves = $this->db->query("SELECT * FROM `slaves` WHERE `load`=0");
+    $minions = $this->db->query("SELECT * FROM `minions` WHERE `load`=0");
 
-    if (empty($slaves[0]["slaveId"])) {
-      $this->db->simpleQuery("UPDATE `slaves` SET `load`=0");
-      $slave = $this->db->query("SELECT * FROM `slaves` ORDER BY RAND() LIMIT 1");
-      $slave = $slave[0];
+    if (empty($minions[0]["minionId"])) {
+      $this->db->simpleQuery("UPDATE `minions` SET `load`=0");
+      $minion = $this->db->query("SELECT * FROM `minions` ORDER BY RAND() LIMIT 1");
+      $minion = $minion[0];
     } else {
-      $slave = $slaves[array_rand($slaves)];
+      $minion = $minions[array_rand($minions)];
     }
 
-    $slaveId = $slave["slaveId"];
+    $minionId = $minion["minionId"];
 
-    $this->db->simpleQuery("UPDATE `slaves` SET `load`=1 WHERE `slaveId`={$slaveId}");
+    $this->db->simpleQuery("UPDATE `minions` SET `load`=1 WHERE `minionId`={$minionId}");
 
     $this->db->update(
       $this->table,
-      array("slaveId" => $slaveId),
+      array("minionId" => $minionId),
       array("%d"),
       array("mixId" => $this->mixId),
       array("%d")
     );
 
-    return $slave["slaveRoot"];
+    return $minion["minionRoot"];
   }
 
-  function usingSlaves() {
-    return (!empty(Config::$slaves));
+  function usingminions() {
+    return (!empty(Config::$minions));
   }
 
   function verifyServer($server) {
-    $slave = $this->db->select(
-      "SELECT slaveId FROM slaves WHERE slaveRoot=? LIMIT 1",
+    $minion = $this->db->select(
+      "SELECT minionId FROM minions WHERE minionRoot=? LIMIT 1",
       array($server),
       array("%s")
     );
 
-    return (!empty($slave[0]["slaveId"]));
+    return (!empty($minion[0]["minionId"]));
   }
 
   function getServer($mixId, $table) {

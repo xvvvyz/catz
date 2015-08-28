@@ -6,8 +6,8 @@ include "../api/include/Database.php";
 
 $db = new Database();
 
-$db->simpleQuery("TRUNCATE TABLE slaves");
+$db->simpleQuery("TRUNCATE TABLE minions");
 
-foreach (Config::$slaves as $slave) {
-  $db->simpleQuery("INSERT INTO slaves (`slaveRoot`,`load`) VALUES ('{$slave}',0)");
+foreach (Config::$minions as $minion) {
+  $db->simpleQuery("INSERT INTO minions (`minionRoot`,`load`) VALUES ('{$minion}',0)");
 }

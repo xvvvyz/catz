@@ -6,13 +6,13 @@ include "../api/include/Database.php";
 
 $db = new Database();
 
-// Slaves tables.
+// Minion tables.
 
-$db->simpleQuery("CREATE TABLE `slaves` (
-`slaveId` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`slaveRoot` tinyblob NOT NULL,
+$db->simpleQuery("CREATE TABLE `minions` (
+`minionId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`minionRoot` tinyblob NOT NULL,
 `load` int(11) NOT NULL,
-PRIMARY KEY (`slaveId`)
+PRIMARY KEY (`minionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;");
 
 // 8tracks tables.
@@ -22,7 +22,7 @@ $db->simpleQuery("CREATE TABLE `8tracks_playlists` (
 `totalTracks` int(11) NOT NULL,
 `playToken` int(11) DEFAULT NULL,
 `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-`slaveId` int(11) DEFAULT NULL,
+`minionId` int(11) DEFAULT NULL,
 PRIMARY KEY (`mixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 

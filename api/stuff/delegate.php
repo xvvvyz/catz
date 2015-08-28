@@ -6,7 +6,7 @@ require_once "include/Curl.php";
 $delegate = new Delegate();
 $curl = new Curl();
 
-if ($delegate->usingSlaves()) {
+if ($delegate->usingminions()) {
   if (empty($_POST["server"])) {
     if (!empty($_POST["mix_id"])) {
       $mixId = $_POST["mix_id"];
