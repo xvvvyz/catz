@@ -1,46 +1,40 @@
-Catz
-====
+# omgcatz
 
-IMPORTANT: If you don't want to set up a server, there is an alternative site here: http://re-track.com
+## about
 
-Setup Guide
-----------------
+First and foremost, the goal of this site is to provide the user with an abundance of feline imagery. Which it currently isn't very good at. However, it is capable of downloading music and other media from the interwebz that is otherwise hard to acquire.
 
-Clone the repo into a place that serves HTTP requests.
+### supported sites
 
-```bash
-git clone https://github.com/omgcatz/omgcatz /path/to/server/
-```
+* [8tracks.com](https://8tracks.com/)
+* [songza.com](https://songza.com/) (coming soon maybe!)
 
-Install all of the things.
+## developer setup
 
-```bash
-# Debian
-apt-get install apache2 mysql-server php5 php5-mysql php5-curl curl eyeD3 atomicparsley imagemagick zip file
-```
+### prerequisites
 
-Run ./_install/setup.sh to see if you missed any installs. It will also create the Config class, create a database, and install the necessary tables for you.
+1. [VirtualBox](https://www.virtualbox.org/)
+2. [Vagrant](https://www.vagrantup.com/)
 
-Here are a couple (optional) crontabs to delete older downloads.
+### install necessary vagrant plugins
 
 ```bash
-# Remove songs that are older than 200 minutes every 5 minutes.
-*/5 * * * * find /path/to/songs -type f -mmin +200 -delete
-
-# Remove archives and artwork that are older than 45 minutes every 5 minutes.
-*/5 * * * * find /path/to/{archives,artwork} -type f -mmin +45 -delete
+vagrant plugin install vagrant-vbguest
 ```
 
-Things to be Done
------------------
+### get the omgcatz stuff
 
-* fix character issues when downloading
-* fix mixes that don't show all songs
-* songza support
-* refactor code
-* soundcloud support
-* youtube-dl support
-* mark mix as done when done
-* fix unicode character support with tagging
-* make downloaded playlists page
-* fancy slave server selection
+```bash
+git clone https://github.com/cadejscroggins/omgcatz
+cd omgcatz
+```
+
+### initialize the virtual machine
+
+```bash
+vagrant up
+```
+
+### that's it!
+
+If you run into any issues, feel free to submit them on GitHub. On that note, if you want to contribute, pull requests are always welcome. (:
