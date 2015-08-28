@@ -1,6 +1,8 @@
 Catz
 ====
 
+IMPORTANT: If you don't want to set up a server, there is an alternative site here: http://re-track.com
+
 Setup Guide
 ----------------
 
