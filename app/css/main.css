@@ -4,7 +4,7 @@
 
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body{text-align:center;margin:0;background:url("/img/background.jpg") no-repeat center center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-color:#2D323E}
-footer,main{display:block}
+main{width:100%;margin:20px 0}
 img,div{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 
 button,input,select,textarea{color:inherit;font:inherit;margin:0}
@@ -31,7 +31,6 @@ a:hover{cursor:pointer}
 #progress{background-color:#fff;width:0%;height:100%}
 
 #god-wrapper{margin:auto;max-width:900px}
-main{width:100%;margin:20px 0}
 #main-form{height:3em}
 #main-text,#main-button{float:left;height:3em;border:0;border-radius:0;margin:0;padding:0 1em;box-sizing:border-box}
 #main-text{width:75%;text-align:center}
