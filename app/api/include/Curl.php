@@ -1,15 +1,24 @@
 <?php
 
+/**
+ * various methods for fetching remote html
+ */
 class Curl {
 
-  // PHP cURL object.
+  /**
+   * curl object
+   * @var object
+   */
   private $ch;
 
-  // Default user agent.
+  /**
+   * user agent used for spoofing real browser requests
+   * @var string
+   */
   private $defaultUa = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0";
 
   /**
-   * Return source from URL.
+   * return source from url
    * @param string $url
    * @param string $cookie
    * @return string
@@ -29,7 +38,7 @@ class Curl {
   }
 
   /**
-   * Return array from JSON URL.
+   * return array from json url
    * @param string $url
    * @param string $cookie
    * @return array
@@ -39,7 +48,7 @@ class Curl {
   }
 
   /**
-   * Return results of a POST request.
+   * return results of a post request
    * @param string $url
    * @param array $postData
    * @return string
@@ -48,10 +57,10 @@ class Curl {
     $payload = "";
 
     foreach($postData as $key=>$value) {
-      $payload .= $key.'='.urlencode($value).'&';
+      $payload .= $key."=".urlencode($value)."&";
     }
 
-    $payload = rtrim($payload, '&');
+    $payload = rtrim($payload, "&");
 
     $this->ch = curl_init($url);
 
@@ -65,7 +74,7 @@ class Curl {
   }
 
   /**
-   * Return results of a local script as if it was posted to.
+   * return results of a local script as if it was posted to
    * @param string $dirPath
    * @param string $script
    * @return string

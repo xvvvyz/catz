@@ -39,7 +39,7 @@ class EightTracks {
   }
 
   /**
-   * get mix info from URL and put it into the database
+   * get mix info from url and put it into the database
    */
   private function updateMixInfo($url) {
     $curl = new Curl();
@@ -195,6 +195,9 @@ class EightTracks {
 
   /**
    * get the playlist
+   * @param string $url
+   * @param string mixId
+   * @param integer $trackNumber
    */
   function get($url, $mixId, $trackNumber) {
     ignore_user_abort(true);

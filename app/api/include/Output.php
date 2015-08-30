@@ -1,12 +1,14 @@
 <?php
 
+/**
+ * for managing output formats
+ */
 abstract class Output {
 
-  // Output data.
   protected $data = array("error"=>0, "status"=>"OK.");
 
   /**
-   * Output text with newline.
+   * output text with newline
    * @param string $text
    */
   function text($text) {
@@ -14,9 +16,9 @@ abstract class Output {
   }
 
   /**
-   * Set error message and error.
+   * set error message and error number
    * @param string $message
-   * @param int $error
+   * @param integer $error
    */
   protected function setError($message, $error) {
     if ($error === NULL) {
@@ -28,18 +30,19 @@ abstract class Output {
   }
 
   /**
-   * Output error message and bail.
+   * output error and bail
    * @param string $message
+   * @param integer $error
    */
   abstract function error($message, $error = 1);
 
   /**
-   * Output success message.
+   * output success
    */
   abstract function success();
 
   /**
-   * Output success message and data.
+   * output success with data
    * @param array $data
    */
   abstract function successWithData($data);

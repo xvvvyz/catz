@@ -5,7 +5,7 @@ require_once "include/Output.php";
 $debugging = (isset($debugging) ? $debugging : false);
 $dataType = (isset($_POST["datatype"]) ? $_POST["datatype"] : "json");
 
-// Are we debugging?
+// are we debugging?
 if ($debugging) {
   ini_set("display_errors", "On");
   error_reporting(E_ALL | E_STRICT);
@@ -14,7 +14,7 @@ if ($debugging) {
   error_reporting(0);
 }
 
-// Set output type.
+// set output type
 switch ($dataType) {
   case "array":
     $output = new OutputArray();
@@ -24,7 +24,7 @@ switch ($dataType) {
     $output = new OutputJSON();
 }
 
-// Do what?
+// do what?
 if (isset($_POST["what"])) {
   $what = $_POST["what"];
   switch ($what) {

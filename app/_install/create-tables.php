@@ -6,7 +6,7 @@ include "../api/include/Database.php";
 
 $db = new Database();
 
-// Minion tables.
+// minion tables
 
 $db->simpleQuery("CREATE TABLE `minions` (
 `minionId` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -15,7 +15,7 @@ $db->simpleQuery("CREATE TABLE `minions` (
 PRIMARY KEY (`minionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;");
 
-// 8tracks tables.
+// 8tracks tables
 
 $db->simpleQuery("CREATE TABLE `8tracks_playlists` (
 `mixId` int(11) NOT NULL,

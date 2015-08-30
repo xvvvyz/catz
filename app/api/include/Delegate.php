@@ -2,17 +2,46 @@
 
 require_once "Database.php";
 
+/**
+ * manage minion download servers
+ */
 class Delegate {
 
+  /**
+   * we need this to make sure we use the same server every time for a given mix
+   * @var string
+   */
   private $mixId;
+
+  /**
+   * where are we looking?
+   * @var string
+   */
   private $table;
 
+  /**
+   * db connection object
+   * @var object
+   */
   private $db;
 
   function __construct() {
     $this->db = new Database();
   }
 
+
+  /**
+   * determine if we are going to use minion servers
+   * @return boolean
+   */
+  function usingMinions() {
+    return (!empty(Config::$minions));
+  }
+
+  /**
+   * if a minion server is already set for a given mix, use that
+   * @return mixed
+   */
   private function getOldServer() {
     $mixminion = $this->db->select(
       "SELECT minionId FROM {$this->table} WHERE mixId=? LIMIT 1",
@@ -36,9 +65,12 @@ class Delegate {
     }
   }
 
+  /**
+   * figure out which minion server we are going to use for this mix
+   * @return string
+   * @todo actually have some kind of algorithm that selects the best server
+   */
   private function getNewServer() {
-    // Shitty load balancing.
-
     $minions = $this->db->query("SELECT * FROM `minions` WHERE `load`=0");
 
     if (empty($minions[0]["minionId"])) {
@@ -64,10 +96,11 @@ class Delegate {
     return $minion["minionRoot"];
   }
 
-  function usingminions() {
-    return (!empty(Config::$minions));
-  }
-
+  /**
+   * make sure the server exists before using it
+   * @param string $server
+   * @return boolean
+   */
   function verifyServer($server) {
     $minion = $this->db->select(
       "SELECT minionId FROM minions WHERE minionRoot=? LIMIT 1",
@@ -78,6 +111,12 @@ class Delegate {
     return (!empty($minion[0]["minionId"]));
   }
 
+  /**
+   * give em the server we are going to use
+   * @param string $mixId
+   * @param string $table
+   * @return string
+   */
   function getServer($mixId, $table) {
     $this->mixId = $mixId;
     $this->table = $table;

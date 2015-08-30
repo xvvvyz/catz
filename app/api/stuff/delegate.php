@@ -6,7 +6,7 @@ require_once "include/Curl.php";
 $delegate = new Delegate();
 $curl = new Curl();
 
-if ($delegate->usingminions()) {
+if ($delegate->usingMinions()) {
   if (empty($_POST["server"])) {
     if (!empty($_POST["mix_id"])) {
       $mixId = $_POST["mix_id"];
@@ -14,7 +14,7 @@ if ($delegate->usingminions()) {
       $output->error("mix_id is empty.");
     }
 
-    // TODO: need to set this dynamically for songza etc. support.
+    // TODO: need to set this dynamically for songza etc. support
     $table = "8tracks_playlists";
 
     $server = $delegate->getServer($mixId, $table);
