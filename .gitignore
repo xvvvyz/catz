@@ -8,3 +8,6 @@
 
 # backup
 *~
+
+# vagrant stuff
+.vagrant
