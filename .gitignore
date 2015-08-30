@@ -2,7 +2,7 @@
 .DS_Store
 
 # generated
-/api/stuff/download/
+/app/api/stuff/download/
 
 *Config.php
 

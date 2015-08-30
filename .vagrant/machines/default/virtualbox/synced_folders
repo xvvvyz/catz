@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/html":{"owner":"www-data","group":"www-data","guestpath":"/var/www/html","hostpath":"/Users/cade/Projects/omgcatz/app","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/cade/Projects/omgcatz","disabled":false}}}
