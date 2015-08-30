@@ -2,40 +2,40 @@
 
 First and foremost, the goal of this website is to provide the user with an abundance of feline imagery. Which it currently isn't very good at. However, it is capable of downloading and tagging music from the interwebz that is otherwise hard to acquire.
 
-#### Supported sites:
+**Supported sites:**
 
 * [8tracks.com](https://8tracks.com/)
 
-#### In development:
+**In development:**
 
 * [songza.com](https://songza.com/)
 
 ## Developer Setup
 
-#### Prerequisites:
+**Prerequisites:**
 
-1. [VirtualBox](https://www.virtualbox.org/)
-2. [Vagrant](https://www.vagrantup.com/)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/)
 
-#### Install necessary vagrant plugins:
+**Install necessary vagrant plugins:**
 
 ```bash
 vagrant plugin install vagrant-vbguest
 ```
 
-#### Get the omgcatz stuff:
+**Get the omgcatz stuff:**
 
 ```bash
 git clone https://github.com/cadejscroggins/omgcatz && cd omgcatz
 ```
 
-#### Initialize the virtual machine:
+**Initialize the virtual machine:**
 
 ```bash
 vagrant up
 ```
 
-#### Run the omgcatz setup script:
+**Run the omgcatz setup script:**
 
 ```bash
 vagrant ssh -c "sudo /var/www/html/_install/setup.sh"
@@ -43,10 +43,12 @@ vagrant ssh -c "sudo /var/www/html/_install/setup.sh"
 
 The MySQL username is `root` and the password is `vagrant`.
 
-#### That's it!
+**That's it!**
 
 You can access the site at [http://localhost:8080](http://localhost:8080).
 
-## Other Notes
+## Screenshots
 
-If you run into any issues, feel free to submit them on GitHub. Also, if you want to contribute, pull requests are always welcome. (:
+![Kitteh](/screenshots/kitteh.png?raw=true "Kitteh")
+
+![8tracks](/screenshots/eighttracks.png?raw=true "8tracks")

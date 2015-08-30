@@ -15,7 +15,7 @@ function(a){return A(this,a)};B=function(a){var b=[],c=a.millennia;c&&b.push(l(c
 e.CENTURIES=512;e.MILLENNIA=1024;e.DEFAULTS=222;e.ALL=2047;e.setLabels=function(a,b,c,d,f,e){a=a||[];a.split&&(a=a.split("|"));b=b||[];b.split&&(b=b.split("|"));for(var k=0;10>=k;k++)w[k]=a[k]||w[k],x[k]=b[k]||x[k];r="string"===typeof c?c:r;t="string"===typeof d?d:t;u="string"===typeof f?f:u;v="function"===typeof e?e:v};(e.resetLabels=function(){w=" millisecond; second; minute; hour; day; week; month; year; decade; century; millennium".split(";");x=" milliseconds; seconds; minutes; hours; days; weeks; months; years; decades; centuries; millennia".split(";");
 r=" and ";t=", ";u="";v=function(a){return a}})();y&&y.exports?y.exports=e:"function"===typeof window.define&&"undefined"!==typeof window.define.amd&&window.define("countdown",[],function(){return e});return e}(module);
 
-/* omgcatz | http://en.wikipedia.org/wiki/WTFPL */
+/* omgcatz */
 
 function UserInterface() {
 
