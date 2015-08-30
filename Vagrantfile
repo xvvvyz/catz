@@ -8,7 +8,7 @@ $script = <<SCRIPT
   sudo lighty-enable-mod fastcgi fastcgi-php
   sudo service lighttpd force-reload
 
-  rm -f /var/www/html/index.lighttpd.html
+  sudo rm -f /var/www/html/index.lighttpd.html
 SCRIPT
 
 Vagrant.configure(2) do |config|
