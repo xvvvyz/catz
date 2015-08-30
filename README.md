@@ -37,7 +37,7 @@ vagrant up
 ### run the omgcatz setup script
 
 ```bash
-vagrant ssh -c "/var/www/html/_install/setup.sh"
+vagrant ssh -c "sudo /var/www/html/_install/setup.sh"
 ```
 
 The MySQL username is `root` and the password is `vagrant`.
