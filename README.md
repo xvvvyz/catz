@@ -2,11 +2,11 @@
 
 First and foremost, the goal of this project is to provide the user with an abundance of feline imagery. Which it currently isn't very good at. However, it is capable of downloading music from the interwebz that is otherwise hard to acquire.
 
-Supported sites:
+#### Supported sites:
 
 * [8tracks.com](https://8tracks.com/)
 
-In development:
+#### In development:
 
 * [songza.com](https://songza.com/)
 
