@@ -3,12 +3,7 @@
 *:focus{outline:0}
 
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body{text-align:center;margin:0;
-  background: url("/img/background.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;}
+body{text-align:center;margin:0;background:url("/img/background.jpg") no-repeat center center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-color:#2D323E}
 footer,main{display:block}
 img,div{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 
@@ -67,8 +62,6 @@ main{width:100%;margin:20px 0}
 .modal p{line-height:1.5em;margin:10px}
 .modal i{display:block;margin-bottom:10px}
 .modal a{color:#000;text-decoration:underline}
-#paypal{background:none;border:none;padding:0;font:inherit;cursor:pointer;text-decoration:underline}
-#coinbase{text-decoration:underline}
 .md-close{display:block;width:100%;padding:15px 10px;margin:20px -10px -10px -10px;text-align:center;border-top:solid 1px #D6D6D6;color:#757575!important}
 
 .hidden{display:none}
