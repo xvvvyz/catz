@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/cadejscroggins/omgcatz.svg)](https://travis-ci.org/cadejscroggins/omgcatz)
 
-First and foremost, the goal of this website is to provide the user with an abundance of feline imagery—which it currently isn't very good at. However, it is capable of downloading and tagging music from the interwebz that is otherwise hard to acquire.
+First and foremost, the goal of this project is to provide the user with an abundance of feline imagery—which it currently isn't very good at. However, it is capable of downloading and tagging music from the interwebz that is otherwise hard to acquire.
 
 **Supported sites:**
 
