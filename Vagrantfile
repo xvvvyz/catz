@@ -3,6 +3,7 @@ $script = <<SCRIPT
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password vagrant'
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password vagrant'
 
+  sudo apt-get update && sudo apt-get upgrade
   sudo apt-get install -y git-core lighttpd php5-cgi php5-mysqlnd php5-curl mysql-server curl eyeD3 atomicparsley imagemagick zip file
 
   sudo lighty-enable-mod fastcgi fastcgi-php
