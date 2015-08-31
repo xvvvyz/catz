@@ -11,3 +11,12 @@
 
 # vagrant stuff
 .vagrant
+
+# composer
+/app/vendor/
+
+# environement
+/app/.env
+
+/app/app/cache/
+/app/app/logs/
