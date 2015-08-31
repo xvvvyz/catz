@@ -17,12 +17,6 @@ First and foremost, the goal of this project is to provide the user with an abun
 * [VirtualBox](https://www.virtualbox.org/)
 * [Vagrant](https://www.vagrantup.com/)
 
-**Install necessary vagrant plugins:**
-
-```bash
-vagrant plugin install vagrant-vbguest
-```
-
 **Get the omgcatz stuff:**
 
 ```bash
