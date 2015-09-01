@@ -7,12 +7,12 @@ use Omgcatz\Database;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateTables extends Command
+class InstallSlaves extends Command
 {
   protected function configure()
   {
     $this
-      ->setName('install:slaves')
+      ->setName('setup:slaves')
       ->setDescription('Install slaves');
   }
 

@@ -8,4 +8,5 @@ $app = require_once __DIR__ .'/bootstrap.php';
 
 $console = &$app["console"];
 $console->add(new Omgcatz\Command\CreateTables());
+$console->add(new Omgcatz\Command\InstallSlaves());
 $console->run();

@@ -12,7 +12,7 @@ class CreateTables extends Command
   protected function configure()
   {
     $this
-      ->setName("create:tables")
+      ->setName('setup:tables')
       ->setDescription('Create tables');
   }
 
