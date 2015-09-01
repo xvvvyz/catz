@@ -35,9 +35,9 @@ if ($app['debug']) {
 /**
  * Register database
  */
-$app['database'] = function () {
+$app['database'] = $app->share(function () {
   return new Database(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASS'), getenv('DB_NAME'));
-};
+});
 
 
 /**
