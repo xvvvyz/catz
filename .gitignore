@@ -14,9 +14,14 @@
 
 # composer
 /app/vendor/
+/composer.lock
 
 # environement
 /app/.env
 
-/app/app/cache/
-/app/app/logs/
+/app/app/cache/*
+!/app/app/cache/.gitkeep
+/app/app/logs/*
+!/app/app/logs/.gitkeep
+# iDE
+/.idea
