@@ -2,7 +2,7 @@
 
 (PHP_SAPI !== "cli" || isset($_SERVER["HTTP_USER_AGENT"])) && die();
 
-include "../api/include/Database.php";
+include "../src/Includes/Database.php";
 
 $db = new Database();
 

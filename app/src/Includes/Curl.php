@@ -1,5 +1,7 @@
 <?php
 
+namespace Omgcatz\Includes;
+
 /**
  * various methods for fetching remote html
  */

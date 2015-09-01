@@ -8,7 +8,7 @@ if (isset($_POST["url"])) {
 
 switch ($host) {
   case "8tracks.com":
-    require "stuff/fetch/EightTracks.php";
+    require "Stuff/fetch/EightTracks.php";
 
     $mixId = (isset($_POST["mix_id"]) ? $_POST["mix_id"] : false);
     $trackNumber = (isset($_POST["track_number"]) ? $_POST["track_number"] : 0);
@@ -18,7 +18,7 @@ switch ($host) {
     break;
 
   case "songza.com":
-    require "stuff/fetch/Songza.php";
+    require "Stuff/fetch/Songza.php";
 
     $stationId = (isset($_POST["station_id"]) ? $_POST["station_id"] : false);
     $sessionId = (isset($_POST["session_id"]) ? $_POST["session_id"] : false);
@@ -28,7 +28,7 @@ switch ($host) {
     break;
 
   default:
-    require "stuff/fetch/Cat.php";
+    require "Stuff/fetch/Cat.php";
 
     $please = new Cat($output);
     $please->getCat();

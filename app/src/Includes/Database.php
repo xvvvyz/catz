@@ -1,6 +1,6 @@
 <?php
 
-require_once "Config.php";
+namespace Omgcatz\Includes;
 
 /**
  * mysql crud with prepared statements
@@ -8,11 +8,45 @@ require_once "Config.php";
 class Database {
 
   /**
+   * @var string
+   */
+  private $server;
+
+  /**
+   * @var string
+   */
+  private $user;
+
+  /**
+   * @var string
+   */
+  private $password;
+
+  /**
+   * @var string
+   */
+  private $database;
+
+  /**
+   * @param string $server
+   * @param string $user
+   * @param string $password
+   * @param string $database
+   */
+  public function __construct($server, $user, $password, $database) {
+
+    $this->server = $server;
+    $this->user = $user;
+    $this->password = $password;
+    $this->database = $database;
+  }
+
+  /**
    * connect to db and return db object
    * @return object
    */
   private function connect() {
-    return new mysqli(Config::$server, Config::$user, Config::$password, Config::$database);
+    return new mysqli($this->server, $this->user, $this->password, $this->database);
   }
 
   /**

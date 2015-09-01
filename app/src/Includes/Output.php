@@ -1,5 +1,7 @@
 <?php
 
+namespace Omgcatz\Includes;
+
 /**
  * for managing output formats
  */

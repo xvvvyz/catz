@@ -1,6 +1,6 @@
 <?php
 
-require_once "include/Curl.php";
+require_once "Include/Curl.php";
 
 class Songza {
 
@@ -32,7 +32,7 @@ class Songza {
     }
 
     // grab station info
-    $array = $curl->getArray("http://songza.com/api/1/station/".$this->stationId);
+    $array = $curl->getArray("http://songza.com/src/1/station/".$this->stationId);
 
     // check for failed info grab
     if ($array["status"] != "NORMAL") {
@@ -46,9 +46,9 @@ class Songza {
       "slug"=>$array["dasherized_name"],
       "name"=>$array["name"],
       "imgUrls"=>array(
-        "small"=>"http://songza.com/api/1/station/".$this->stationId."/image?size=133",
-        "medium"=>"http://songza.com/api/1/station/".$this->stationId."/image?size=500",
-        "large"=>"http://songza.com/api/1/station/".$this->stationId."/image?size=1000"
+        "small"=>"http://songza.com/src/1/station/".$this->stationId."/image?size=133",
+        "medium"=>"http://songza.com/src/1/station/".$this->stationId."/image?size=500",
+        "large"=>"http://songza.com/src/1/station/".$this->stationId."/image?size=1000"
       ),
       "creator"=>$array["creator_name"],
       "totalTracks"=>$array["song_count"]
@@ -64,7 +64,7 @@ class Songza {
   private function nextSong() {
     // grab song info
     $curl = new Curl();
-    $array = $curl->getArray("http://songza.com/api/1/station/".$this->stationId."/next", "sessionid=".$this->sessionId."; visitor-prompted:1");
+    $array = $curl->getArray("http://songza.com/src/1/station/".$this->stationId."/next", "sessionid=".$this->sessionId."; visitor-prompted:1");
 
     // clean up array
     $array = array(

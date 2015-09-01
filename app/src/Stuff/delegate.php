@@ -1,7 +1,7 @@
 <?php
 
-require_once "include/Delegate.php";
-require_once "include/Curl.php";
+require_once "Include/Delegate.php";
+require_once "Include/Curl.php";
 
 $delegate = new Delegate();
 $curl = new Curl();
@@ -28,7 +28,7 @@ if ($delegate->usingMinions()) {
 
   $results = $curl->post($server.$script, $_POST);
 } else {
-  $server = "/api/stuff/download/";
+  $server = "/src/Stuff/download/";
 
   $results = $curl->localPost(__DIR__."/download", $script);
 }

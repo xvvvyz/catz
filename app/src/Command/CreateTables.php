@@ -1,14 +1,29 @@
 <?php
 
-(PHP_SAPI !== "cli" || isset($_SERVER["HTTP_USER_AGENT"])) && die();
+namespace Omgcatz\Command;
 
-include "../api/include/Database.php";
+use Knp\Command\Command;
+use Omgcatz\Database;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-$db = new Database();
+class CreateTables extends Command
+{
+  protected function configure()
+  {
+    $this
+      ->setName("create:tables")
+      ->setDescription('Create tables');
+  }
+
+  protected function execute(InputInterface $input, OutputInterface $output)
+  {
+    /** @var Database $db */
+    $db = $this->getSilexApplication()['database'];
 
 // minion tables
 
-$db->simpleQuery("CREATE TABLE `minions` (
+    $db->simpleQuery("CREATE TABLE `minions` (
 `minionId` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `minionRoot` tinyblob NOT NULL,
 `load` int(11) NOT NULL,
@@ -17,7 +32,7 @@ PRIMARY KEY (`minionId`)
 
 // 8tracks tables
 
-$db->simpleQuery("CREATE TABLE `8tracks_playlists` (
+    $db->simpleQuery("CREATE TABLE `8tracks_playlists` (
 `mixId` int(11) NOT NULL,
 `totalTracks` int(11) NOT NULL,
 `playToken` int(11) DEFAULT NULL,
@@ -26,7 +41,7 @@ $db->simpleQuery("CREATE TABLE `8tracks_playlists` (
 PRIMARY KEY (`mixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-$db->simpleQuery("CREATE TABLE `8tracks_songs` (
+    $db->simpleQuery("CREATE TABLE `8tracks_songs` (
 `songId` int(11) NOT NULL,
 `title` tinyblob NOT NULL,
 `artist` tinyblob,
@@ -36,9 +51,14 @@ $db->simpleQuery("CREATE TABLE `8tracks_songs` (
 PRIMARY KEY (`songId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-$db->simpleQuery("CREATE TABLE `8tracks_playlists_songs` (
+    $db->simpleQuery("CREATE TABLE `8tracks_playlists_songs` (
 `mixId` int(11) NOT NULL,
 `songId` int(11) NOT NULL,
 `trackNumber` int(11) NOT NULL,
 KEY `mixId` (`mixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
+
+    $output->writeln('Databases Created');
+  }
+}

@@ -1,6 +1,6 @@
 <?php
 
-require_once "Database.php";
+namespace Omgcatz\Includes;
 
 /**
  * manage minion download servers

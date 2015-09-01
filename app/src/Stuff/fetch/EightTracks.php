@@ -1,7 +1,7 @@
 <?php
 
-require_once "include/Database.php";
-require_once "include/Curl.php";
+require_once "Include/Database.php";
+require_once "Include/Curl.php";
 
 class EightTracks {
 
@@ -45,7 +45,7 @@ class EightTracks {
     $curl = new Curl();
 
     // get fresh mix info
-    $response = $curl->getArray($url."?include=name&format=jsonh");
+    $response = $curl->getArray($url."?Include=name&format=jsonh");
 
     if ($response["errors"]) {
       $this->output->error("8tracks said: ".$errors);

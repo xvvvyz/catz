@@ -12,12 +12,12 @@ class Cat {
    * @todo actually get random cat data (reddit?).
    */
   function getCat() {
-    $this->data["url"] = "http://thecatapi.com/api/images/get";
+    $this->data["url"] = "http://thecatapi.com/src/images/get";
     $this->output->successWithData($this->data);
   }
 
   function getCatUrl() {
-    $this->output->text("http://thecatapi.com/api/images/get");
+    $this->output->text("http://thecatapi.com/src/images/get");
   }
 
 }
