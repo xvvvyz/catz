@@ -113,27 +113,18 @@ $app->post('/fetch', function (Request $request) use ($app) {
 
   $url = $request->get('url', null);
   if ($url !== null) {
-    $subdomains = array("m.", "www.", "mobile.");
-    $host = str_ireplace($subdomains, "", parse_url($url, PHP_URL_HOST));
+    $subDomains = array('m.', 'www.', 'mobile.');
+    $host = str_ireplace($subDomains, '', parse_url($url, PHP_URL_HOST));
 
     switch ($host) {
       case "8tracks.com":
-
-        $mixId = (isset($_POST["mix_id"]) ? $_POST["mix_id"] : false);
-        $trackNumber = (isset($_POST["track_number"]) ? $_POST["track_number"] : 0);
-
         $please = new EightTracks($app['database'], $app['curl'], $output);
-
-        $please->get($url, $mixId, $trackNumber);
+        $please->get($url,  $request->get('mix_id', false),  $request->get('track_number', 0));
         break;
 
       case "songza.com":
-
-        $stationId = (isset($_POST["station_id"]) ? $_POST["station_id"] : false);
-        $sessionId = (isset($_POST["session_id"]) ? $_POST["session_id"] : false);
-
         $please = new Songza($app['curl'], $output);
-        $please->get($url, $stationId, $sessionId);
+        $please->get($url,  $request->get('station_id', false),  $request->get('session_id', false));
         break;
 
       default:
