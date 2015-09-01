@@ -1,6 +1,13 @@
 <?php
 
+use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
+use Omgcatz\Includes\Output;
+use Omgcatz\Includes\OutputArray;
+use Omgcatz\Includes\OutputJSON;
+use Omgcatz\Services\Cat;
+use Omgcatz\Services\EightTracks;
+use Omgcatz\Services\Songza;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -28,8 +35,16 @@ if ($app['debug']) {
 /**
  * Register database
  */
-$app['database'] = function() {
+$app['database'] = function () {
   return new Database(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASS'), getenv('DB_NAME'));
+};
+
+
+/**
+ * Register curl
+ */
+$app['curl'] = function () {
+  return new Curl();
 };
 
 /**
@@ -92,7 +107,9 @@ $app->post('/download', function (Request $request) {
 
 })->bind('download');
 
-$app->post('/fetch', function (Request $request) {
+$app->post('/fetch', function (Request $request) use ($app) {
+
+  $output = getOutput($request->get('dataType'));
 
   $url = $request->get('url', null);
   if ($url !== null) {
@@ -105,18 +122,17 @@ $app->post('/fetch', function (Request $request) {
         $mixId = (isset($_POST["mix_id"]) ? $_POST["mix_id"] : false);
         $trackNumber = (isset($_POST["track_number"]) ? $_POST["track_number"] : 0);
 
-        $please = new EightTracks($output);
-        $please = new EightTracks($output);
+        $please = new EightTracks($app['database'], $app['curl'], $output);
+
         $please->get($url, $mixId, $trackNumber);
         break;
 
       case "songza.com":
 
-
         $stationId = (isset($_POST["station_id"]) ? $_POST["station_id"] : false);
         $sessionId = (isset($_POST["session_id"]) ? $_POST["session_id"] : false);
 
-        $please = new Songza($output);
+        $please = new Songza($app['curl'], $output);
         $please->get($url, $stationId, $sessionId);
         break;
 
@@ -129,6 +145,23 @@ $app->post('/fetch', function (Request $request) {
 
 
 })->bind('fetch');
+
+/**
+ * @param string $dataType
+ * @return Output
+ */
+function getOutput($dataType)
+{
+  switch ($dataType) {
+    case 'array':
+      $output = new OutputArray();
+      break;
+    default:
+      $output = new OutputJSON();
+  }
+
+  return $output;
+}
 
 return $app;
 

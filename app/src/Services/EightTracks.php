@@ -1,9 +1,13 @@
 <?php
 
-require_once "Include/Database.php";
-require_once "Include/Curl.php";
+namespace Omgcatz\Services;
 
-class EightTracks {
+use Omgcatz\Includes\Curl;
+use Omgcatz\Includes\Database;
+use Omgcatz\Includes\Output;
+
+class EightTracks
+{
 
   private $mixId;
   private $playToken;
@@ -14,63 +18,71 @@ class EightTracks {
   private $output;
   private $db;
 
-  public function __construct($output) {
+  /**
+   * @var Curl
+   */
+  private $curl;
+
+  public function __construct(Database $db, Curl $curl, Output $output)
+  {
+    $this->db = $db;
     $this->output = $output;
-    $this->db = new Database();
+    $this->curl = $curl;
   }
 
-  private function removeMixInfoDb() {
+  private function removeMixInfoDb()
+  {
     $this->db->simpleQuery("delete from `8tracks_playlists` where `mixId`={$this->mixId}");
     $this->db->simpleQuery("delete from `8tracks_playlists_songs` where `mixId`={$this->mixId}");
   }
 
-  private function updateMixInfoDb() {
-      $this->playToken = 2147483647; // should be set dynamically ???
+  private function updateMixInfoDb()
+  {
+    $this->playToken = 2147483647; // should be set dynamically ???
 
-      $this->db->insert(
-        "8tracks_playlists",
-        array(
-          "mixId" => $this->mixId,
-          "totalTracks" => $this->totalTracks,
-          "playToken" => $this->playToken
-        ),
-        array("%d", "%d", "%s")
-      );
+    $this->db->insert(
+      "8tracks_playlists",
+      array(
+        "mixId" => $this->mixId,
+        "totalTracks" => $this->totalTracks,
+        "playToken" => $this->playToken
+      ),
+      array("%d", "%d", "%s")
+    );
   }
 
   /**
    * get mix info from url and put it into the database
    */
-  private function updateMixInfo($url) {
-    $curl = new Curl();
-
+  private function updateMixInfo($url)
+  {
     // get fresh mix info
-    $response = $curl->getArray($url."?Include=name&format=jsonh");
+    $response = $this->curl->getArray($url . "?Include=name&format=jsonh");
 
     if ($response["errors"]) {
-      $this->output->error("8tracks said: ".$errors);
+      $this->output->error("8tracks said: " . $response["errors"]);
     }
 
     $this->mixId = $response["mix"]["id"];
     $this->totalTracks = $response["mix"]["tracks_count"];
 
     if (empty($this->mixId)) {
-      $this->output->error("Invalid URL: ".$url);
+      $this->output->error("Invalid URL: " . $url);
     }
 
     // add info to $outputArray
     $this->outputArray["mix"] = array(
-      "id"=>$this->mixId,
-      "slug"=>basename($response["mix"]["web_path"]),
-      "name"=>$response["mix"]["name"],
-      "imgUrls"=>array(
-        "small"=>$response["mix"]["cover_urls"]["sq133"],
-        "medium"=>$response["mix"]["cover_urls"]["sq500"],
-        "original"=>$response["mix"]["cover_urls"]["original"]
+      "id" => $this->mixId,
+      "slug" => basename($response["mix"]["web_path"]),
+      "name" => $response["mix"]["name"],
+      "imgUrls" => array(
+        "small" => $response["mix"]["cover_urls"]["sq133"],
+        "medium" => $response["mix"]["cover_urls"]["sq500"],
+        "original" => $response["mix"]["cover_urls"]["original"]
       ),
-      "creator"=>$response["mix"]["user"]["login"],
-      "totalTracks"=>$response["mix"]["tracks_count"],
-      "duration"=>$response["mix"]["duration"]
+      "creator" => $response["mix"]["user"]["login"],
+      "totalTracks" => $response["mix"]["tracks_count"],
+      "duration" => $response["mix"]["duration"]
     );
 
     // get old info from database if it exists
@@ -99,7 +111,8 @@ class EightTracks {
   /**
    * get existing songs from database
    */
-  private function getSongsFromDb() {
+  private function getSongsFromDb()
+  {
     $playlistSongs = $this->db->select(
       "SELECT songId FROM 8tracks_playlists_songs WHERE mixId=? AND trackNumber>=? ORDER BY trackNumber",
       array($this->mixId, $this->trackNumber),
@@ -128,17 +141,18 @@ class EightTracks {
   /**
    * get the next song in the playlist
    */
-  private function nextSong() {
+  private function nextSong()
+  {
     $curl = new Curl();
-    $songArray = $curl->getArray("http://8tracks.com/sets/".$this->playToken."/next?mix_id=".$this->mixId."&api_version=2&format=jsonh");
+    $songArray = $curl->getArray("http://8tracks.com/sets/" . $this->playToken . "/next?mix_id=" . $this->mixId . "&api_version=2&format=jsonh");
 
     $status = $songArray["status"];
 
     if (!preg_match('/(200)/', $status)) {
       if (preg_match('/(403)/', $status)) {
-        $this->output->error("8tracks made a boo boo. (".$status.")", 403);
+        $this->output->error("8tracks made a boo boo. (" . $status . ")", 403);
       } else {
-        $this->output->error("8tracks made a boo boo. (".$status.")");
+        $this->output->error("8tracks made a boo boo. (" . $status . ")");
       }
     }
 
@@ -199,7 +213,8 @@ class EightTracks {
    * @param string mixId
    * @param integer $trackNumber
    */
-  function get($url, $mixId, $trackNumber) {
+  function get($url, $mixId, $trackNumber)
+  {
     ignore_user_abort(true);
 
     $this->mixId = $mixId;

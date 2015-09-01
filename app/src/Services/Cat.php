@@ -1,10 +1,17 @@
 <?php
 
+namespace Omgcatz\Services;
+
+use Omgcatz\Includes\Output;
+
 class Cat {
 
+  /**
+   * @var Output
+   */
   private $output;
 
-  public function __construct($output) {
+  public function __construct(Output $output) {
     $this->output = $output;
   }
 
