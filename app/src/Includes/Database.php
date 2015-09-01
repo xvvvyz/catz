@@ -1,6 +1,7 @@
 <?php
 
 namespace Omgcatz\Includes;
+use mysqli;
 
 /**
  * mysql crud with prepared statements

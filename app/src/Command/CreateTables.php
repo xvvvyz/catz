@@ -3,7 +3,7 @@
 namespace Omgcatz\Command;
 
 use Knp\Command\Command;
-use Omgcatz\Database;
+use Omgcatz\Includes\Database;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

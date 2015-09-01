@@ -1,6 +1,6 @@
 <?php
 
-use Omgcatz\Database;
+use Omgcatz\Includes\Database;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Provider\ConsoleServiceProvider;
 
