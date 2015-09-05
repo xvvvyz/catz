@@ -3,9 +3,9 @@
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
-use Omgcatz\Includes\Output;
-use Omgcatz\Includes\OutputArray;
-use Omgcatz\Includes\OutputJSON;
+use Omgcatz\Includes\Output\Output;
+use Omgcatz\Includes\Output\OutputArray;
+use Omgcatz\Includes\Output\OutputJSON;
 use Omgcatz\Services\Cat;
 use Omgcatz\Services\EightTracks;
 use Omgcatz\Services\Songza;
@@ -117,13 +117,59 @@ $app->post('/archive', function (Request $request) use ($app) {
   $curl = $app['curl'];
 
   if ($delegate->usingMinions()) {
+    $server = $request->get('server', null);
+    if ($server === null) {
+      $mixId = $request->get('mix_id', null);
 
+      if ($mixId === null) {
+        $output->error('mix_id is empty.');
+      }
+
+      $delegate->getServer($mixId, '8tracks_playlists');
+    } else {
+      if (!$delegate->verifyServer($server)) {
+        $output->error("invalid server: " . $server);
+      }
+    }
+    $results = $curl->post($server . 'archive.php', $_POST);
+  } else {
+    $server = "/src/Stuff/download/";
+
+    $results = $curl->localPost(__DIR__ . "/download", 'archive.php');
   }
 
 })->bind('archive');
 
-$app->post('/download', function (Request $request) {
+$app->post('/download', function (Request $request) use ($app) {
+  $output = getOutput($request->get('dataType'));
 
+  /** @var Delegate $delegate */
+  $delegate = $app['delegate'];
+
+  /** @var Curl $curl */
+  $curl = $app['curl'];
+
+  if ($delegate->usingMinions()) {
+    $server = $request->get('server', null);
+    if ($server === null) {
+      $mixId = $request->get('mix_id', null);
+
+      if ($mixId === null) {
+        $output->error('mix_id is empty.');
+      }
+
+      $delegate->getServer($mixId, '8tracks_playlists');
+    } else {
+      if (!$delegate->verifyServer($server)) {
+        $output->error("invalid server: " . $server);
+      }
+    }
+    $results = $curl->post($server . 'download.php', $_POST);
+  } else {
+    $server = "/src/Stuff/download/";
+
+    $results = $curl->localPost(__DIR__ . "/download", 'download.php');
+  }
 })->bind('download');
 
 $app->post('/fetch', function (Request $request) use ($app) {
@@ -151,9 +197,9 @@ $app->post('/fetch', function (Request $request) use ($app) {
         $please = new Cat($output);
         $please->getCat();
     }
+  } else {
+    $output->error('No URL specified');
   }
-
-
 })->bind('fetch');
 
 

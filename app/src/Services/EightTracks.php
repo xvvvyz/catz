@@ -4,7 +4,7 @@ namespace Omgcatz\Services;
 
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
-use Omgcatz\Includes\Output;
+use Omgcatz\Includes\Output\Output;
 
 class EightTracks
 {

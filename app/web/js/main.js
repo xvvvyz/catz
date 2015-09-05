@@ -248,7 +248,7 @@ function Fetch() {
 
     $.ajax({
       type: "POST",
-      url: "api/do.php",
+      url: "/fetch",
       dataType: "json",
       data: {
         what: "fetch",
@@ -324,7 +324,7 @@ function Fetch() {
 
     $.ajax({
       type: "POST",
-      url: "api/do.php",
+      url: "/stuff",
       dataType: "json",
       data: {
         url: url,
@@ -481,7 +481,7 @@ function Minion() {
 
     $.ajax({
       type: "POST",
-      url: "api/do.php",
+      url: "/download",
       dataType: "json",
       data: {
         server: server,
@@ -556,7 +556,7 @@ function Minion() {
 
     $.ajax({
       type: "POST",
-      url: "api/do.php",
+      url: "/archive",
       data: {
         server: server,
         what: "archive",

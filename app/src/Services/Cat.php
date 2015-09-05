@@ -2,7 +2,7 @@
 
 namespace Omgcatz\Services;
 
-use Omgcatz\Includes\Output;
+use Omgcatz\Includes\Output\Output;
 
 class Cat {
 
