@@ -5,8 +5,8 @@ namespace Omgcatz\Includes;
 /**
  * various methods for fetching remote html
  */
-class Curl {
-
+class Curl
+{
   /**
    * curl object
    * @var object
@@ -25,7 +25,8 @@ class Curl {
    * @param string $cookie
    * @return string
    */
-  function get($url, $cookie = "") {
+  public function get($url, $cookie = "")
+  {
     $userAgent = (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : $this->defaultUa);
 
     $this->ch = curl_init($url);
@@ -45,7 +46,8 @@ class Curl {
    * @param string $cookie
    * @return array
    */
-  function getArray($url, $cookie = "") {
+  public function getArray($url, $cookie = "")
+  {
     return json_decode($this->get($url, $cookie), true);
   }
 
@@ -55,11 +57,12 @@ class Curl {
    * @param array $postData
    * @return string
    */
-  function post($url, $postData) {
+  public function post($url, $postData)
+  {
     $payload = "";
 
-    foreach($postData as $key=>$value) {
-      $payload .= $key."=".urlencode($value)."&";
+    foreach ($postData as $key => $value) {
+      $payload .= $key . "=" . urlencode($value) . "&";
     }
 
     $payload = rtrim($payload, "&");
@@ -81,7 +84,8 @@ class Curl {
    * @param string $script
    * @return string
    */
-  function localPost($dirPath, $script) {
+  public function localPost($dirPath, $script)
+  {
     chdir($dirPath);
     ob_start();
     require $script;

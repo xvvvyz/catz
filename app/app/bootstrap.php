@@ -2,6 +2,7 @@
 
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
+use Omgcatz\Includes\Delegate;
 use Omgcatz\Includes\Output;
 use Omgcatz\Includes\OutputArray;
 use Omgcatz\Includes\OutputJSON;
@@ -39,12 +40,18 @@ $app['database'] = $app->share(function () {
   return new Database(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASS'), getenv('DB_NAME'));
 });
 
-
 /**
  * Register curl
  */
 $app['curl'] = function () {
   return new Curl();
+};
+
+/**
+ * Setup Delegate
+ */
+$app['delegate'] = function () use ($app) {
+  return new Delegate($app['database']);
 };
 
 /**
@@ -99,7 +106,19 @@ $app->get('/', function () use ($app) {
   return $app['twig']->render('index.html.twig');
 })->bind('home');
 
-$app->post('/archive', function (Request $request) {
+$app->post('/archive', function (Request $request) use ($app) {
+
+  $output = getOutput($request->get('dataType'));
+
+  /** @var Delegate $delegate */
+  $delegate = $app['delegate'];
+
+  /** @var Curl $curl */
+  $curl = $app['curl'];
+
+  if ($delegate->usingMinions()) {
+
+  }
 
 })->bind('archive');
 
@@ -119,12 +138,12 @@ $app->post('/fetch', function (Request $request) use ($app) {
     switch ($host) {
       case "8tracks.com":
         $please = new EightTracks($app['database'], $app['curl'], $output);
-        $please->get($url,  $request->get('mix_id', false),  $request->get('track_number', 0));
+        $please->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
         break;
 
       case "songza.com":
         $please = new Songza($app['curl'], $output);
-        $please->get($url,  $request->get('station_id', false),  $request->get('session_id', false));
+        $please->get($url, $request->get('station_id', false), $request->get('session_id', false));
         break;
 
       default:
@@ -136,6 +155,7 @@ $app->post('/fetch', function (Request $request) use ($app) {
 
 
 })->bind('fetch');
+
 
 /**
  * @param string $dataType

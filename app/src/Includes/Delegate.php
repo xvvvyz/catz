@@ -20,13 +20,12 @@ class Delegate {
   private $table;
 
   /**
-   * db connection object
-   * @var object
+   * @var Database
    */
   private $db;
 
-  function __construct() {
-    $this->db = new Database();
+  public function __construct(Database $db) {
+    $this->db = $db;
   }
 
 
@@ -34,8 +33,10 @@ class Delegate {
    * determine if we are going to use minion servers
    * @return boolean
    */
-  function usingMinions() {
-    return (!empty(Config::$minions));
+  public function usingMinions() {
+    // TODO: Figure this out
+    return false;
+//    return (!empty(Config::$minions));
   }
 
   /**
@@ -101,7 +102,7 @@ class Delegate {
    * @param string $server
    * @return boolean
    */
-  function verifyServer($server) {
+  public function verifyServer($server) {
     $minion = $this->db->select(
       "SELECT minionId FROM minions WHERE minionRoot=? LIMIT 1",
       array($server),
@@ -117,7 +118,7 @@ class Delegate {
    * @param string $table
    * @return string
    */
-  function getServer($mixId, $table) {
+  public function getServer($mixId, $table) {
     $this->mixId = $mixId;
     $this->table = $table;
 
