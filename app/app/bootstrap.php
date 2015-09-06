@@ -197,7 +197,7 @@ $app->post('/fetch', function (Request $request) use ($app) {
         $please = new Cat();
         $data = $please->getCat();
     }
-    return new JsonResponse($data);
+    return new JsonResponse(array_merge(['error' => 0, 'status' => 'ok'], $data));
   } catch (ServiceException $e) {
     return new JsonResponse(['error' => $e->getMessage()], 400);
   }
