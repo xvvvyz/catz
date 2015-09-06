@@ -2,29 +2,26 @@
 
 namespace Omgcatz\Services;
 
-use Omgcatz\Includes\Output\Output;
-
-class Cat {
+class Cat
+{
+  const CAT_URL = 'http://thecatapi.com/src/images/get';
 
   /**
-   * @var Output
+   * @var array
    */
-  private $output;
-
-  public function __construct(Output $output) {
-    $this->output = $output;
-  }
+  private $data;
 
   /**
    * @todo actually get random cat data (reddit?).
    */
-  function getCat() {
-    $this->data["url"] = "http://thecatapi.com/src/images/get";
-    $this->output->successWithData($this->data);
+  function getCat()
+  {
+    $this->data["url"] = self::CAT_URL;
+    return $this->data;
   }
 
-  function getCatUrl() {
-    $this->output->text("http://thecatapi.com/src/images/get");
+  function getCatUrl()
+  {
+    return self::CAT_URL;
   }
-
 }

@@ -4,18 +4,24 @@ namespace Omgcatz\Services;
 
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
-use Omgcatz\Includes\Output\Output;
+use Omgcatz\Services\Exceptions\ServiceException;
 
 class EightTracks
 {
-
   private $mixId;
   private $playToken;
   private $totalTracks;
   private $trackNumber;
 
-  private $outputArray = array();
-  private $output;
+  /**
+   * @var array
+   */
+  private $data;
+
+
+  /**
+   * @var Database
+   */
   private $db;
 
   /**
@@ -23,11 +29,11 @@ class EightTracks
    */
   private $curl;
 
-  public function __construct(Database $db, Curl $curl, Output $output)
+  public function __construct(Database $db, Curl $curl)
   {
     $this->db = $db;
-    $this->output = $output;
     $this->curl = $curl;
+    $this->data = [];
   }
 
   private function removeMixInfoDb()
@@ -60,18 +66,18 @@ class EightTracks
     $response = $this->curl->getArray($url . "?Include=name&format=jsonh");
 
     if ($response["errors"]) {
-      $this->output->error("8tracks said: " . $response["errors"]);
+      throw new ServiceException('8tracks said: ' . $response["errors"]);
     }
 
     $this->mixId = $response["mix"]["id"];
     $this->totalTracks = $response["mix"]["tracks_count"];
 
     if (empty($this->mixId)) {
-      $this->output->error("Invalid URL: " . $url);
+      throw new ServiceException('Invalid URL: ' . $url);
     }
 
     // add info to $outputArray
-    $this->outputArray["mix"] = array(
+    $this->data["mix"] = array(
       "id" => $this->mixId,
       "slug" => basename($response["mix"]["web_path"]),
       "name" => $response["mix"]["name"],
@@ -128,7 +134,7 @@ class EightTracks
         );
 
         foreach ($songs as $song) {
-          $this->outputArray["songs"][] = $song;
+          $this->data["songs"][] = $song;
         }
       }
 
@@ -140,6 +146,8 @@ class EightTracks
 
   /**
    * get the next song in the playlist
+   *
+   * @throws ServiceException
    */
   private function nextSong()
   {
@@ -203,15 +211,16 @@ class EightTracks
         }
       }
     } else {
-      $this->output->error("That's all we could find.");
+      throw new ServiceException('That\'s all we could find.');
     }
   }
 
   /**
    * get the playlist
    * @param string $url
-   * @param string mixId
-   * @param integer $trackNumber
+   * @param string $mixId
+   * @param int $trackNumber
+   * @return array
    */
   function get($url, $mixId, $trackNumber)
   {
@@ -250,7 +259,7 @@ class EightTracks
       $this->getSongsFromDb();
     }
 
-    $this->output->successWithData($this->outputArray);
+    return $this->data;
   }
 
 }

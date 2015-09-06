@@ -3,12 +3,11 @@
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
-use Omgcatz\Includes\Output\Output;
-use Omgcatz\Includes\Output\OutputArray;
-use Omgcatz\Includes\Output\OutputJSON;
 use Omgcatz\Services\Cat;
 use Omgcatz\Services\EightTracks;
+use Omgcatz\Services\Exceptions\ServiceException;
 use Omgcatz\Services\Songza;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -108,8 +107,6 @@ $app->get('/', function () use ($app) {
 
 $app->post('/archive', function (Request $request) use ($app) {
 
-  $output = getOutput($request->get('dataType'));
-
   /** @var Delegate $delegate */
   $delegate = $app['delegate'];
 
@@ -122,13 +119,14 @@ $app->post('/archive', function (Request $request) use ($app) {
       $mixId = $request->get('mix_id', null);
 
       if ($mixId === null) {
-        $output->error('mix_id is empty.');
+        return new JsonResponse(['error' => 'mix_id is empty.'], 400);
+
       }
 
       $delegate->getServer($mixId, '8tracks_playlists');
     } else {
       if (!$delegate->verifyServer($server)) {
-        $output->error("invalid server: " . $server);
+        return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
       }
     }
     $results = $curl->post($server . 'archive.php', $_POST);
@@ -141,7 +139,6 @@ $app->post('/archive', function (Request $request) use ($app) {
 })->bind('archive');
 
 $app->post('/download', function (Request $request) use ($app) {
-  $output = getOutput($request->get('dataType'));
 
   /** @var Delegate $delegate */
   $delegate = $app['delegate'];
@@ -155,13 +152,13 @@ $app->post('/download', function (Request $request) use ($app) {
       $mixId = $request->get('mix_id', null);
 
       if ($mixId === null) {
-        $output->error('mix_id is empty.');
+        return new JsonResponse(['error' => 'mix_id is empty.'], 400);
       }
 
       $delegate->getServer($mixId, '8tracks_playlists');
     } else {
       if (!$delegate->verifyServer($server)) {
-        $output->error("invalid server: " . $server);
+        return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
       }
     }
     $results = $curl->post($server . 'download.php', $_POST);
@@ -174,51 +171,37 @@ $app->post('/download', function (Request $request) use ($app) {
 
 $app->post('/fetch', function (Request $request) use ($app) {
 
-  $output = getOutput($request->get('dataType'));
-
   $url = $request->get('url', null);
-  if ($url !== null) {
+
+  try {
+    if ($url === null) {
+      throw new ServiceException('No URL provided');
+    }
     $subDomains = array('m.', 'www.', 'mobile.');
     $host = str_ireplace($subDomains, '', parse_url($url, PHP_URL_HOST));
 
+    $data = null;
+
     switch ($host) {
       case "8tracks.com":
-        $please = new EightTracks($app['database'], $app['curl'], $output);
-        $please->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
+        $please = new EightTracks($app['database'], $app['curl']);
+        $data = $please->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
         break;
 
       case "songza.com":
-        $please = new Songza($app['curl'], $output);
-        $please->get($url, $request->get('station_id', false), $request->get('session_id', false));
+        $please = new Songza($app['curl']);
+        $data = $please->get($url, $request->get('station_id', false), $request->get('session_id', false));
         break;
 
       default:
-
-        $please = new Cat($output);
-        $please->getCat();
+        $please = new Cat();
+        $data = $please->getCat();
     }
-  } else {
-    $output->error('No URL specified');
+    return new JsonResponse($data);
+  } catch (ServiceException $e) {
+    return new JsonResponse(['error' => $e->getMessage()], 400);
   }
 })->bind('fetch');
-
-
-/**
- * @param string $dataType
- * @return Output
- */
-function getOutput($dataType)
-{
-  switch ($dataType) {
-    case 'array':
-      $output = new OutputArray();
-      break;
-    default:
-      $output = new OutputJSON();
-  }
-
-  return $output;
-}
 
 return $app;
 

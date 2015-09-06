@@ -4,30 +4,28 @@ namespace Omgcatz\Services;
 
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Output\Output;
+use Omgcatz\Services\Exceptions\ServiceException;
 
 class Songza
 {
-
   private $url;
   private $stationId;
   private $sessionId;
 
-  private $outputArray = array();
-
   /**
-   * @var Output
+   * @var array
    */
-  private $output;
+  private $data;
 
   /**
    * @var Curl
    */
   private $curl;
 
-  public function __construct(Curl $curl, Output $output)
+  public function __construct(Curl $curl)
   {
     $this->curl = $curl;
-    $this->output = $output;
+    $this->data = [];
   }
 
   /**
@@ -43,7 +41,7 @@ class Songza
 
     // check for no station id
     if (empty($this->stationId)) {
-      $this->output->error("Invalid URL: " . $this->url);
+      throw new ServiceException('Invalid URL: ' . $this->url);
     }
 
     // grab station info
@@ -51,7 +49,7 @@ class Songza
 
     // check for failed info grab
     if ($array["status"] != "NORMAL") {
-      $this->output->error("Songza said: " . $array["status"]);
+      throw new ServiceException('Songza said: ' . $array["status"]);
     }
 
     // put info into array
@@ -70,11 +68,13 @@ class Songza
     );
 
     // add to output array
-    $this->outputArray["mix"] = $array;
+    $this->data["mix"] = $array;
   }
 
   /**
    * get song info from url
+   *
+   * @throws ServiceException
    */
   private function nextSong()
   {
@@ -99,7 +99,7 @@ class Songza
     );
 
     // add to output array
-    $this->outputArray["song"] = $array;
+    $this->data["song"] = $array;
   }
 
   /**
@@ -107,6 +107,7 @@ class Songza
    * @param string $url
    * @param string $stationId
    * @param string $sessionId
+   * @return array
    */
   function get($url, $stationId, $sessionId)
   {
@@ -126,7 +127,7 @@ class Songza
     // add the next or first song to $outputArray
     $this->nextSong();
 
-    $this->output->successWithData($this->outputArray);
+    return $this->data;
   }
 
 }
