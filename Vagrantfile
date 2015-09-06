@@ -7,6 +7,9 @@ $script = <<SCRIPT
   sudo apt-get install -y git-core lighttpd php5-cgi php5-mysqlnd php5-curl mysql-server curl eyeD3 atomicparsley imagemagick zip file
 
   sudo lighty-enable-mod fastcgi fastcgi-php
+
+  sudo cp /home/vagrant/conf/lighttpd.conf /etc/lighttpd/lighttpd.conf
+
   sudo service lighttpd force-reload
 
   sudo rm -f /var/www/html/index.lighttpd.html
@@ -16,6 +19,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.synced_folder "./app", "/var/www/html", :owner => "www-data", :group => "www-data"
+  config.vm.synced_folder "./conf", "/home/vagrant/conf"
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = "omgcatz"
