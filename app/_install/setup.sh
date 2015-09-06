@@ -29,21 +29,19 @@ if [ "$HAS_MINIONS" == "y" ]; then
 	while :; do
 		echo -en "minion root (e.g. http://your_server.com/): "; read SERVER
 		[ -z "$SERVER" ] && break
-		SERVERS="$SERVERS\"$SERVER\","
+		SERVERS="$SERVERS\"$SERVER\" "
 	done
-
-	MINIONS="public static \$minions = array($SERVERS);"
 else
 	if [ ! -d "../api/stuff/download" ]; then
 		echo
-		git clone "https://github.com/cadejscroggins/omgcatz-minion/" "../api/stuff/download"
+      git clone "https://github.com/cadejscroggins/omgcatz-minion/" "../api/stuff/download"
 		echo -e "\nRunning api/stuff/download/_install/setup.sh..."
 		../api/stuff/download/_install/setup.sh
 	fi
 fi
 
-# create Config class
-echo "<?php class Config { public static \$server=\"$SQL_SERVER\",\$user=\"$NAME\",\$password=\"$PASS\",\$database=\"$DB_NAME\";$MINIONS }" > ../api/include/Config.php
+# create .env file
+echo -e "DB_HOST=\"$SQL_SERVER\"\nDB_USER=\"$NAME\"\nDB_PASS=\"$PASS\"\nDB_NAME=\"$DB_NAME\"" > ../.env
 
 # optionally create database
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER
@@ -56,10 +54,10 @@ fi
 echo -en "\nCreate tables in $DB_NAME? [y/n]: "; read ANSWER
 if [ "$ANSWER" == "y" ]; then
 	echo -en "Creating tables..."
-	php ./create-tables.php && success || failure
+	php ./../app/console setup:tables && success || failure
 
 	if [ "$HAS_MINIONS" == "y" ]; then
 		echo -en "Adding minion servers..."
-		php ./install-minions.php && success || failure
+		php ./../app/console setup:slaves $SERVERS --clear && success || failure
 	fi
 fi
