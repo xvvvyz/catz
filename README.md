@@ -1,5 +1,7 @@
 # omgcatz
 
+[![Join the chat at https://gitter.im/cadejscroggins/omgcatz](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cadejscroggins/omgcatz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 First and foremost, the goal of this project is to provide the user with an abundance of feline imagery—which it currently isn't very good at. However, it is capable of downloading and tagging music from the interwebz that is otherwise hard to acquire.
 
 **Supported sites:**
