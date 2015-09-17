@@ -6,6 +6,9 @@ $script = <<SCRIPT
   sudo apt-get update && sudo apt-get upgrade
   sudo apt-get install -y git-core lighttpd php5-cgi php5-mysqlnd php5-curl mysql-server curl eyeD3 atomicparsley imagemagick zip file
 
+  sudo apt-get install -y php5-xdebug
+  sudo cp /home/vagrant/conf/xdebug.ini /etc/php5/mods-available/xdebug.ini
+
   sudo lighty-enable-mod fastcgi fastcgi-php
 
   sudo cp /home/vagrant/conf/lighttpd.conf /etc/lighttpd/lighttpd.conf
