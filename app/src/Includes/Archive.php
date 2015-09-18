@@ -22,7 +22,7 @@ class Archive
     $process = new Process("cd $path && ../../../find . \! -name *.zip -exec ../../../zip -0 -D -r $fileName * \; -delete");
     $process->run();
 
-    if ($process->isSuccessful()) {
+    if (!$process->isSuccessful()) {
       throw new \RuntimeException($process->getErrorOutput());
     }
 

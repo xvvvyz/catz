@@ -106,6 +106,9 @@ $app->register(new Silex\Provider\MonologServiceProvider(), [
   'monolog.logfile' => __DIR__ . sprintf("/logs/%s.log", $app['env']),
 ]);
 
+$app->error(function (\Exception $e, $code) {
+  return new JsonResponse(['error' => $e->getMessage()], 500);
+});
 
 /**
  * Routing land
@@ -219,5 +222,6 @@ $app->post('/fetch', function (Request $request) use ($app) {
     return new JsonResponse(['error' => $e->getMessage()], 400);
   }
 })->bind('fetch');
+
 
 return $app;

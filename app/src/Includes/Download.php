@@ -39,7 +39,7 @@ class Download
     $process = new Process("cd $this->cwd && ./download.sh ". json_encode($args, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE));
     $process->run();
 
-    if ($process->isSuccessful()) {
+    if (!$process->isSuccessful()) {
       throw new \RuntimeException($process->getErrorOutput());
     }
 
