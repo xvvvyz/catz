@@ -3,6 +3,7 @@
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
+use Omgcatz\Includes\Download;
 use Omgcatz\Services\Cat;
 use Omgcatz\Services\EightTracks;
 use Omgcatz\Services\Exceptions\ServiceException;
@@ -23,6 +24,8 @@ $app = new Silex\Application();
 
 $app['debug'] = getenv('DEBUG');
 $app['env'] = $app['debug'] ? 'dev' : 'prod';
+
+$app['app_dir'] = __DIR__;
 
 if ($app['debug']) {
   ini_set("display_errors", "On");
@@ -47,11 +50,18 @@ $app['curl'] = function () {
 };
 
 /**
- * Setup Delegate
+ * Register Delegate
  */
 $app['delegate'] = function () use ($app) {
   return new Delegate($app['database']);
 };
+
+/**
+ * Register Download
+ */
+$app['download'] = $app->share(function () use ($app) {
+  return new Download($app['app_dir']);
+});
 
 /**
  * Command line land
@@ -165,8 +175,15 @@ $app->post('/download', function (Request $request) use ($app) {
   } else {
     $server = "/src/Stuff/download/";
 
-    $results = $curl->localPost(__DIR__ . "/download", 'download.php');
+
+    /** @var Download $download */
+    $download = $app['download'];
+
+    $results = $download->execute($request->request->all());
   }
+
+  return new JsonResponse($results);
+
 })->bind('download');
 
 $app->post('/fetch', function (Request $request) use ($app) {
@@ -204,6 +221,3 @@ $app->post('/fetch', function (Request $request) use ($app) {
 })->bind('fetch');
 
 return $app;
-
-
-
