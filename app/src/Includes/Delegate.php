@@ -34,9 +34,10 @@ class Delegate {
    * @return boolean
    */
   public function usingMinions() {
-    // TODO: Figure this out
-    return false;
-//    return (!empty(Config::$minions));
+
+    $minionCount = $this->db->select('SELECT COUNT(*) as minionCount FROM minions');
+
+    return (int)$minionCount[0]['minionCount'] !== 0;
   }
 
   /**
