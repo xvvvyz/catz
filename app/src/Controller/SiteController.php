@@ -9,6 +9,7 @@ use Omgcatz\Services\EightTracks;
 use Omgcatz\Services\Exceptions\ServiceException;
 use Omgcatz\Services\Songza;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,6 +104,7 @@ class SiteController
       $download = $app['download'];
 
       $results = $download->execute($request->request->all());
+      $results['server'] = '';
     }
 
     return new JsonResponse($results);
@@ -147,5 +149,34 @@ class SiteController
     } catch (ServiceException $e) {
       return new JsonResponse(['error' => $e->getMessage()], 400);
     }
+  }
+
+  /**
+   * Magic action.
+   *
+   * @param Application $app
+   * @param Request $request
+   * @return BinaryFileResponse
+   */
+  public function magicAction(Application $app, Request $request)
+  {
+    $filePath = $request->get('p');
+    $fileName = $request->get('s');
+
+    $response = new BinaryFileResponse(sprintf('%s/%s', $app['app_dir'] ,$filePath));
+
+    $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+    switch ($ext) {
+      case "mp3":
+      case "m4a":
+      case "zip":
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/octet-stream');
+        $response->headers->set('Expires', '0');
+        $response->headers->set('Content-Length', filesize($filePath));
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename=%s', $fileName));
+    }
+
+    return $response;
   }
 }

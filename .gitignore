@@ -23,5 +23,10 @@
 !/app/app/cache/.gitkeep
 /app/app/logs/*
 !/app/app/logs/.gitkeep
+
+# Download dir
+/app/app/download
+
 # iDE
 /.idea
+

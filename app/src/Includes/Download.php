@@ -36,13 +36,24 @@ class Download
       }
     }
 
-    $process = new Process("cd $this->cwd && ./download.sh ". json_encode($args, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE));
+    $args['server'] = "'/api/stuff/download/'";
+
+    $args = json_encode($args, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
+
+    $process = new Process("cd $this->cwd && ./download.sh " . $args);
     $process->run();
 
     if (!$process->isSuccessful()) {
       throw new \RuntimeException($process->getErrorOutput());
     }
 
-    return $process->getOutput();
+    $output = $process->getOutput();
+    $output = json_decode($output, true);
+
+    if (isset($output['error']) && $output['error'] == 1) {
+      // TODO: error
+    }
+
+    return $output;
   }
 }

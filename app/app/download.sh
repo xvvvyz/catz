@@ -45,9 +45,10 @@ while read -r line; do
   eval $key="\"$(eval echo $value)\""
 done <<< "$(echo -en "$@")"
 
-ARCHIVES="archives"
-SONGS="songs"
-ARTWORK="artwork"
+DOWNLOAD="download/"
+ARCHIVES=$DOWNLOAD"archives"
+SONGS=$DOWNLOAD"songs"
+ARTWORK=$DOWNLOAD"artwork"
 
 if [ -n "$mix_artwork" ]; then
   artwork_url="$mix_artwork"

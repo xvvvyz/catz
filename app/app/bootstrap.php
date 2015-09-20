@@ -115,5 +115,6 @@ $app->get('/', '\Omgcatz\Controller\SiteController::indexAction')->bind('home');
 $app->post('/archive', '\Omgcatz\Controller\SiteController::archiveAction')->bind('archive');
 $app->post('/download', '\Omgcatz\Controller\SiteController::downloadAction')->bind('download');
 $app->post('/fetch', '\Omgcatz\Controller\SiteController::fetchAction')->bind('fetch');
+$app->get('/magic.php', '\Omgcatz\Controller\SiteController::magicAction')->bind('magic');
 
 return $app;
