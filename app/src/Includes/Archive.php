@@ -7,25 +7,40 @@ use Symfony\Component\Process\Process;
 class Archive
 {
   /**
+   * @var string
+   */
+  private $cwd;
+
+  /**
+   * @param string $cwd
+   */
+  public function __construct($cwd)
+  {
+    $this->cwd = $cwd;
+  }
+
+  /**
    * @param string $slug
    * @param string $downloadId
    * @return string
    */
   public function execute($slug, $downloadId)
   {
-    $slug = escapeshellarg(preg_replace("~/~", "", $slug));
-    $downloadId = escapeshellarg(preg_replace("~/~", "", $downloadId));
+    $slug = preg_replace("~/~", "", $slug);
+    $downloadId = preg_replace("~/~", "", $downloadId);
 
-    $path = "archives/" . $slug . "/" . $downloadId;
+    $path = $this->cwd . "/download/archives/" . $slug . "/" . $downloadId;
+    $path = escapeshellarg($path);
+
     $fileName = $slug . ".zip";
 
-    $process = new Process("cd $path && ../../../find . \! -name *.zip -exec ../../../zip -0 -D -r $fileName * \; -delete");
+    $process = new Process("cd $path && find . \! -name *.zip -exec zip -0 -D -r $fileName * \; -delete");
     $process->run();
 
     if (!$process->isSuccessful()) {
       throw new \RuntimeException($process->getErrorOutput());
     }
 
-    return $process->getOutput();
+    return true;
   }
 }

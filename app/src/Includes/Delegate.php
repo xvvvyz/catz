@@ -35,7 +35,7 @@ class Delegate {
    */
   public function usingMinions() {
 
-    $minionCount = $this->db->select('SELECT COUNT(*) as minionCount FROM minions');
+    $minionCount = $this->db->query('SELECT COUNT(*) as minionCount FROM minions');
 
     return (int)$minionCount[0]['minionCount'] !== 0;
   }

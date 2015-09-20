@@ -1,9 +1,11 @@
 <?php
 
+use Omgcatz\Includes\Archive;
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
 use Omgcatz\Includes\Download;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -58,6 +60,10 @@ $app['download'] = $app->share(function () use ($app) {
   return new Download($app['app_dir']);
 });
 
+$app['archive'] = $app->share(function () use ($app) {
+  return new Archive($app['app_dir']);
+});
+
 /**
  * Command line land
  */
@@ -105,7 +111,11 @@ $app->register(new Silex\Provider\MonologServiceProvider(), [
  * Register error handler
  */
 $app->error(function (\Exception $e, $code) {
-  return new JsonResponse(['error' => $e->getMessage()], 500);
+  $code = 500;
+  if ($e instanceof FileNotFoundException) {
+    $code = 404;
+  }
+  return new JsonResponse(['error' => $e->getMessage()], $code);
 });
 
 /**

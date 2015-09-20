@@ -1,6 +1,7 @@
 <?php
 namespace Omgcatz\Controller;
 
+use Omgcatz\Includes\Archive;
 use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Delegate;
 use Omgcatz\Includes\Download;
@@ -36,8 +37,6 @@ class SiteController
    */
   public function archiveAction(Application $app, Request $request)
   {
-    // TODO: Fix up this action
-
     /** @var Delegate $delegate */
     $delegate = $app['delegate'];
 
@@ -51,7 +50,6 @@ class SiteController
 
         if ($mixId === null) {
           return new JsonResponse(['error' => 'mix_id is empty.'], 400);
-
         }
 
         $delegate->getServer($mixId, '8tracks_playlists');
@@ -60,12 +58,15 @@ class SiteController
           return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
         }
       }
-      $results = $curl->post($server . 'archive.php', $_POST);
+      $results = $curl->post($server . 'download.php', $_POST);
     } else {
-      $server = "/src/Stuff/download/";
+      /** @var Archive $archive */
+      $archive = $app['archive'];
 
-      $results = $curl->localPost(__DIR__ . "/download", 'archive.php');
+      $results = $archive->execute($request->get('slug'), $request->get('download_id'));
     }
+
+    return new JsonResponse($results);
   }
 
   /**
