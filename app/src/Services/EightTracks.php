@@ -158,9 +158,9 @@ class EightTracks
 
     if (!preg_match('/(200)/', $status)) {
       if (preg_match('/(403)/', $status)) {
-        $this->output->error("8tracks made a boo boo. (" . $status . ")", 403);
+        throw new ServiceException(sprintf("8tracks made a boo boo. (%s)", $status), 403);
       } else {
-        $this->output->error("8tracks made a boo boo. (" . $status . ")");
+        throw new ServiceException(sprintf("8tracks made a boo boo. (%s)", $status));
       }
     }
 

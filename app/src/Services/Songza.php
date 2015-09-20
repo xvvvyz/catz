@@ -3,7 +3,6 @@
 namespace Omgcatz\Services;
 
 use Omgcatz\Includes\Curl;
-use Omgcatz\Includes\Output\Output;
 use Omgcatz\Services\Exceptions\ServiceException;
 
 class Songza

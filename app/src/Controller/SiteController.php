@@ -147,7 +147,7 @@ class SiteController
       }
       return new JsonResponse(array_merge(['error' => 0, 'status' => 'ok'], $data));
     } catch (ServiceException $e) {
-      return new JsonResponse(['error' => $e->getMessage()], 400);
+      return new JsonResponse(['error' => $e->getMessage()], $e->getStatusCode());
     }
   }
 
