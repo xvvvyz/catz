@@ -4,12 +4,7 @@ use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
 use Omgcatz\Includes\Download;
-use Omgcatz\Services\Cat;
-use Omgcatz\Services\EightTracks;
-use Omgcatz\Services\Exceptions\ServiceException;
-use Omgcatz\Services\Songza;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Knp\Provider\ConsoleServiceProvider;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -106,6 +101,9 @@ $app->register(new Silex\Provider\MonologServiceProvider(), [
   'monolog.logfile' => __DIR__ . sprintf("/logs/%s.log", $app['env']),
 ]);
 
+/**
+ * Register error handler
+ */
 $app->error(function (\Exception $e, $code) {
   return new JsonResponse(['error' => $e->getMessage()], 500);
 });
@@ -113,115 +111,9 @@ $app->error(function (\Exception $e, $code) {
 /**
  * Routing land
  */
-
-$app->get('/', function () use ($app) {
-  return $app['twig']->render('index.html.twig');
-})->bind('home');
-
-$app->post('/archive', function (Request $request) use ($app) {
-
-  /** @var Delegate $delegate */
-  $delegate = $app['delegate'];
-
-  /** @var Curl $curl */
-  $curl = $app['curl'];
-
-  if ($delegate->usingMinions()) {
-    $server = $request->get('server', null);
-    if ($server === null) {
-      $mixId = $request->get('mix_id', null);
-
-      if ($mixId === null) {
-        return new JsonResponse(['error' => 'mix_id is empty.'], 400);
-
-      }
-
-      $delegate->getServer($mixId, '8tracks_playlists');
-    } else {
-      if (!$delegate->verifyServer($server)) {
-        return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
-      }
-    }
-    $results = $curl->post($server . 'archive.php', $_POST);
-  } else {
-    $server = "/src/Stuff/download/";
-
-    $results = $curl->localPost(__DIR__ . "/download", 'archive.php');
-  }
-
-})->bind('archive');
-
-$app->post('/download', function (Request $request) use ($app) {
-
-  /** @var Delegate $delegate */
-  $delegate = $app['delegate'];
-
-  /** @var Curl $curl */
-  $curl = $app['curl'];
-
-  if ($delegate->usingMinions()) {
-    $server = $request->get('server', null);
-    if ($server === null) {
-      $mixId = $request->get('mix_id', null);
-
-      if ($mixId === null) {
-        return new JsonResponse(['error' => 'mix_id is empty.'], 400);
-      }
-
-      $delegate->getServer($mixId, '8tracks_playlists');
-    } else {
-      if (!$delegate->verifyServer($server)) {
-        return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
-      }
-    }
-    $results = $curl->post($server . 'download.php', $_POST);
-  } else {
-    $server = "/src/Stuff/download/";
-
-
-    /** @var Download $download */
-    $download = $app['download'];
-
-    $results = $download->execute($request->request->all());
-  }
-
-  return new JsonResponse($results);
-
-})->bind('download');
-
-$app->post('/fetch', function (Request $request) use ($app) {
-
-  $url = $request->get('url', null);
-
-  try {
-    if ($url === null) {
-      throw new ServiceException('No URL provided');
-    }
-    $subDomains = array('m.', 'www.', 'mobile.');
-    $host = str_ireplace($subDomains, '', parse_url($url, PHP_URL_HOST));
-
-    $data = null;
-
-    switch ($host) {
-      case "8tracks.com":
-        $please = new EightTracks($app['database'], $app['curl']);
-        $data = $please->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
-        break;
-
-      case "songza.com":
-        $please = new Songza($app['curl']);
-        $data = $please->get($url, $request->get('station_id', false), $request->get('session_id', false));
-        break;
-
-      default:
-        $please = new Cat();
-        $data = $please->getCat();
-    }
-    return new JsonResponse(array_merge(['error' => 0, 'status' => 'ok'], $data));
-  } catch (ServiceException $e) {
-    return new JsonResponse(['error' => $e->getMessage()], 400);
-  }
-})->bind('fetch');
-
+$app->get('/', '\Omgcatz\Controller\SiteController::indexAction')->bind('home');
+$app->post('/archive', '\Omgcatz\Controller\SiteController::archiveAction')->bind('archive');
+$app->post('/download', '\Omgcatz\Controller\SiteController::downloadAction')->bind('download');
+$app->post('/fetch', '\Omgcatz\Controller\SiteController::fetchAction')->bind('fetch');
 
 return $app;
