@@ -17,7 +17,7 @@ date_default_timezone_set(getenv('TIMEZONE') ?: 'Europe/Berlin');
 
 $app = new Silex\Application();
 
-$app['debug'] = getenv('DEBUG');
+$app['debug'] = getenv('DEBUG') ?: false;
 $app['env'] = $app['debug'] ? 'dev' : 'prod';
 
 $app['app_dir'] = __DIR__;
