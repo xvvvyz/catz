@@ -23,6 +23,7 @@ $app['debug'] = getenv('DEBUG') ?: false;
 $app['env'] = $app['debug'] ? 'dev' : 'prod';
 
 $app['app_dir'] = __DIR__;
+$app['app_download_dir'] = __DIR__ . '/download';
 
 if ($app['debug']) {
   ini_set("display_errors", "On");

@@ -31,13 +31,6 @@ if [ "$HAS_MINIONS" == "y" ]; then
 		[ -z "$SERVER" ] && break
 		SERVERS="$SERVERS\"$SERVER\" "
 	done
-else
-	if [ ! -d "../api/stuff/download" ]; then
-		echo
-      git clone "https://github.com/cadejscroggins/omgcatz-minion/" "../api/stuff/download"
-		echo -e "\nRunning api/stuff/download/_install/setup.sh..."
-		../api/stuff/download/_install/setup.sh
-	fi
 fi
 
 # create .env file

@@ -33,8 +33,7 @@ class Archive
     $path = escapeshellarg($path);
 
     $fileName = $slug . ".zip";
-
-    $process = new Process("cd $path && find . \! -name *.zip -exec zip -0 -D -r $fileName * \; -delete");
+    $process = new Process("cd $path && find . ! -name *.zip -exec zip -0 -D -r $fileName * \; -delete");
     $process->run();
 
     if (!$process->isSuccessful()) {

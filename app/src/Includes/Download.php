@@ -38,7 +38,7 @@ class Download
 
     $args['server'] = "'/api/stuff/download/'";
 
-    $args = json_encode($args, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
+    $args = json_encode($args, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     $process = new Process("cd $this->cwd && ./download.sh " . $args);
     $process->run();

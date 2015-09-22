@@ -25,7 +25,7 @@ function UserInterface() {
     if ($(element).is(":checkbox")) {
       $(element).attr("checked", false);
     }
-  }
+  };
 
 
   this.enableElement = function(element) {
@@ -45,14 +45,14 @@ function ProgressBar() {
     $("#progress").animate({
       opacity: 1
     }, 0);
-  }
+  };
 
 
   this.animate = function(percentage, speed) {
     $("#progress").animate({
       width: percentage + "%"
     }, speed, "linear");
-  }
+  };
 
 
   this.done = function() {
@@ -70,14 +70,13 @@ function Message() {
   this.show = function(message) {
     $("#message").html(message);
     $("#message").slideDown();
-  }
+  };
 
 
   this.hide = function() {
     $("#message").slideUp(FAST);
     $("#message").html("");
-  }
-
+  };
 }
 
 
@@ -87,13 +86,12 @@ function Modal() {
     $("html, body").animate({ scrollTop: 100 }, "slow");
     $(".modal").slideUp(FASTER);
     $("#" + $(element).attr("data-modal")).slideDown(FAST);
-  }
+  };
 
 
   this.hide = function() {
     $(".modal").slideUp(FASTER);
-  }
-
+  };
 }
 
 
@@ -107,7 +105,7 @@ function Checkboxes() {
     } else {
       $(".selected-downloads").prop("checked", false);
     }
-  }
+  };
 
 
   this.countChecked = function() {
@@ -120,10 +118,8 @@ function Checkboxes() {
     }
 
     return count;
-  }
-
+  };
 }
-
 
 function Timer() {
 
@@ -135,7 +131,7 @@ function Timer() {
   this.addSeconds = function(seconds) {
     timer = new Date();
     timer = timer.setSeconds(timer.getSeconds() + seconds);
-  }
+  };
 
 
   this.update = function() {
@@ -163,17 +159,14 @@ function Timer() {
         timeout = setTimeout(parentThis.update, 1000);
       }
     }
-  }
-
+  };
 
   this.clear = function() {
     timer = false;
     clearTimeout(timeout);
     MESSAGE.hide();
-  }
-
+  };
 }
-
 
 function Fetch() {
 
@@ -194,12 +187,12 @@ function Fetch() {
   var sessionId;
 
 
-  this.getDomain = function() { return domain; }
-  this.getMixSlug = function() { return mixSlug; }
-  this.getMixId = function() { return mixId; }
-  this.getMixArtwork = function() { return mixArtwork; }
-  this.getTrackCount = function() { return trackCount; }
-  this.getTotalTracks = function() { return totalTracks; }
+  this.getDomain = function() { return domain; };
+  this.getMixSlug = function() { return mixSlug; };
+  this.getMixId = function() { return mixId; };
+  this.getMixArtwork = function() { return mixArtwork; };
+  this.getTrackCount = function() { return trackCount; };
+  this.getTotalTracks = function() { return totalTracks; };
 
 
   this.init = function() {
@@ -217,7 +210,7 @@ function Fetch() {
     TIMER.clear();
     MINION.init();
     UI.enableElement(".option");
-  }
+  };
 
 
   this.done = function() {
@@ -227,8 +220,7 @@ function Fetch() {
 
     PROGRESS_BAR.done();
     TIMER.clear();
-  }
-
+  };
 
   this.cat = function() {
     PROGRESS_BAR.animate(95, 12000);
@@ -240,8 +232,7 @@ function Fetch() {
       FETCH.done();
       MESSAGE.show("Nothing was found.");
     });
-  }
-
+  };
 
   this.eightTracks = function() {
     UI.disableElement("#tag-genre");
@@ -316,7 +307,7 @@ function Fetch() {
         MESSAGE.show("Request failed. (" + textStatus + ")");
       }
     });
-  }
+  };
 
 
   this.songza = function() {
@@ -329,7 +320,7 @@ function Fetch() {
       data: {
         url: url,
         session_id: sessionId,
-        station_id: mixId,
+        station_id: mixId
       },
       success: function (data) {
         var error = data["error"];
@@ -374,12 +365,12 @@ function Fetch() {
         FETCH.done();
       }
     });
-  }
+  };
 
 
   this.soundCloud = function() {
     FETCH.done();
-  }
+  };
 
 
   this.stuff = function(original) {
@@ -418,7 +409,7 @@ function Minion() {
     downloadCount = 0;
     recursiveDownloadCount = 0;
     server = "";
-  }
+  };
 
 
   this.downloadId = function() {
@@ -430,7 +421,7 @@ function Minion() {
     }
 
     return text;
-  }
+  };
 
 
   this.download = function(position, recursive, downloadId) {
@@ -544,14 +535,13 @@ function Minion() {
     });
 
     return false;
-  }
-
+  };
 
   this.archive = function(downloadId, mixSlug) {
     $(".completed").each(function() {
       if ($(this).html() == "cached") {
         $(this).html("preparing...");
-      };
+      }
     });
 
     $.ajax({
@@ -567,7 +557,7 @@ function Minion() {
         $(".completed").each(function() {
           if ($(this).html() == "preparing...") {
             $(this).html("completed");
-          };
+          }
         });
 
         var path = "archives" + "/" + mixSlug + "/" + downloadId + "/" + mixSlug + ".zip";
@@ -579,14 +569,13 @@ function Minion() {
         $(".completed").each(function() {
           if ($(this).html() == "preparing...") {
             $(this).html("archive failed");
-          };
+          }
         });
       }
     });
 
     return false;
-  }
-
+  };
 
   this.clientDownload = function(server, path, fileName) {
     var downloadUrl = server + "magic.php?p=" + path + "&s=" + encodeURIComponent(fileName);
