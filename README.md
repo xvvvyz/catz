@@ -31,6 +31,8 @@ git clone https://github.com/cadejscroggins/omgcatz && cd omgcatz
 vagrant up
 ```
 
+_Note: If on Windows ensure that you run this command from an Administrator prompt due to symlink requirments of archive action._
+
 **Run the omgcatz setup script:**
 
 ```bash
