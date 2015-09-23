@@ -29,7 +29,7 @@ function get_file_type() {
 function download_artwork() {
   if [ ! -f "$artwork_save" ]; then
     curl -Lso "$artwork_save" "$artwork_url"
-    ./convert "$artwork_save" "$artwork_save"
+    convert "$artwork_save" "$artwork_save"
   fi
 }
 
@@ -96,27 +96,27 @@ song_save_client="$song_save_client.$song_ext"
 touch "$song_save_server"
 
 if [ "$song_ext" == "mp3" ]; then
-  ./eyeD3 --remove-all "$song_save_server" &> /dev/null
+  eyeD3 --remove-all "$song_save_server" &> /dev/null
 
   [ -n "$song_title" ] && t="-t \"$song_title\""
   [ -n "$song_artist" ] && a="-a \"$song_artist\""
   [ -n "$song_album" ] && A="-A \"$song_album\""
   [ -n "$song_title" ] && t="-t \"$song_title\""
   [ -n "$song_number" ] && N="-n $song_number -N $total_songs"
-  eval ./eyeD3 $t $a $A $N "$song_save_server" &> /dev/null
+  eval eyeD3 $t $a $A $N "$song_save_server" &> /dev/null
 
   if [ -n "$artwork_save" ]; then
     download_artwork
-    ./eyeD3 --add-image="$artwork_save":FRONT_COVER "$song_save_server" &> /dev/null
+    eyeD3 --add-image="$artwork_save":FRONT_COVER "$song_save_server" &> /dev/null
   fi
 elif [ "$song_ext" == "m4a" ]; then
   [ -n "$total_songs" ] && slash_total_songs="/$total_songs"
 
-  ./AtomicParsley "$song_save_server" -o "$song_save_server.temp" --title "$song_title" --artist "$song_artist" --album "$song_album" --tracknum "$song_number$slash_total_songs" --artwork REMOVE_ALL &> /dev/null && atomicparsley_mv
+  AtomicParsley "$song_save_server" -o "$song_save_server.temp" --title "$song_title" --artist "$song_artist" --album "$song_album" --tracknum "$song_number$slash_total_songs" --artwork REMOVE_ALL &> /dev/null && atomicparsley_mv
 
   if [ -n "$artwork_save" ]; then
     download_artwork
-    ./AtomicParsley "$song_save_server" -o "$song_save_server.temp" --artwork "$artwork_save" &> /dev/null && atomicparsley_mv
+    AtomicParsley "$song_save_server" -o "$song_save_server.temp" --artwork "$artwork_save" &> /dev/null && atomicparsley_mv
   fi
 fi
 
