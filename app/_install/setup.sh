@@ -36,6 +36,8 @@ fi
 # create .env file
 echo -e "DB_HOST=\"$SQL_SERVER\"\nDB_USER=\"$NAME\"\nDB_PASS=\"$PASS\"\nDB_NAME=\"$DB_NAME\"" > ../.env
 
+
+
 # optionally create database
 echo -en "\nCreate database $DB_NAME? [y/n]: "; read ANSWER
 if [ "$ANSWER" == "y" ]; then
@@ -45,15 +47,17 @@ fi
 
 # optionally create tables
 echo -en "\nCreate tables in $DB_NAME? [y/n]: "; read ANSWER
-if [ "$ANSWER" == "y" ]; then
-	echo -en "Creating tables..."
-	php ./../app/console setup:tables && success || failure
-
-	if [ "$HAS_MINIONS" == "y" ]; then
-		echo -en "Adding minion servers..."
-		php ./../app/console setup:slaves $SERVERS --clear && success || failure
-	fi
-fi
 
 # Install composer deps
 cd ../ && composer install
+
+if [ "$ANSWER" == "y" ]; then
+	echo -en "Creating tables..."
+	php ./app/console setup:tables && success || failure
+
+	if [ "$HAS_MINIONS" == "y" ]; then
+		echo -en "Adding minion servers..."
+		php ./app/console setup:slaves $SERVERS --clear && success || failure
+	fi
+fi
+
