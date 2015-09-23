@@ -578,7 +578,7 @@ function Minion() {
   };
 
   this.clientDownload = function(server, path, fileName) {
-    var downloadUrl = server + "magic.php?p=" + path + "&s=" + encodeURIComponent(fileName);
+    var downloadUrl = server + "magic?p=" + path + "&s=" + encodeURIComponent(fileName);
     $("#download").attr("src", downloadUrl);
   }
 
