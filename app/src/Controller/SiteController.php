@@ -164,7 +164,7 @@ class SiteController
     $filePath = $request->get('p');
     $fileName = $request->get('s');
 
-    $response = new BinaryFileResponse(sprintf('%s/%s', $app['app_download_dir'] ,$filePath));
+    $response = new BinaryFileResponse(sprintf('%s/%s', $app['app_dir'] ,$filePath));
 
     $ext = pathinfo($filePath, PATHINFO_EXTENSION);
     switch ($ext) {

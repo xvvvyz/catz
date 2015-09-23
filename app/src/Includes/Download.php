@@ -2,8 +2,8 @@
 
 namespace Omgcatz\Includes;
 
+use Exception;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class Download
 {
@@ -51,7 +51,7 @@ class Download
     $output = json_decode($output, true);
 
     if (isset($output['error']) && $output['error'] == 1) {
-      // TODO: error
+      throw new Exception('An error occurred whilst downloading');
     }
 
     return $output;

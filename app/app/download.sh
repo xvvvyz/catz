@@ -50,6 +50,10 @@ ARCHIVES=$DOWNLOAD"archives"
 SONGS=$DOWNLOAD"songs"
 ARTWORK=$DOWNLOAD"artwork"
 
+mkdir -p $ARCHIVES
+mkdir -p $SONGS
+mkdir -p $ARTWORK
+
 if [ -n "$mix_artwork" ]; then
   artwork_url="$mix_artwork"
   artwork_save="$ARTWORK/$mix_slug.jpg"
@@ -83,6 +87,7 @@ else
     mv "$song_save_server.part" "$song_save_server.$song_ext"
   else
     echo -n "{\"error\": \"1\"}"
+    exit
   fi
 fi
 

@@ -22,7 +22,7 @@ class Archive
   /**
    * @param string $slug
    * @param string $downloadId
-   * @return string
+   * @return bool
    */
   public function execute($slug, $downloadId)
   {

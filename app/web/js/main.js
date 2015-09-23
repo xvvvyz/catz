@@ -560,7 +560,7 @@ function Minion() {
           }
         });
 
-        var path = "archives" + "/" + mixSlug + "/" + downloadId + "/" + mixSlug + ".zip";
+        var path = "download/archives" + "/" + mixSlug + "/" + downloadId + "/" + mixSlug + ".zip";
         var fileName = mixSlug + ".zip";
 
         MINION.clientDownload(server, path, fileName);
