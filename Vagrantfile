@@ -9,6 +9,8 @@ $script = <<SCRIPT
   sudo apt-get install -y php5-xdebug
   sudo cp /home/vagrant/conf/xdebug.ini /etc/php5/mods-available/xdebug.ini
 
+  curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
   sudo lighty-enable-mod fastcgi fastcgi-php
 
   sudo cp /home/vagrant/conf/lighttpd.conf /etc/lighttpd/lighttpd.conf

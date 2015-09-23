@@ -54,3 +54,6 @@ if [ "$ANSWER" == "y" ]; then
 		php ./../app/console setup:slaves $SERVERS --clear && success || failure
 	fi
 fi
+
+# Install composer deps
+cd ../ && composer install
