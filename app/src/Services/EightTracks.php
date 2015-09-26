@@ -29,23 +29,34 @@ class EightTracks
    */
   private $curl;
 
+  /**
+   * @param Database $db
+   * @param Curl $curl
+   */
   public function __construct(Database $db, Curl $curl)
   {
     $this->db = $db;
     $this->curl = $curl;
     $this->data = [];
+
+    // Hard coded?
+    $this->playToken = 2147483647;
   }
 
+  /**
+   * Remove mix info from database
+   */
   private function removeMixInfoDb()
   {
     $this->db->simpleQuery("delete from `8tracks_playlists` where `mixId`={$this->mixId}");
     $this->db->simpleQuery("delete from `8tracks_playlists_songs` where `mixId`={$this->mixId}");
   }
 
+  /**
+   * Update mix info
+   */
   private function updateMixInfoDb()
   {
-    $this->playToken = 2147483647; // should be set dynamically ???
-
     $this->db->insert(
       "8tracks_playlists",
       array(
@@ -152,7 +163,8 @@ class EightTracks
   private function nextSong()
   {
     $curl = new Curl();
-    $songArray = $curl->getArray("http://8tracks.com/sets/" . $this->playToken . "/next?mix_id=" . $this->mixId . "&api_version=2&format=jsonh");
+
+    $songArray = $curl->getArray(sprintf("http://8tracks.com/sets/%d/next?mix_id=%&api_version=2&format=jsonh", $this->playToken , $this->mixId));
 
     $status = $songArray["status"];
 

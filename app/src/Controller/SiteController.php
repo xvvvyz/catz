@@ -148,6 +148,7 @@ class SiteController
       }
       return new JsonResponse(array_merge(['error' => 0, 'status' => 'ok'], $data));
     } catch (ServiceException $e) {
+      $app['monolog']->addError($e->getMessage());
       return new JsonResponse(['error' => $e->getMessage()], $e->getStatusCode());
     }
   }

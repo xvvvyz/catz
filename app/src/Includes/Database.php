@@ -44,7 +44,7 @@ class Database {
 
   /**
    * connect to db and return db object
-   * @return object
+   * @return mysqli
    */
   private function connect() {
     return new mysqli($this->server, $this->user, $this->password, $this->database);
