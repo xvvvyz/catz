@@ -164,15 +164,15 @@ class EightTracks
   {
     $curl = new Curl();
 
-    $songArray = $curl->getArray(sprintf("http://8tracks.com/sets/%d/next?mix_id=%&api_version=2&format=jsonh", $this->playToken , $this->mixId));
+    $songArray = $curl->getArray(sprintf("http://8tracks.com/sets/%d/next?mix_id=%d&api_version=2&format=jsonh", $this->playToken , $this->mixId));
 
     $status = $songArray["status"];
 
     if (!preg_match('/(200)/', $status)) {
       if (preg_match('/(403)/', $status)) {
-        throw new ServiceException(sprintf("8tracks made a boo boo. (%s)", $status), 403);
+        throw new ServiceException(sprintf("8tracks made a boo boo. (%d)", $status), 403);
       } else {
-        throw new ServiceException(sprintf("8tracks made a boo boo. (%s)", $status));
+        throw new ServiceException(sprintf("8tracks made a boo boo. (%d)", $status));
       }
     }
 

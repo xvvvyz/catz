@@ -304,7 +304,7 @@ function Fetch() {
       },
       error: function (jqXHR, textStatus) {
         FETCH.done();
-        MESSAGE.show("Request failed. (" + textStatus + ")");
+        MESSAGE.show("Request failed. (" + $.parseJSON(jqXHR.responseText).error + ")");
       }
     });
   };
