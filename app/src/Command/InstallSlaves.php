@@ -28,15 +28,14 @@ class InstallSlaves extends Command
     $minions = $input->getArgument('minions');
     $clear = $input->getOption('clear');
 
-
-    if ($clear !== null) {
+    if ($clear) {
       $db->simpleQuery("TRUNCATE TABLE minions");
+      $output->writeln('Minions Cleared');
     }
 
     foreach ($minions as $minion) {
       $db->simpleQuery("INSERT INTO minions (`minionRoot`,`load`) VALUES ('{$minion}',0)");
+      $output->writeln(sprintf('Adding %s', $minion));
     }
-
-    $output->writeln('Minons Created');
   }
 }
