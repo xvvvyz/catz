@@ -6,7 +6,7 @@ $loader = new josegonzalez\Dotenv\Loader(__DIR__ . '/../.env');
 $loader->parse();
 $config = $loader->toArray();
 
-date_default_timezone_set($config['TIMEZONE'] ?: 'Europe/Berlin');
+date_default_timezone_set(isset($config['TIMEZONE']) ? $config['TIMEZONE'] : 'Europe/Berlin');
 
 $config = array_merge($config, ['app_dir' => __DIR__]);
 

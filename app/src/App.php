@@ -24,8 +24,7 @@ class App extends Application
    */
   public function __construct(array $config = []) {
     parent::__construct();
-
-    $this['debug'] = $config['DEBUG'] ?: false;
+    $this['debug'] = isset($config['DEBUG']) ? $config['DEBUG'] : false;
     $this['env'] = $this['debug'] ? 'dev' : 'prod';
 
     $this['app_dir'] = $config['app_dir'];
