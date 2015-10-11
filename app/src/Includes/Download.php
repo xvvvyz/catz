@@ -2,7 +2,7 @@
 
 namespace Omgcatz\Includes;
 
-use Exception;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
 class Download
@@ -23,7 +23,6 @@ class Download
 
   /**
    * @param array $args
-   *
    * @return string
    */
   public function execute(array $args)
@@ -44,14 +43,14 @@ class Download
     $process->run();
 
     if (!$process->isSuccessful()) {
-      throw new \RuntimeException($process->getErrorOutput());
+      throw new RuntimeException($process->getErrorOutput());
     }
 
     $output = $process->getOutput();
     $output = json_decode($output, true);
 
     if (isset($output['error']) && $output['error'] == 1) {
-      throw new Exception('An error occurred whilst downloading');
+      throw new RuntimeException('An error occurred whilst downloading');
     }
 
     return $output;

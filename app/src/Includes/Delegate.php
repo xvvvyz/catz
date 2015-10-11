@@ -5,7 +5,8 @@ namespace Omgcatz\Includes;
 /**
  * manage minion download servers
  */
-class Delegate {
+class Delegate
+{
 
   /**
    * we need this to make sure we use the same server every time for a given mix
@@ -24,30 +25,32 @@ class Delegate {
    */
   private $db;
 
-  public function __construct(Database $db) {
+  public function __construct(Database $db)
+  {
     $this->db = $db;
   }
-
 
   /**
    * determine if we are going to use minion servers
    * @return boolean
    */
-  public function usingMinions() {
-
+  public function usingMinions()
+  {
     $minionCount = $this->db->query('SELECT COUNT(*) as minionCount FROM minions');
-
     return (int)$minionCount[0]['minionCount'] !== 0;
   }
 
   /**
    * if a minion server is already set for a given mix, use that
+   * @param string $mixId
+   * @param string $table
    * @return mixed
    */
-  private function getOldServer() {
+  private function getOldServer($mixId, $table)
+  {
     $mixminion = $this->db->select(
-      "SELECT minionId FROM {$this->table} WHERE mixId=? LIMIT 1",
-      array($this->mixId),
+      "SELECT minionId FROM {$table} WHERE mixId=? LIMIT 1",
+      array($mixId),
       array("%d")
     );
 
@@ -72,7 +75,8 @@ class Delegate {
    * @return string
    * @todo actually have some kind of algorithm that selects the best server
    */
-  private function getNewServer() {
+  private function getNewServer()
+  {
     $minions = $this->db->query("SELECT * FROM `minions` WHERE `load`=0");
 
     if (empty($minions[0]["minionId"])) {
@@ -103,7 +107,8 @@ class Delegate {
    * @param string $server
    * @return boolean
    */
-  public function verifyServer($server) {
+  public function verifyServer($server)
+  {
     $minion = $this->db->select(
       "SELECT minionId FROM minions WHERE minionRoot=? LIMIT 1",
       array($server),
@@ -119,11 +124,9 @@ class Delegate {
    * @param string $table
    * @return string
    */
-  public function getServer($mixId, $table) {
-    $this->mixId = $mixId;
-    $this->table = $table;
-
-    $server = $this->getOldServer();
+  public function getServer($mixId, $table)
+  {
+    $server = $this->getOldServer($mixId, $table);
 
     if ($server === false) {
       $server = $this->getNewServer();

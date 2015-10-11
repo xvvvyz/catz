@@ -45,20 +45,21 @@ class SiteController
 
     if ($delegate->usingMinions()) {
       $server = $request->get('server', null);
-      if ($server === null) {
+      if (empty($server)) {
         $mixId = $request->get('mix_id', null);
 
-        if ($mixId === null) {
+        if (empty($mixId)) {
           return new JsonResponse(['error' => 'mix_id is empty.'], 400);
         }
 
-        $delegate->getServer($mixId, '8tracks_playlists');
+        $server = $delegate->getServer($mixId, '8tracks_playlists');
       } else {
         if (!$delegate->verifyServer($server)) {
           return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
         }
       }
-      $results = $curl->post($server . 'download.php', $_POST);
+      $results = $curl->post($server . '/archive', $request->request->all());
+      $results['server'] = $server;
     } else {
       /** @var Archive $archive */
       $archive = $app['archive'];
@@ -86,20 +87,21 @@ class SiteController
 
     if ($delegate->usingMinions()) {
       $server = $request->get('server', null);
-      if ($server === null) {
+      if (empty($server)) {
         $mixId = $request->get('mix_id', null);
 
-        if ($mixId === null) {
+        if (empty($mixId)) {
           return new JsonResponse(['error' => 'mix_id is empty.'], 400);
         }
 
-        $delegate->getServer($mixId, '8tracks_playlists');
+        $server = $delegate->getServer($mixId, '8tracks_playlists');
       } else {
         if (!$delegate->verifyServer($server)) {
           return new JsonResponse(['error' => 'invalid server: ' . $server], 400);
         }
       }
-      $results = $curl->post($server . 'download.php', $_POST);
+      $results = $curl->post($server . '/download', $request->request->all());
+      $results['server'] = $server;
     } else {
       /** @var Download $download */
       $download = $app['download'];
@@ -165,7 +167,7 @@ class SiteController
     $filePath = $request->get('p');
     $fileName = $request->get('s');
 
-    $response = new BinaryFileResponse(sprintf('%s/%s', $app['app_dir'] ,$filePath));
+    $response = new BinaryFileResponse(sprintf('%s/%s', $app['app_dir'], $filePath));
 
     $ext = pathinfo($filePath, PATHINFO_EXTENSION);
     switch ($ext) {
