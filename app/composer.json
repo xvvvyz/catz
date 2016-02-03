@@ -11,7 +11,7 @@
         "twig/twig": "^1.18",
         "monolog/monolog": "^1.15",
         "symfony/twig-bridge": "^2.7",
-        "josegonzalez/dotenv": "^1.0",
+        "josegonzalez/dotenv": "^2.0",
         "knplabs/console-service-provider": "^1.0",
         "symfony/process": "^2.7"
     },

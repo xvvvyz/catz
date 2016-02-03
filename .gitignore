@@ -14,7 +14,7 @@
 
 # composer
 /app/vendor/
-/composer.lock
+
 
 # environement
 /app/.env
