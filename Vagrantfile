@@ -21,7 +21,7 @@ $script = <<SCRIPT
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "bento/debian-8.3"
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.synced_folder "./app", "/var/www/html", :owner => "www-data", :group => "www-data"
   config.vm.synced_folder "./conf", "/home/vagrant/conf"
