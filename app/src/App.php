@@ -37,6 +37,13 @@ class App extends Application
       ini_set("display_errors", "Off");
       error_reporting(0);
     }
+    
+    /**
+     * Register logging
+     */
+    $this->register(new MonologServiceProvider(), [
+        'monolog.logfile' => $this['app_dir'] . sprintf("/logs/%s.log", $this['env']),
+    ]);
 
     /**
      * Register database
@@ -105,13 +112,6 @@ class App extends Application
 
       return $twig;
     }));
-
-    /**
-     * Register logging
-     */
-    $this->register(new MonologServiceProvider(), [
-      'monolog.logfile' => $this['app_dir'] . sprintf("/logs/%s.log", $this['env']),
-    ]);
 
     /**
      * Register error handler

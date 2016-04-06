@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class SiteController
 {
@@ -172,15 +173,18 @@ class SiteController
     $ext = pathinfo($filePath, PATHINFO_EXTENSION);
     switch ($ext) {
       case "mp3":
+        $response->headers->set('Content-Type', 'audio/mpeg3');
       case "m4a":
+        $response->headers->set('Content-Type', 'audio/mp4');
       case "zip":
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Content-Type', 'application/octet-stream');
-        $response->headers->set('Expires', '0');
-        $response->headers->set('Content-Length', filesize($filePath));
-        $response->headers->set('Content-Disposition', sprintf('attachment; filename=%s', $fileName));
-    }
+        $response->headers->set('Content-Type', 'application/x-compressed');
 
+    }
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+    $response->headers->set('Expires', '0');
+    $response->headers->set('Content-Disposition',
+        $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName)
+    );
     return $response;
   }
 }
