@@ -8,6 +8,8 @@ use Omgcatz\Includes\Curl;
 use Omgcatz\Includes\Database;
 use Omgcatz\Includes\Delegate;
 use Omgcatz\Includes\Download;
+use Omgcatz\Services\EightTracks;
+use Omgcatz\Services\Songza;
 use Silex\Application;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -73,9 +75,27 @@ class App extends Application
       return new Download($this['app_dir']);
     });
 
+    /**
+     * Register archive
+     */
     $this['archive'] = $this->share(function () {
       return new Archive($this['app_dir']);
     });
+
+    /**
+     * Register eight-track
+     */
+    $this['eightTracks'] = $this->share(function() {
+      return new EightTracks($this['database'], $this['curl']);
+    });
+
+    /**
+     * Register songza
+     */
+    $this['songza'] = $this->share(function() {
+      return new Songza($this['curl']);
+    });
+
 
     /**
      * Command line land

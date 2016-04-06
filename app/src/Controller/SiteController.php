@@ -136,13 +136,13 @@ class SiteController
 
       switch ($host) {
         case "8tracks.com":
-          $please = new EightTracks($app['database'], $app['curl']);
-          $data = $please->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
+          $eightTracks = $app['eightTracks'];
+          $data = $eightTracks->get($url, $request->get('mix_id', false), $request->get('track_number', 0));
           break;
 
         case "songza.com":
-          $please = new Songza($app['curl']);
-          $data = $please->get($url, $request->get('station_id', false), $request->get('session_id', false));
+          $songza = $app['songsa'];
+          $data = $songza->get($url, $request->get('station_id', false), $request->get('session_id', false));
           break;
 
         default:
