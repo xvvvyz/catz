@@ -2,6 +2,7 @@
 
 namespace Omgcatz;
 
+use josegonzalez\Dotenv\Loader;
 use Knp\Provider\ConsoleServiceProvider;
 use Omgcatz\Includes\Archive;
 use Omgcatz\Includes\Curl;
@@ -22,15 +23,12 @@ use Twig_SimpleFunction;
 class App extends Application
 {
   /**
-   * @param array $config
+   * @param string $basePath
    */
-  public function __construct(array $config = []) {
+  public function __construct($basePath) {
     parent::__construct();
-    $this['debug'] = isset($config['DEBUG']) ? $config['DEBUG'] : false;
-    $this['env'] = $this['debug'] ? 'dev' : 'prod';
-
-    $this['app_dir'] = $config['app_dir'];
-    $this['app_download_dir'] = $this['app_dir'] . '/download';
+    $config = $this->loadEnv($basePath);
+    $this->setupParameters($basePath, $config);
 
     if ($this['debug']) {
       ini_set("display_errors", "On");
@@ -152,5 +150,29 @@ class App extends Application
     $this->post('/download', '\Omgcatz\Controller\SiteController::downloadAction')->bind('download');
     $this->post('/fetch', '\Omgcatz\Controller\SiteController::fetchAction')->bind('fetch');
     $this->get('/magic', '\Omgcatz\Controller\SiteController::magicAction')->bind('magic');
+  }
+
+  /**
+   * @param string $basePath
+   * @param array $config
+   */
+  private function setupParameters($basePath, array $config)
+  {
+    date_default_timezone_set(isset($config['TIMEZONE']) ? $config['TIMEZONE'] : 'Europe/Berlin');
+    $this['debug'] = isset($config['DEBUG']) ? $config['DEBUG'] : false;
+    $this['env'] = $this['debug'] ? 'dev' : 'prod';
+    $this['app_dir'] = $basePath . '/app';
+    $this['app_download_dir'] = $this['app_dir'] . '/download';
+  }
+
+  /**
+   * @param string $basePath
+   * @return array
+   */
+  private function loadEnv($basePath)
+  {
+    $loader = new Loader($basePath . '/.env');
+    $loader->parse();
+    return $loader->toArray();
   }
 }
