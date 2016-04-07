@@ -6,7 +6,7 @@ use Exception;
 
 class ServiceException extends Exception
 {
-  /**
+    /**
    * @var int
    */
   private $statusCode;
@@ -17,8 +17,8 @@ class ServiceException extends Exception
    */
   public function __construct($message, $statusCode = 400)
   {
-    parent::__construct($message);
-    $this->statusCode = $statusCode;
+      parent::__construct($message);
+      $this->statusCode = $statusCode;
   }
 
   /**
@@ -26,6 +26,6 @@ class ServiceException extends Exception
    */
   public function getStatusCode()
   {
-    return $this->statusCode;
+      return $this->statusCode;
   }
 }

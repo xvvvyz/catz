@@ -1,14 +1,15 @@
 <?php
 
 namespace Omgcatz\Includes;
+
 use mysqli;
 
 /**
- * mysql crud with prepared statements
+ * mysql crud with prepared statements.
  */
-class Database {
-
-  /**
+class Database
+{
+    /**
    * @var string
    */
   private $server;
@@ -34,107 +35,125 @@ class Database {
    * @param string $password
    * @param string $database
    */
-  public function __construct($server, $user, $password, $database) {
-
-    $this->server = $server;
-    $this->user = $user;
-    $this->password = $password;
-    $this->database = $database;
+  public function __construct($server, $user, $password, $database)
+  {
+      $this->server = $server;
+      $this->user = $user;
+      $this->password = $password;
+      $this->database = $database;
   }
 
   /**
-   * connect to db and return db object
+   * connect to db and return db object.
+   *
    * @return mysqli
    */
-  private function connect() {
-    return new mysqli($this->server, $this->user, $this->password, $this->database);
+  private function connect()
+  {
+      return new mysqli($this->server, $this->user, $this->password, $this->database);
   }
 
   /**
-   * prep a query
+   * prep a query.
+   *
    * @param array $data
    * @param string $type
+   *
    * @return array
    */
-  private function prepQuery($data, $type="insert") {
-    // instantiate $fields and $placeholders for looping
-    $fields = "";
-    $placeholders = "";
-    $values = array();
+  private function prepQuery($data, $type = 'insert')
+  {
+      // instantiate $fields and $placeholders for looping
+    $fields = '';
+      $placeholders = '';
+      $values = array();
 
     // loop through $data and build $fields, $placeholders, and $values
     foreach ($data as $field => $value) {
-      $fields .= "{$field},";
-      $values[] = $value;
+        $fields .= "{$field},";
+        $values[] = $value;
 
-      if ($type == "update") {
-        $placeholders .= $field . "=?,";
-      } else {
-        $placeholders .= "?,";
-      }
+        if ($type == 'update') {
+            $placeholders .= $field.'=?,';
+        } else {
+            $placeholders .= '?,';
+        }
     }
 
     // normalize $fields and $placeholders for inserting
     $fields = substr($fields, 0, -1);
-    $placeholders = substr($placeholders, 0, -1);
+      $placeholders = substr($placeholders, 0, -1);
 
-    return array($fields, $placeholders, $values);
+      return array($fields, $placeholders, $values);
   }
 
   /**
-   * turn array values into references
+   * turn array values into references.
+   *
    * @param array $array
+   *
    * @return array
    */
-  private function refValues($array) {
-    $refs = array();
+  private function refValues($array)
+  {
+      $refs = array();
 
-    foreach ($array as $key => $value) {
-      $refs[$key] = &$array[$key];
-    }
+      foreach ($array as $key => $value) {
+          $refs[$key] = &$array[$key];
+      }
 
-    return $refs;
+      return $refs;
   }
 
   /**
-   * execute a query and return array
+   * execute a query and return array.
+   *
    * @param string $query
+   *
    * @return array
    */
-  function query($query) {
-    $db = $this->connect();
-    $result = $db->query($query);
+  public function query($query)
+  {
+      $db = $this->connect();
+      $result = $db->query($query);
 
-    $results = array();
-    while ($row = $result->fetch_assoc()) {
-      $results[] = $row;
-    }
+      $results = array();
+      while ($row = $result->fetch_assoc()) {
+          $results[] = $row;
+      }
 
-    return $results;
+      return $results;
   }
 
   /**
-   * execute a query and return mysql result
+   * execute a query and return mysql result.
+   *
    * @param string $query
+   *
    * @return object
    */
-  function simpleQuery($query) {
-    $db = $this->connect();
-    $result = $db->query($query);
-    return $result;
+  public function simpleQuery($query)
+  {
+      $db = $this->connect();
+      $result = $db->query($query);
+
+      return $result;
   }
 
   /**
-   * insert data into db
+   * insert data into db.
+   *
    * @param string $table
    * @param array $data
    * @param array $format
-   * @return boolean
+   *
+   * @return bool
    */
-  function insert($table, $data, $format) {
-    // check for $table or $data not set
+  public function insert($table, $data, $format)
+  {
+      // check for $table or $data not set
     if (empty($table) || empty($data)) {
-      return false;
+        return false;
     }
 
     // connect to the database
@@ -142,13 +161,13 @@ class Database {
 
     // cast $data and $format to arrays
     $data = (array) $data;
-    $format = (array) $format;
+      $format = (array) $format;
 
     // build format string
-    $format = implode("", $format);
-    $format = str_replace("%", "", $format);
+    $format = implode('', $format);
+      $format = str_replace('%', '', $format);
 
-    list($fields, $placeholders, $values) = $this->prepQuery($data);
+      list($fields, $placeholders, $values) = $this->prepQuery($data);
 
     // prepend $format onto $values
     array_unshift($values, $format);
@@ -157,32 +176,35 @@ class Database {
     $stmt = $db->prepare("INSERT INTO {$table} ({$fields}) VALUES ({$placeholders})");
 
     // dynamically bind values
-    call_user_func_array(array($stmt, "bind_param"), $this->refValues($values));
+    call_user_func_array(array($stmt, 'bind_param'), $this->refValues($values));
 
     // execute the query
     $stmt->execute();
 
     // check for successful insertion
     if ($stmt->affected_rows) {
-      return true;
+        return true;
     }
 
-    return false;
+      return false;
   }
 
   /**
-   * update data in db
+   * update data in db.
+   *
    * @param string $table
    * @param array $data
    * @param array $format
    * @param array $where
    * @param array $whereFormat
-   * @return boolean
+   *
+   * @return bool
    */
-  function update($table, $data, $format, $where, $whereFormat) {
-    // check for $table or $data not set
+  public function update($table, $data, $format, $where, $whereFormat)
+  {
+      // check for $table or $data not set
     if (empty($table) || empty($data)) {
-      return false;
+        return false;
     }
 
     // connect to the database
@@ -190,77 +212,80 @@ class Database {
 
     // cast $data and $format to arrays
     $data = (array) $data;
-    $format = (array) $format;
+      $format = (array) $format;
 
     // build format array
-    $format = implode("", $format);
-    $format = str_replace("%", "", $format);
-    $whereFormat = implode("", $whereFormat);
-    $whereFormat = str_replace("%", "", $whereFormat);
-    $format .= $whereFormat;
+    $format = implode('', $format);
+      $format = str_replace('%', '', $format);
+      $whereFormat = implode('', $whereFormat);
+      $whereFormat = str_replace('%', '', $whereFormat);
+      $format .= $whereFormat;
 
-    list($fields, $placeholders, $values) = $this->prepQuery($data, "update");
+      list($fields, $placeholders, $values) = $this->prepQuery($data, 'update');
 
     // format where clause
-    $whereClause = "";
-    $whereValues = "";
-    $count = 0;
+    $whereClause = '';
+      $whereValues = '';
+      $count = 0;
 
-    foreach ($where as $field => $value) {
-      if ($count > 0) {
-        $whereClause .= " AND ";
+      foreach ($where as $field => $value) {
+          if ($count > 0) {
+              $whereClause .= ' AND ';
+          }
+
+          $whereClause .= $field.'=?';
+          $whereValues[] = $value;
+
+          ++$count;
       }
-
-      $whereClause .= $field . "=?";
-      $whereValues[] = $value;
-
-      $count++;
-    }
 
     // prepend $format onto $values
     array_unshift($values, $format);
-    $values = array_merge($values, $whereValues);
+      $values = array_merge($values, $whereValues);
 
     // prepary our query for binding
     $stmt = $db->prepare("UPDATE {$table} SET {$placeholders} WHERE {$whereClause}");
 
     // dynamically bind values
-    call_user_func_array(array($stmt, "bind_param"), $this->refValues($values));
+    call_user_func_array(array($stmt, 'bind_param'), $this->refValues($values));
 
     // execute the query
     $stmt->execute();
 
     // check for successful insertion
     if ($stmt->affected_rows) {
-      return true;
+        return true;
     }
 
-    return false;
+      return false;
   }
 
   /**
-   * select data from db
+   * select data from db.
+   *
    * @param string $query
    * @param array $data
    * @param array $format
+   *
    * @return array
    */
-  function select($query, $data, $format) {
-    // connect to the database
+  public function select($query, $data, $format)
+  {
+      // connect to the database
     $db = $this->connect();
 
     // prepare our query for binding
     $stmt = $db->prepare($query);
 
     // normalize format
-    $format = implode("", $format);
-    $format = str_replace("%", "", $format);
+    $format = implode('', $format);
+      $format = str_replace('%', '', $format);
 
     // prepend $format onto $values
     array_unshift($data, $format);
 
     // dynamically bind values
-    call_user_func_array(array($stmt, "bind_param"), $this->refValues($data));
+    call_user_func_array(array($stmt, 'bind_param'), $this->refValues($data));
 
     // execute the query
     $stmt->execute();
@@ -271,38 +296,40 @@ class Database {
     // create results array
     $results = array();
 
-    while ($row = $result->fetch_assoc()) {
-      $results[] = $row;
-    }
+      while ($row = $result->fetch_assoc()) {
+          $results[] = $row;
+      }
 
-    return $results;
+      return $results;
   }
 
   /**
-   * delete data from db
+   * delete data from db.
+   *
    * @param string $table
-   * @param integer $id
-   * @return boolean
+   * @param int $id
+   *
+   * @return bool
    */
-  function delete($table, $id) {
-    // connect to the database
+  public function delete($table, $id)
+  {
+      // connect to the database
     $db = $this->connect();
 
     // prepary our query for binding
     $stmt = $db->prepare("DELETE FROM {$table} WHERE ID = ?");
 
     // dynamically bind values
-    $stmt->bind_param("d", $id);
+    $stmt->bind_param('d', $id);
 
     // execute the query
     $stmt->execute();
 
     // check for successful deletion
     if ($stmt->affected_rows) {
-      return true;
+        return true;
     }
 
-    return false;
+      return false;
   }
-
 }

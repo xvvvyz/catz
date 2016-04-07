@@ -4,7 +4,7 @@ namespace Omgcatz\Services;
 
 class Cat
 {
-  const CAT_URL = 'http://thecatapi.com/src/images/get';
+    const CAT_URL = 'http://thecatapi.com/src/images/get';
 
   /**
    * @var array
@@ -14,14 +14,15 @@ class Cat
   /**
    * @todo actually get random cat data (reddit?).
    */
-  function getCat()
+  public function getCat()
   {
-    $this->data["url"] = self::CAT_URL;
-    return $this->data;
+      $this->data['url'] = self::CAT_URL;
+
+      return $this->data;
   }
 
-  function getCatUrl()
-  {
-    return self::CAT_URL;
-  }
+    public function getCatUrl()
+    {
+        return self::CAT_URL;
+    }
 }
