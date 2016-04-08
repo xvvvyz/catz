@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+<!-- website settings -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+<!-- title & description -->
+<title>Catz</title>
+<meta name="description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need&mdash;free kittehs.">
+
+<!-- stylesheet -->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+
+<!-- open graph data -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catz">
+<meta property="og:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need&mdash;free kittehs.">
+<meta property="og:url" content="http://catz.io">
+<meta property="og:image" content="http://catz.io/img/omgcatz-share.jpg">
+
+<!-- twitter card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Catz">
+<meta name="twitter:description" content="If only there was something furry to enjoy while you listen to your jams. We have just what you need&mdash;free kittehs.">
+<meta name="twitter:url" content="http://catz.io">
+<meta name="twitter:image" content="http://catz.io/img/omgcatz-share.jpg">
+
+<!-- favicon -->
+<link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+
+<!-- apple-touch icons -->
+<link rel="apple-touch-icon" href="{{ asset('img/icons/apple-touch-icon.png') }}">
+<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/img/icons/apple-touch-icon-57x57.png') }}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/img/icons/apple-touch-icon-72x72.png') }}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('/img/icons/apple-touch-icon-114x114.png') }}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('/img/icons/apple-touch-icon-144x144.png') }}">
+<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/img/icons/apple-touch-icon-60x60.png') }}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/img/icons/apple-touch-icon-120x120.png') }}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('/img/icons/apple-touch-icon-76x76.png') }}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('/img/icons/apple-touch-icon-152x152.png') }}">
+
+<!-- windows-tile icons -->
+<meta name="msapplication-square70x70logo" content="{{ asset('img/icons/smalltile.png') }}">
+<meta name="msapplication-square150x150logo" content="{{ asset('img/icons/mediumtile.png') }}">
+<meta name="msapplication-wide310x150logo" content="{{ asset('img/icons/widetile.png') }}">
+<meta name="msapplication-square310x310logo" content="{{ asset('img/icons/largetile.png') }}">
+
+<body>
+
+<!-- progress bar -->
+<div id="progress-bar">
+  <div id="progress"></div>
+</div>
+
+<div id="god-wrapper">
+  <main>
+
+    <!-- main input form -->
+    <form id="main-form" name="main-form" method="get">
+      <input id="main-text" type="text" value="">
+      <input id="main-button" type="submit" value="">
+    </form>
+
+    <!-- status message -->
+    <div id="message" class="hidden"></div>
+
+    <!-- explain songza's limitations -->
+    <div id="songza-issue" class="modal hidden">
+      <p>Songza only allows a certain amount of unique, random songs to be played each time you listen to a playlist. After those songs, it forgets all of the songs that you have played and starts playing songs at random again. That means that, after a few songs, we won&rsquo;t be able to fetch all of the songs for downloading without waiting an exponential amount of time.</p>
+      <p><i>No Comprehendo?</i>No worries, all it means for you is this: if the song you want to download doesn&rsquo;t show up the first time you load the playlist, you will have to fetch the playlist again and hope it shows up the next time.</p>
+      <a class="md-close">close</a>
+    </div>
+
+    <!-- options to modify the results -->
+    <div id="results-header" class="hidden">
+      <div id="results-options-wrapper">
+        <div id="results-options">
+          <div>
+            <label><input id="tag-num" class="option" type="checkbox">Tag Track #</label><br>
+            <label><input id="tag-title" class="option" type="checkbox">Tag Title</label><br>
+            <label><input id="tag-artist" class="option" type="checkbox">Tag Artist</label><br>
+          </div>
+          <div>
+            <label><input id="tag-album" class="option" type="checkbox">Tag Album</label><br>
+            <label><input id="tag-img" class="option" type="checkbox">Tag Artwork</label><br>
+            <label><input id="tag-genre" class="option" type="checkbox">Tag Genre</label><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- query results -->
+    <div id="results">
+      <table id="results-table" class="hidden"></table>
+    </div>
+
+    <!-- obligatory loading gif (not an actual gif) -->
+    <span id="loading" class="hidden">loading...</span>
+
+    <!-- le kitten -->
+    <div id="kitty" class="hidden">
+      <img id="kitty-img">
+    </div>
+  </main>
+</div>
+
+<!-- scripts -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+
+<!-- helps for downloading meows -->
+<iframe id="download" class="hidden"></iframe>
+
+</html>

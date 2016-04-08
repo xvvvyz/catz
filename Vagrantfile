@@ -9,14 +9,19 @@ $script = <<SCRIPT
   sudo apt-get install -y php5-xdebug
   sudo cp /home/vagrant/conf/xdebug.ini /etc/php5/mods-available/xdebug.ini
 
+  curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
   sudo lighty-enable-mod fastcgi fastcgi-php
+
+  sudo cp /home/vagrant/conf/lighttpd.conf /etc/lighttpd/lighttpd.conf
+
   sudo service lighttpd force-reload
 
   sudo rm -f /var/www/html/index.lighttpd.html
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "bento/debian-8.3"
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.synced_folder "./app", "/var/www/html", :owner => "www-data", :group => "www-data"
   config.vm.synced_folder "./conf", "/home/vagrant/conf"

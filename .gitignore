@@ -4,10 +4,27 @@
 # generated
 /app/api/stuff/download/
 
-*Config.php
-
 # backup
 *~
 
 # vagrant stuff
 .vagrant
+
+# composer
+/app/vendor/
+
+# environement
+/app/.env
+
+/app/app/cache/*
+!/app/app/cache/.gitkeep
+/app/app/logs/*
+!/app/app/logs/.gitkeep
+
+# Download dir
+/app/app/download/*
+!/app/app/download/.gitkeep
+
+# iDE
+/.idea
+

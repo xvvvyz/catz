@@ -47,11 +47,11 @@ You can access the site at [http://localhost:8080](http://localhost:8080).
 
 ### Troubleshooting
 
-Sometimes on Windows users have noticed they are unable to run the setup script. It could be to do with how Windows and Unix like operating systems handle line endings. To fix this try:
+Sometimes on Windows users have noticed they are unable to run the setup/download scripts. It could be to do with how Windows and Unix like operating systems handle line endings. To fix this try:
 
 1. SSH into your virtual machine, either using PuTTY or `vagrant ssh`
 2. `sudo apt-get install dos2unix`
-3. `dos2unix /var/www/html/_install/setup.sh`
+3. `dos2unix /var/www/html/_install/setup.sh && dos2unix /var/www/html/app/download.sh`
 4. Now try running the setup script again!
 
 ## Screenshots

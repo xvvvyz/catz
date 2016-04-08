@@ -1,0 +1,23 @@
+{
+    "name": "cadejscroggins/omgcatz",
+    "authors": [
+        {
+            "name": "Cade Scroggins",
+            "email": "email@here.com"
+        }
+    ],
+    "require": {
+        "silex/silex": "~1.3",
+        "twig/twig": "^1.18",
+        "monolog/monolog": "^1.15",
+        "symfony/twig-bridge": "3.0.4",
+        "josegonzalez/dotenv": "^2.0",
+        "knplabs/console-service-provider": "^1.0",
+        "symfony/process": "3.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omgcatz\\": "src"
+        }
+    }
+}
