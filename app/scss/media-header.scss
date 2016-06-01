@@ -1,0 +1,40 @@
+.media-header {
+  width: 100%;
+  padding: 10px;
+  border-bottom: solid 1px #eee;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-header__title {
+  color: #777;
+}
+
+.media-header__tag {
+  margin-right: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: #fff;
+
+  &.type-Nonsense {
+    background-color: #000;
+  }
+
+  &.type-8tracks {
+    background-color: #2F364A;
+  }
+
+  &.type-SoundCloud {
+    background-color: #FF5500;
+  }
+
+  &.type-Cat {
+    background-color: #BF00FE;
+  }
+
+  &.invalid {
+    background-color: #D12F3E;
+  }
+}

@@ -1,13 +1,3 @@
-# OS specific
-.DS_Store
-
-# generated
-/app/api/stuff/download/
-
-*Config.php
-
-# backup
-*~
-
-# vagrant stuff
-.vagrant
+node_modules/
+npm-debug.log
+app/bundle/

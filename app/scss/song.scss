@@ -1,0 +1,28 @@
+.song {
+  padding: 5px 10px;
+  border-bottom: solid 1px #efefef;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.song__artwork {
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.song__title {
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.song__artist {
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.song__title,
+.song__artist {
+  margin-left: 10px;
+  line-height: 25px;
+}
