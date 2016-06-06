@@ -7,9 +7,10 @@ class EightTracks extends React.Component {
   constructor() {
     super();
 
+    this.token = Math.floor(Math.random() * 100000000000000000000) + 1000000000000000;
+
     this.state = {
       invalid: false,
-      token: Math.floor(Math.random() * 100000000000000000000) + 1000000000000000,
       playlist: {},
       songs: []
     };
@@ -39,7 +40,7 @@ class EightTracks extends React.Component {
   }
 
   getSong() {
-    const url = `https://8tracks.com/sets/${this.state.token}/next?mix_id=${this.state.playlist.id}&format=jsonh`;
+    const url = `https://8tracks.com/sets/${this.token}/next?mix_id=${this.state.playlist.id}&format=jsonh`;
 
     request(url, (error, res, body) => {
       if (res.statusCode === 200) {

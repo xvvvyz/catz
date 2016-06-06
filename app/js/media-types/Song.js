@@ -12,28 +12,34 @@ import 'song.scss';
 class Song extends React.Component {
   constructor() {
     super();
-    this.state = {percentage: 0};
+    this.state = {
+      percentage: 0
+    };
   }
 
   download() {
     const tmpFile = new tmp.File().path;
-    this.setState({download_disabled: true});
+    this.setState({downloadDisabled: true});
 
     progress(request(this.props.url)).on('progress', state => {
-      this.setState({percentage: state.percentage * 100});
+      this.setState({
+        percentage: state.percentage * 100
+      });
     }).on('error', (error) => {
+      this.setState({
+        downloadDisabled: false
+      });
+
       console.log(error);
-      this.setState({download_disabled: false});
     }).on('end', () => {
-      this.setState({percentage: 100});
+      this.setState({
+        percentage: 100
+      });
+
       let {ext} = fileType(readChunk.sync(tmpFile, 0, 262));
       ext = ext === 'mp4' ? 'm4a' : ext;
 
-      switch (ext) {
-        case 'mp3':
-        case 'm4a':
-          // TODO: tag the shit
-      }
+      // TODO: tag metadata...
 
       const file = path.join(os.homedir(), 'Downloads', `${this.props.title}.${ext}`);
       fs.rename(tmpFile, file);
@@ -49,7 +55,7 @@ class Song extends React.Component {
         <img className="song__artwork" src={this.props.artwork_thumb} />
         <span className="song__title">{this.props.title}</span>
         <span className="song__artist">{this.props.artist}</span>
-        <button className="song__download" onClick={this.download.bind(this)} disabled={this.state.download_disabled}>Download</button>
+        <button className="song__download" onClick={this.download.bind(this)} disabled={this.state.downloadDisabled}>Download</button>
       </div>
     );
   }
