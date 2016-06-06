@@ -1,5 +1,5 @@
-const {app} = require('electron');
-const windows = require('./windows');
+import {app} from 'electron';
+import windows from './windows';
 
 app.on('ready', () => {
   windows.createMainWindow();

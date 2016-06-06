@@ -1,3 +1,6 @@
 <!doctype html>
 <div id="root"></div>
-<script>require('./bundle/app.js');</script>
+<script>
+  require('babel-register');
+  require('./bundle/app.js');
+</script>

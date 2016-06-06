@@ -1,7 +1,7 @@
-const electron = require('electron');
+import {BrowserWindow} from 'electron';
 
 function createMainWindow() {
-  let win = windows.main = new electron.BrowserWindow({
+  let win = windows.main = new BrowserWindow({
     title: 'Catz',
     width: 550,
     minWidth: 500,
