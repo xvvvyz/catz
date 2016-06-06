@@ -65,7 +65,7 @@ class EightTracks extends React.Component {
 
     return (
       <div>
-        <MediaHeader type='8tracks' invalid={this.state.invalid} title={this.props.url} />
+        <MediaHeader type="8tracks" invalid={this.state.invalid} title={this.props.url} />
         {songs}
       </div>
     )

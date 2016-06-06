@@ -7,7 +7,7 @@ import url from 'url';
 
 class Media extends React.Component {
   componentDidMount() {
-    const god =  document.querySelector(".god-wrapper");
+    const god =  document.querySelector('.god-wrapper');
     god.scrollTop = god.scrollHeight;
   }
 
@@ -19,7 +19,7 @@ class Media extends React.Component {
     switch (url.parse(thing).hostname) {
       case '8tracks.com': return <EightTracks url={thing} />;
       case 'soundcloud.com': return <SoundCloud url={thing} />;
-      default: return <MediaHeader type='Nonsense' invalid={true} title={thing} />;
+      default: return <MediaHeader type="Nonsense" invalid={true} title={thing} />;
     }
   }
 }
