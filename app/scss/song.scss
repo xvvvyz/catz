@@ -1,12 +1,26 @@
 .song {
-  padding: 5px 10px;
+  position: relative;
+  padding: 6px 10px;
   border-bottom: solid 1px #efefef;
+  transition: box-shadow 1s linear;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
+.song__progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: width 1s linear;
+  z-index: 5;
+}
+
 .song__artwork {
+  width: 25px;
+  height: 25px;
   border-radius: 3px;
   vertical-align: middle;
 }
@@ -25,4 +39,27 @@
 .song__artist {
   margin-left: 10px;
   line-height: 25px;
+}
+
+.song__download {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  padding: 0 10px;
+  border: none;
+  border-left: solid 1px #efefef;
+  border-radius: 0;
+  background-color: #fff;
+  color: #555;
+  line-height: 0;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }

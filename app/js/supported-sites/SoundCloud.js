@@ -45,13 +45,13 @@ class SoundCloud extends React.Component {
         album=''
         artwork={song.artwork_url}
         artwork_thumb={song.artwork_url}
-        url={`${song.stream_url}&client_id=${this.state.client_id}`}
+        url={`${song.stream_url}?client_id=${this.state.client_id}`}
       />
     });
 
     return (
       <div>
-        <MediaHeader type='SoundCloud' invalid={this.state.invalid} title={this.props.url} />
+        <MediaHeader type="SoundCloud" invalid={this.state.invalid} title={this.props.url} />
         {songs}
       </div>
     );
