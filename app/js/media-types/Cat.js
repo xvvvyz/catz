@@ -10,8 +10,8 @@ class Cat extends React.Component {
   }
 
   render() {
-    const cat = {backgroundImage: `url(${this.cat})`};
-    return <div className='cat' style={cat}></div>;
+    const style = {backgroundImage: `url(${this.cat})`};
+    return <div className="cat" style={style}></div>;
   }
 }
 

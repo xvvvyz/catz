@@ -35,7 +35,7 @@ class Main extends React.Component {
 
   render() {
     const things = this.state.things.map((thing, key) => <Media key={key} ref={key} thing={thing} />);
-    return <div className='main'>{things}</div>;
+    return <div className="main">{things}</div>;
   }
 }
 
