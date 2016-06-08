@@ -12,6 +12,6 @@ cd catz
 # install the things
 npm install
 
-# start the dev server
+# start the app
 npm start
 ```
