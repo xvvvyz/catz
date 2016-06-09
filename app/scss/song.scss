@@ -1,66 +1,73 @@
 .song {
+  display: flex;
   position: relative;
-  padding: 6px 10px;
-  border-bottom: solid 1px #efefef;
+  padding: 0 10px;
+  border-bottom: solid 1px #f0f0f0;
   transition: box-shadow 1s linear;
+  font-size: 0.7rem;
+  line-height: 35px;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .song__progress {
   position: absolute;
-  top: 50%;
+  bottom: -1px;
   left: 0;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.3);
-  transition: width 1s linear;
-  z-index: 5;
+  background-color: #bbb;
+  transition: width 1s linear, opacity 3s;
+  z-index: 100;
+
+  &[data-toggled="false"] {
+    opacity: 0;
+  }
 }
 
 .song__artwork {
   width: 25px;
   height: 25px;
+  margin: 5px 0;
   border-radius: 3px;
   vertical-align: middle;
 }
 
 .song__title {
-  font-size: 0.8rem;
   font-weight: 800;
 }
 
 .song__artist {
-  font-size: 0.7rem;
+  flex-grow: 1;
   color: #555;
 }
 
 .song__title,
 .song__artist {
   margin-left: 10px;
-  line-height: 25px;
+  vertical-align: text-bottom;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.song__download {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  padding: 0 10px;
+.song__show {
+  margin-left: 10px;
+  padding: 0;
   border: none;
-  border-left: solid 1px #efefef;
   border-radius: 0;
-  background-color: #fff;
+  background-color: transparent;
+  transition: opacity 2s;
   color: #555;
-  line-height: 0;
+  text-decoration: underline;
+  font-size: 0.6rem;
+  line-height: 35px;
+  vertical-align: top;
+  opacity: 0;
   cursor: pointer;
-
-  &:disabled {
-    cursor: default;
-    opacity: 0.1;
-  }
 
   &:focus {
     outline: none;
+  }
+
+  &[data-toggled="true"] {
+    opacity: 1;
   }
 }

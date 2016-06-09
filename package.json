@@ -42,11 +42,13 @@
   "dependencies": {
     "file-type": "^3.8.0",
     "lodash": "^4.13.1",
+    "open": "git+https://github.com/cadejscroggins/node-open.git",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "read-chunk": "^2.0.0",
     "request": "^2.72.0",
     "request-progress": "^2.0.1",
-    "temporary": "0.0.8"
+    "tmp": "0.0.28",
+    "urlify": "^0.3.6"
   }
 }

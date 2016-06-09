@@ -3,7 +3,7 @@ import {BrowserWindow} from 'electron';
 function createMainWindow() {
   let win = windows.main = new BrowserWindow({
     title: 'Catz',
-    width: 550,
+    width: 500,
     minWidth: 500,
     height: 600,
     minHeight: 300,
