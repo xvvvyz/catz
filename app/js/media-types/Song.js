@@ -55,7 +55,7 @@ class Song extends React.Component {
       let downloadPath = path.join(os.homedir(), 'Downloads');
       let filePath = `${this.props.title.trim().replace(/[/\\]/g, '-')}.${ext}`;
 
-      if (this.props.playlist_name) {
+      if (this.props.playlist) {
         downloadPath = path.join(downloadPath, urlify(this.props.playlist_name));
         filePath = `${this.props.track_num}. ${filePath}`;
       }

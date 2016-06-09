@@ -17,10 +17,6 @@ class EightTracks extends React.Component {
   }
 
   componentDidMount() {
-    this.getPlaylist();
-  }
-
-  getPlaylist() {
     const url = `${this.props.url}?format=jsonh`;
 
     request(url, (error, res, body) => {
@@ -61,6 +57,7 @@ class EightTracks extends React.Component {
         artwork={this.state.playlist.cover_urls.static_cropped_imgix_url}
         artwork_thumb={this.state.playlist.cover_urls.sq72}
         url={song.track_file_stream_url}
+        playlist={(this.state.playlist.name)}
         playlist_name={this.state.playlist.name}
         track_num={key + 1}
       />
