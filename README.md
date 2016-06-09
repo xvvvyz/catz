@@ -6,6 +6,8 @@ After many failed tries (thirdletter.com, 8tdownloader.com, omgcatz.com, and, mo
 
 ## Developer Setup
 
+You're gonna need [Node](https://nodejs.org/en/). Then:
+
 ```bash
 # get the source
 git clone https://github.com/cadejscroggins/catz
