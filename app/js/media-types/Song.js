@@ -8,6 +8,7 @@ const tmp = window.require('tmp');
 const path = window.require('path');
 const fs = window.require('fs');
 const open = window.require('open');
+const sanitize = window.require('sanitize-filename');
 
 const urlify = window.require('urlify').create({
   toLower: true,
@@ -62,7 +63,7 @@ class Song extends React.Component {
 
       // TODO: tag metadata...
 
-      filePath = path.join(downloadPath, filePath);
+      filePath = path.join(downloadPath, sanitize(filePath));
       fs.mkdir(downloadPath, () => fs.rename(tmpFile, filePath));
 
       this.openDir = downloadPath;
