@@ -33,17 +33,12 @@ class Song extends React.Component {
 
   download() {
     const tmpFile = tmp.fileSync().name;
-    this.setState({downloadDisabled: true});
 
     progress(request(this.props.url)).on('progress', state => {
       this.setState({
         percentage: state.percentage * 100
       });
     }).on('error', (error) => {
-      this.setState({
-        downloadDisabled: false
-      });
-
       console.log(error);
     }).on('end', () => {
       this.setState({
