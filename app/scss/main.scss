@@ -1,26 +1,22 @@
 @import 'variables';
-@import 'animations';
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  animation: fadein 1s;
-}
-
-.god-wrapper {
+.instructions {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  top: 50%;
   width: 100%;
-  margin: 0;
-  font-family: sans-serif;
-  overflow-y: scroll;
+  height: 100px;
+  margin: -50px 0 0;
+  transition: opacity 1s;
+  color: #555;
+  font-size: 1.2rem;
+  text-align: center;
 
-  &.platform-darwin {
-    top: $header-height;
+  &[data-toggled="false"] {
+    opacity: 0;
+    z-index: -10;
   }
+}
+
+.platform-darwin .instructions {
+  margin: -50px + $header-height 0 0;
 }
