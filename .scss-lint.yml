@@ -1,0 +1,8 @@
+files:
+  include: 'app/scss/*scss'
+linters:
+  Indentation:
+    character: space
+    width: 2
+  PropertySortOrder:
+    order: smacss

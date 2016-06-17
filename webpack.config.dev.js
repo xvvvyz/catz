@@ -6,6 +6,6 @@ module.exports = base.merge({
   devtool: 'eval',
   plugins: [
     new LiveReloadPlugin({appendScriptTag: true}),
-    new sassLintPlugin({glob: 'app/scss/*scss'})
+    new sassLintPlugin({configFile: '.scss-lint.yml'})
   ]
 });
