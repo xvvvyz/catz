@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import 'variables';
 
 .header {
   display: none;
@@ -12,14 +12,13 @@
   width: 100%;
   height: $header-height;
   margin: 0;
-  border-bottom: solid 1px #ddd;
-  background: #eee;
-  font-size: 0.8rem;
+  border-bottom: solid 1px $gray-light;
+  background: $gray-lighter;
+  color: $gray;
+  font-size: .8rem;
   font-weight: 500;
-  text-align: center;
   line-height: $header-height;
-  color: #777;
+  text-align: center;
   z-index: 1;
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
+  user-select: none;
 }

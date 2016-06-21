@@ -7,11 +7,11 @@
   height: 100px;
   margin: -50px 0 0;
   transition: opacity 1s;
-  color: #555;
+  color: $gray-dark;
   font-size: 1.2rem;
   text-align: center;
 
-  &[data-toggled="false"] {
+  &[data-toggled='false'] {
     opacity: 0;
     z-index: -10;
   }

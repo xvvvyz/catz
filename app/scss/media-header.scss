@@ -1,40 +1,42 @@
+@import 'variables';
+
 .media-header {
   width: 100%;
   padding: 10px;
-  border-bottom: solid 1px #f0f0f0;
-  font-size: 0.8rem;
+  border-bottom: solid 1px $white-dark;
+  font-size: .8rem;
+  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .media-header__title {
-  color: #777;
+  color: $gray;
 }
 
 .media-header__tag {
   margin-right: 10px;
   padding: 2px 4px;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
 
-  &.type-Nonsense {
-    background-color: #000;
+  &.type-nonsense {
+    background-color: $black;
   }
 
   &.type-8tracks {
-    background-color: #2F364A;
+    background-color: $color-eighttracks;
   }
 
-  &.type-SoundCloud {
-    background-color: #FF5500;
+  &.type-sound-cloud {
+    background-color: $color-soundcloud;
   }
 
-  &.type-Cat {
-    background-color: #BF00FE;
+  &.type-cat {
+    background-color: $color-cat;
   }
 
   &.invalid {
-    background-color: #D12F3E;
+    background-color: $color-invalid;
   }
 }

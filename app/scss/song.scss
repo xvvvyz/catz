@@ -1,10 +1,12 @@
+@import 'variables';
+
 .song {
   display: flex;
   position: relative;
   padding: 0 10px;
-  border-bottom: solid 1px #f0f0f0;
   transition: box-shadow 1s linear;
-  font-size: 0.8rem;
+  border-bottom: solid 1px $white-dark;
+  font-size: .8rem;
   line-height: 35px;
   white-space: nowrap;
 }
@@ -14,11 +16,11 @@
   bottom: -1px;
   left: 0;
   height: 1px;
-  background-color: #bbb;
   transition: width 1s linear, opacity 3s;
+  background-color: $gray-light;
   z-index: 100;
 
-  &[data-toggled="false"] {
+  &[data-toggled='false'] {
     opacity: 0;
   }
 }
@@ -37,37 +39,37 @@
 
 .song__artist {
   flex-grow: 1;
-  color: #555;
+  color: $gray-dark;
 }
 
 .song__title,
 .song__artist {
   margin-left: 10px;
-  vertical-align: text-bottom;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: text-bottom;
 }
 
 .song__show {
   margin-left: 10px;
   padding: 0;
-  border: none;
+  transition: opacity 2s;
+  border: 0;
   border-radius: 0;
   background-color: transparent;
-  transition: opacity 2s;
-  color: #555;
-  text-decoration: underline;
-  font-size: 0.6rem;
+  color: $gray-dark;
+  font-size: .6rem;
   line-height: 35px;
-  vertical-align: top;
-  opacity: 0;
+  text-decoration: underline;
   cursor: pointer;
+  opacity: 0;
+  vertical-align: top;
 
   &:focus {
     outline: none;
   }
 
-  &[data-toggled="true"] {
+  &[data-toggled='true'] {
     opacity: 1;
   }
 }
