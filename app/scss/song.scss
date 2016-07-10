@@ -17,7 +17,7 @@
   left: 0;
   height: 1px;
   transition: width 1s linear, opacity 3s;
-  background-color: $gray-light;
+  background-color: $gray-dark;
   z-index: 100;
 
   &[data-toggled='false'] {
