@@ -5,7 +5,7 @@ import SoundCloud from 'SoundCloud';
 import Cat from 'Cat';
 import url from 'url';
 
-class Media extends React.Component {
+export default class Media extends React.Component {
   componentDidMount() {
     const god =  document.querySelector('.god-wrapper');
     god.scrollTop = god.scrollHeight;
@@ -22,6 +22,4 @@ class Media extends React.Component {
       default: return <MediaHeader type="Nonsense" invalid={true} title={thing} />;
     }
   }
-}
-
-export default Media;
+};

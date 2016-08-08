@@ -4,10 +4,11 @@ import _ from 'lodash';
 import Media from 'Media';
 import 'main.scss';
 
-class Main extends React.Component {
+export default class Main extends React.Component {
   constructor() {
     super();
-    this.state = {things: []};
+
+    this.state = { things: [] };
   }
 
   handlePaste(event) {
@@ -16,15 +17,16 @@ class Main extends React.Component {
     if (_.includes(this.state.things, pasted)) {
       const elRef = _.indexOf(this.state.things, pasted);
       const el = ReactDOM.findDOMNode(this.refs[elRef]);
+
       // TODO: make it obvious that they pasted a dup...
     } else {
-      this.setState({things: [...this.state.things, pasted]});
+      this.setState({ things: [...this.state.things, pasted] });
     }
   }
 
   handleKeypress(event) {
     if (event.which === 13) {
-      this.setState({things: [...this.state.things, 'cat']});
+      this.setState({ things: [...this.state.things, 'cat'] });
     }
   }
 
@@ -33,8 +35,14 @@ class Main extends React.Component {
     window.addEventListener('keypress', this.handleKeypress.bind(this));
   }
 
+  renderThings() {
+    return this.state.things.map((thing, key) => {
+      return <Media key={key} ref={key} thing={thing} />;
+    });
+  }
+
   render() {
-    const things = this.state.things.map((thing, key) => <Media key={key} ref={key} thing={thing} />);
+    const things = this.renderThings();
 
     return (
       <div>
@@ -43,6 +51,4 @@ class Main extends React.Component {
       </div>
     );
   }
-}
-
-export default Main;
+};

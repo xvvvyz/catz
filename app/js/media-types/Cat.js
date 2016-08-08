@@ -1,18 +1,10 @@
 import React from 'react';
 import 'cat.scss';
 
-class Cat extends React.Component {
-  constructor() {
-    super();
+export default function Cat() {
+  const cacheBust = new Date().getTime();
+  const cat = `//thecatapi.com/api/images/get?format=src&time=${cacheBust}`;
+  const style = { backgroundImage: `url(${cat})` };
 
-    const cacheBust = new Date().getTime();
-    this.cat = `http://thecatapi.com/api/images/get?format=src&time=${cacheBust}`;
-  }
-
-  render() {
-    const style = {backgroundImage: `url(${this.cat})`};
-    return <div className="cat" style={style}></div>;
-  }
-}
-
-export default Cat;
+  return <div className="cat" style={style}></div>;
+};
