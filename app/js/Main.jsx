@@ -45,7 +45,7 @@ export default class Main extends React.Component {
     const things = this.renderThings();
 
     return (
-      <div>
+      <div className={`god-wrapper platform-${process.platform}`}>
         {things}
         <p className="instructions" data-toggled={!things.length}>Paste a link&hellip;</p>
       </div>

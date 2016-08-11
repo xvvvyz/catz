@@ -2,7 +2,7 @@ const base = require('./webpack.config.base.js');
 const webpack = require('webpack');
 
 module.exports = base.merge({
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: false,

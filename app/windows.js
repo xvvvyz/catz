@@ -8,8 +8,6 @@ const windows = module.exports = {
       minWidth: 500,
       height: 600,
       minHeight: 300,
-      titleBarStyle: 'hidden-inset',
-      backgroundColor: '#fff',
       useContentSize: true
     });
 

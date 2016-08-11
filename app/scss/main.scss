@@ -4,8 +4,8 @@
   position: absolute;
   top: 50%;
   width: 100%;
-  height: 100px;
-  margin: -50px 0 0;
+  margin: 0;
+  transform: translateY(-50%);
   transition: opacity 1s;
   color: $gray-dark;
   font-size: 1.2rem;
@@ -15,8 +15,4 @@
     opacity: 0;
     z-index: -10;
   }
-}
-
-.platform-darwin .instructions {
-  margin: -50px + $header-height 0 0;
 }
