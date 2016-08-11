@@ -1,4 +1,5 @@
 import React from 'react';
+
 const os = window.require('os');
 const request = window.require('request');
 const progress = window.require('request-progress');

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import Media from 'Media';
+import Media from 'Media.jsx';
 import 'main.scss';
 
 export default class Main extends React.Component {

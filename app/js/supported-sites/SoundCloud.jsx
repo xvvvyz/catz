@@ -1,8 +1,8 @@
 import React from 'react';
-import MediaHeader from 'MediaHeader';
-import Song from 'Song';
-const request = window.require('request');
+import MediaHeader from 'MediaHeader.jsx';
+import Song from 'Song.jsx';
 
+const request = window.require('request');
 const CLIENT_ID = '02gUJC0hH2ct1EGOcYXQIzRFU91c72Ea';
 
 export default class SoundCloud extends React.Component {

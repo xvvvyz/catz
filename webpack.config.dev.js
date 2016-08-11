@@ -5,7 +5,7 @@ const sassLintPlugin = require('sasslint-webpack-plugin');
 module.exports = base.merge({
   devtool: 'eval',
   plugins: [
-    new LiveReloadPlugin({appendScriptTag: true}),
-    new sassLintPlugin({context: ['./app/scss/']})
+    new LiveReloadPlugin({ appendScriptTag: true }),
+    new sassLintPlugin({ context: ['./app/scss/'] })
   ]
 });

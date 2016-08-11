@@ -1,8 +1,8 @@
 import React from 'react';
-import MediaHeader from 'MediaHeader';
-import Song from 'Song';
-const request = window.require('request');
+import MediaHeader from 'MediaHeader.jsx';
+import Song from 'Song.jsx';
 
+const request = window.require('request');
 const AUTH_TOKEN = Math.floor(Math.random() * 10000000000000000) + 100000000000;
 
 export default class EightTracks extends React.Component {

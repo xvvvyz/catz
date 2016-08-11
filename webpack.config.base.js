@@ -3,12 +3,23 @@ const _ = require('lodash');
 
 const defaults = {
   target: 'electron-renderer',
-  entry: './app/js/app.js',
-  output: {path: './app/bundle', filename: 'app.js'},
+  entry: './app/js/app.jsx',
+  output: {
+    path: './app/bundle',
+    filename: 'app.js'
+  },
   module: {
     loaders: [
-      {test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: {presets: ['es2015', 'react']}},
-      {test: /\.scss$/, loaders: ['style', 'css', 'sass']}
+      {
+        test: /\.jsx$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: { presets: ['react', 'es2015', 'stage-0'] }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+      }
     ]
   },
   resolve: {

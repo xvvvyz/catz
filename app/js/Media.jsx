@@ -1,9 +1,9 @@
 import React from 'react';
-import MediaHeader from 'MediaHeader';
-import EightTracks from 'EightTracks';
-import SoundCloud from 'SoundCloud';
-import Cat from 'Cat';
 import url from 'url';
+import MediaHeader from 'MediaHeader.jsx';
+import EightTracks from 'EightTracks.jsx';
+import SoundCloud from 'SoundCloud.jsx';
+import Cat from 'Cat.jsx';
 
 export default class Media extends React.Component {
   componentDidMount() {

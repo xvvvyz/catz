@@ -1,1 +1,3 @@
-{"presets": ["es2015"]}
+{
+  "presets": ["airbnb", "es2015", "stage-0"]
+}
