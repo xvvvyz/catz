@@ -1,27 +1,13 @@
 {
   "name": "catz",
-  "version": "0.0.1",
-  "description": "View and download kittehs",
+  "private": true,
   "main": "./app/bootstrap.js",
   "scripts": {
     "start": "concurrently --kill-others --raw \"electron .\" \"webpack --config webpack.config.dev.js --watch\"",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress --profile --colors",
     "electron": "cross-env NODE_ENV=production electron ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cadejscroggins/catz.git"
-  },
-  "author": {
-    "name": "Cade Scroggins",
-    "email": "me@cadejs.com",
-    "url": "https://cadejs.com/"
-  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cadejscroggins/catz/issues"
-  },
-  "homepage": "https://github.com/cadejscroggins/catz#readme",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.9.0",
