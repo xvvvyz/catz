@@ -1,13 +1,25 @@
 const path = require('path');
 const _ = require('lodash');
+const fs = require('fs');
+
+const externals = {
+  'cheerio': 'window',
+  'react/lib/ExecutionEnvironment': true,
+  'react/lib/ReactContext': true,
+};
+
+fs.readdirSync('node_modules')
+  .filter(mod => ['.bin'].indexOf(mod) === -1)
+  .forEach(mod => externals[mod] = 'commonjs ' + mod);
 
 const defaults = {
   target: 'electron-renderer',
-  entry: './app/js/app.jsx',
+  entry: ['babel-polyfill', './app/js/app.jsx'],
   output: {
     path: './app/bundle',
     filename: 'app.js'
   },
+  externals: externals,
   module: {
     loaders: [
       {
@@ -20,15 +32,6 @@ const defaults = {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
       }
-    ]
-  },
-  resolve: {
-    root: [
-      path.resolve('app'),
-      path.resolve('app/scss'),
-      path.resolve('app/js'),
-      path.resolve('app/js/supported-sites'),
-      path.resolve('app/js/media-types')
     ]
   }
 }

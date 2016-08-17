@@ -1,20 +1,19 @@
 @import 'variables';
 
-.media-header {
+.media-info {
   width: 100%;
   padding: 10px;
-  border-bottom: solid 1px $white-dark;
   font-size: .8rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.media-header__title {
+.media-info__title {
   color: $gray;
 }
 
-.media-header__tag {
+.media-info__tag {
   margin-right: 10px;
   padding: 2px 4px;
   border-radius: 3px;
@@ -36,7 +35,7 @@
     background-color: $color-cat;
   }
 
-  &.invalid {
-    background-color: $color-invalid;
+  &.error {
+    background-color: $color-error;
   }
 }

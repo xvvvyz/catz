@@ -3,11 +3,12 @@
 .song {
   display: flex;
   position: relative;
-  padding: 0 10px;
+  margin: 0 10px;
+  padding: 0;
   transition: box-shadow 1s linear;
   border-bottom: solid 1px $white-dark;
   font-size: .8rem;
-  line-height: 35px;
+  line-height: 50px;
   white-space: nowrap;
 }
 
@@ -26,11 +27,18 @@
 }
 
 .song__artwork {
-  width: 25px;
-  height: 25px;
-  margin: 5px 0;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  margin: 10px 0;
+  border: solid 1px $white-dark;
   border-radius: 3px;
   vertical-align: middle;
+}
+
+.song__num {
+  margin: 0 5px 0 15px;
+  color: $gray;
 }
 
 .song__title {
@@ -39,7 +47,7 @@
 
 .song__artist {
   flex-grow: 1;
-  color: $gray-dark;
+  color: $gray;
 }
 
 .song__title,

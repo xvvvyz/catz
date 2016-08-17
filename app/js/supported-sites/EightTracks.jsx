@@ -1,46 +1,121 @@
 import React from 'react';
-import MediaHeader from 'MediaHeader.jsx';
-import Song from 'Song.jsx';
+import MediaInfo from '../MediaInfo.jsx';
+import Song from '../media-types/Song.jsx';
+import Timer from '../Timer.jsx';
+import request from 'request';
 
-const request = window.require('request');
-const AUTH_TOKEN = Math.floor(Math.random() * 10000000000000000) + 100000000000;
+const MAX_INITIAL_SONGS = 15;
+const REQUEST_PADDING = 1000;
 
 export default class EightTracks extends React.Component {
   constructor() {
     super();
 
-    this.state = { invalid: false, playlist: {}, songs: [] };
+    this.token = Math.floor(Math.random()
+      * 100000000000000000) + 1000000000;
+
+    this.state = {
+      invalid: false,
+      playlist: {},
+      songs: [],
+      timeout: REQUEST_PADDING,
+      timer: false
+    };
+
+    this.getInitialSongs = this.getInitialSongs.bind(this);
+    this.getNextSong = this.getNextSong.bind(this);
   }
 
   componentDidMount() {
-    const url = `${this.props.url}?format=jsonh`;
+    this.getPlaylistInfo().then(this.getInitialSongs);
+  }
 
-    request(url, (error, res, body) => {
-      if (res.statusCode === 200) {
-        const json = JSON.parse(body.toString());
+  getPlaylistInfo() {
+    return new Promise((resolve) => {
+      request({
+        url: `${this.props.url}?format=jsonh`,
+        json: true
+      }, (error, res, body) => {
+        if (res.statusCode === 200) {
+          if (body.mix) this.setState({ playlist: body.mix });
+          else this.setState({ invalid: true });
 
-        if (typeof json.mix === 'object') {
-          this.setState({ playlist: json.mix });
-          this.getSong();
+          this.nextSongUrl = `https://8tracks.com/sets/${this.token}/next?mix_id=` +
+            `${body.mix.id}&format=jsonh`;
         } else {
           this.setState({ invalid: true });
         }
-      } else {
-        this.setState({ invalid: true });
-      }
+
+        resolve();
+      });
     });
   }
 
-  getSong() {
-    const url = `https://8tracks.com/sets/${AUTH_TOKEN}/next?mix_id=` +
-     `${this.state.playlist.id}&format=jsonh`;
+  getInitialSongs() {
+    (async () => {
+      let failed = false;
+      let i = 0;
 
-    request(url, (error, res, body) => {
-      if (res.statusCode === 200) {
-        const json = JSON.parse(body.toString());
-        this.setState({ songs: [...this.state.songs, json.set.track] });
-        this.getSong();
-      }
+      const songs = await new Promise(resolve => {
+        let songs = [];
+
+        while (i < this.state.playlist.tracks_count) {
+          const position = i;
+
+          request({
+            url: this.nextSongUrl,
+            json: true
+          }, (error, res, body) => {
+            const success = res.statusCode === 200;
+            if (success && body.set.track.name) songs.push(body.set.track);
+            const count = songs.filter(v => v !== undefined).length;
+            const last = count === this.state.playlist.tracks_count;
+            if (!success || last) resolve(songs);
+          });
+
+          i++;
+        }
+      });
+
+      this.setState({ songs: songs });
+      if (songs.length < this.state.playlist.tracks_count) this.songFailure();
+    })();
+  }
+
+  getNextSong() {
+    request({
+      url: this.nextSongUrl,
+      json: true
+    }, (error, res, body) => {
+      if (res.statusCode === 200) this.songSuccess(body.set.track);
+      else if (this.consecutiveFails === 0) this.songFailure();
+      else this.setState({ timer: false, timeout: REQUEST_PADDING});
+    });
+  }
+
+  songSuccess(song) {
+    this.consecutiveFails = 0;
+
+    this.setState({
+      timer: false,
+      timeout: 0,
+      songs: [...this.state.songs, song]
+    });
+
+    if (this.state.songs.length < this.state.playlist.tracks_count) {
+      setTimeout(this.getNextSong, this.state.timeout);
+    }
+  }
+
+  songFailure() {
+    this.consecutiveFails++;
+
+    const audio = new Audio(this.state.songs
+      .slice(-1)[0].track_file_stream_url);
+
+    audio.addEventListener('canplaythrough', () => {
+      this.setState({ timer: true, timeout: audio.duration * 1000 });
+      setTimeout(this.getNextSong, this.state.timeout);
     });
   }
 
@@ -52,11 +127,11 @@ export default class EightTracks extends React.Component {
         artist={song.performer}
         album={this.state.playlist.name}
         artwork={this.state.playlist.cover_urls.static_cropped_imgix_url}
-        artwork_thumb={this.state.playlist.cover_urls.sq72}
+        artworkThumb={this.state.playlist.cover_urls.sq72}
         url={song.track_file_stream_url}
-        playlist={(this.state.playlist.name)}
-        playlist_name={this.state.playlist.name}
-        track_num={key + 1}
+        playlistName={this.state.playlist.name}
+        trackNum={key + 1}
+        totalTracks={this.state.playlist.tracks_count}
       />
     });
   }
@@ -64,8 +139,13 @@ export default class EightTracks extends React.Component {
   render() {
     return (
       <div>
-        <MediaHeader type="8tracks" invalid={this.state.invalid} title={this.props.url} />
+        <MediaInfo
+          type="8tracks"
+          invalid={this.state.invalid}
+          title={this.state.playlist.name || this.props.url}
+        />
         {this.renderSongs()}
+        {this.state.timer && <Timer ms={this.state.timeout} />}
       </div>
     )
   }

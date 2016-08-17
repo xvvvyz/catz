@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import Media from 'Media.jsx';
-import 'main.scss';
+import Media from './Media.jsx';
 
 export default class Main extends React.Component {
   constructor() {
@@ -24,20 +23,17 @@ export default class Main extends React.Component {
     }
   }
 
-  handleKeypress(event) {
-    if (event.which === 13) {
-      this.setState({ things: [...this.state.things, 'cat'] });
-    }
-  }
-
   componentDidMount() {
     window.addEventListener('paste', this.handlePaste.bind(this));
-    window.addEventListener('keypress', this.handleKeypress.bind(this));
   }
 
   renderThings() {
     return this.state.things.map((thing, key) => {
-      return <Media key={key} ref={key} thing={thing} />;
+      return (
+        <div className="media" key={key}>
+          <Media ref={key} thing={thing} />
+        </div>
+      );
     });
   }
 
@@ -47,7 +43,9 @@ export default class Main extends React.Component {
     return (
       <div className={`god-wrapper platform-${process.platform}`}>
         {things}
-        <p className="instructions" data-toggled={!things.length}>Paste a link&hellip;</p>
+        <p className="instructions" data-toggled={!things.length}>
+          Paste a link&hellip;
+        </p>
       </div>
     );
   }

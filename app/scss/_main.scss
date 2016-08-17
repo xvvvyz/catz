@@ -3,9 +3,9 @@
 .instructions {
   position: absolute;
   top: 50%;
-  width: 100%;
+  left: 50%;
   margin: 0;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   transition: opacity 1s;
   color: $gray-dark;
   font-size: 1.2rem;

@@ -1,9 +1,8 @@
 import React from 'react';
 import url from 'url';
-import MediaHeader from 'MediaHeader.jsx';
-import EightTracks from 'EightTracks.jsx';
-import SoundCloud from 'SoundCloud.jsx';
-import Cat from 'Cat.jsx';
+import MediaInfo from './MediaInfo.jsx';
+import EightTracks from './supported-sites/EightTracks.jsx';
+import SoundCloud from './supported-sites/SoundCloud.jsx';
 
 export default class Media extends React.Component {
   componentDidMount() {
@@ -14,12 +13,10 @@ export default class Media extends React.Component {
   render() {
     const thing = this.props.thing;
 
-    if (thing === 'cat') return <Cat />;
-
     switch (url.parse(thing).hostname) {
       case '8tracks.com': return <EightTracks url={thing} />;
       case 'soundcloud.com': return <SoundCloud url={thing} />;
-      default: return <MediaHeader type="Nonsense" invalid={true} title={thing} />;
+      default: return <MediaInfo type="Nonsense" invalid={true} title={thing} />;
     }
   }
 };
