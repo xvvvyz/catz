@@ -21,4 +21,4 @@ npm start
 
 ## Contributing
 
-Do it. Feel free to bring up any concerns or suggestions in the [Gitter](https://gitter.im/cadejscroggins/omgcatz) chat. Issues will be automatically closed at this point, as nothing has been released.
+Do it. Feel free to bring up any concerns or suggestions in the [Gitter](https://gitter.im/cadejscroggins/omgcatz) chat. You can also post a [new "issue"](https://github.com/cadejscroggins/catz/issues).
