@@ -5,19 +5,18 @@ After many failed tries, this is my final attempt at making it easy to save vari
 
 ## Developer Setup
 
-You're gonna need [Node](https://nodejs.org/en/). Then:
+### Requirements
 
-```bash
-# get the source
-git clone https://github.com/cadejscroggins/catz
-cd catz
+- [Node](https://nodejs.org/en/)
+- Git
 
-# install the things
-npm install
+### Steps
 
-# start the app
-npm start
-```
+- `git clone https://github.com/cadejscroggins/catz`
+- `cd catz`
+- `npm install -g yarn`
+- `yarn`
+- `npm start` and done!
 
 ## Contributing
 
