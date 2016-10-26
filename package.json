@@ -4,7 +4,7 @@
   "private": true,
   "main": "./app/bootstrap.js",
   "scripts": {
-    "start": "concurrently --kill-others 'webpack --config webpack.config.dev.js --watch' 'electron .'",
+    "start": "concurrently --kill-others \"webpack --config webpack.config.dev.js --watch\" \"electron .\"",
     "test": "mocha -t 100000000 --require babel-core/register --require babel-polyfill test/**/*.jsx",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress --profile --colors",
     "electron": "cross-env NODE_ENV=production electron ."
