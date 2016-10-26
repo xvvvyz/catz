@@ -3,7 +3,7 @@
 
 Download music from various websites. [8tracks](https://8tracks.com) and [SoundCloud](https://soundcloud.com) are currently supported.
 
-![Sreenshot](SCREENSHOT.png)
+![Sreenshot](https://catz.io/screen.png)
 
 ## Developer Setup
 
