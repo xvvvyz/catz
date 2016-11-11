@@ -13,7 +13,7 @@ Before you do anything, you'll need to have [Git](https://git-scm.com/) and [Nod
 
 ```sh
 git clone https://github.com/cadejscroggins/catz && cd catz
-npm i -g yarn && yarn
+npm i
 ```
 
 ### Run the App
