@@ -1,5 +1,6 @@
 # Catz
-[![Release](https://img.shields.io/badge/website-catz.io-lightgrey.svg)](https://catz.io)
+
+[![Website](https://img.shields.io/badge/website-catz.io-lightgrey.svg)](https://catz.io)
 [![Release](https://img.shields.io/github/release/cadejscroggins/catz.svg)](https://github.com/cadejscroggins/catz/releases)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/cadejscroggins/omgcatz)
 
