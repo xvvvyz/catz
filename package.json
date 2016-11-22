@@ -9,7 +9,8 @@
     "start": "concurrently --kill-others \"webpack --config webpack.config.dev.js --watch\" \"electron .\"",
     "test": "mocha -t 100000000 --require babel-core/register --require babel-polyfill test/**/*.jsx",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress --profile --colors",
-    "electron": "cross-env NODE_ENV=production electron ."
+    "electron": "cross-env NODE_ENV=production electron .",
+    "release": "gh-release"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -26,6 +27,7 @@
     "css-loader": "^0.25.0",
     "electron": "^1.4.6",
     "enzyme": "^2.6.0",
+    "gh-release": "^2.1.0",
     "mocha": "^3.1.2",
     "node-sass": "^3.11.2",
     "react-addons-test-utils": "^15.3.2",
