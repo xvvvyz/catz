@@ -26,7 +26,7 @@ npm start
 
 ## Contributing
 
-Please bring up any concerns or suggestions in the [Gitter](https://gitter.im/cadejscroggins/omgcatz) chat. Pull requests are welcome.
+Before spending lots of time on something, ask for feedback in [the chat](https://gitter.im/cadejscroggins/omgcatz).
 
 ## License
 
