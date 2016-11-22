@@ -1,8 +1,10 @@
 {
   "name": "catz",
-  "license": "MIT",
-  "private": true,
-  "main": "./app/bootstrap.js",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cadejscroggins/catz.git"
+  },
   "scripts": {
     "start": "concurrently --kill-others \"webpack --config webpack.config.dev.js --watch\" \"electron .\"",
     "test": "mocha -t 100000000 --require babel-core/register --require babel-polyfill test/**/*.jsx",
@@ -50,5 +52,7 @@
     "request": "^2.78.0",
     "request-progress": "^2.0.1",
     "sanitize-filename": "^1.6.1"
-  }
+  },
+  "license": "MIT",
+  "private": true
 }
