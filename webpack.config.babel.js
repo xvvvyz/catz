@@ -47,7 +47,7 @@ module.exports = env => {
           output: { screw_ie8: true, comments: false },
         }),
       ] : [
-        new WebpackShellPlugin({ onBuildEnd: ['npm run electron'] }),
+        new WebpackShellPlugin({ onBuildEnd: ['yarn run electron'] }),
         new webpack.HotModuleReplacementPlugin(),
         new LiveReloadPlugin({ appendScriptTag: true }),
       ]),

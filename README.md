@@ -18,10 +18,10 @@ git clone https://github.com/cadejscroggins/catz
 cd catz
 
 # install
-npm i
+npm i -g yarn && yarn
 
 # serve
-npm start
+yarn start
 ```
 
 ## Contributing
