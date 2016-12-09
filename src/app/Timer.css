@@ -1,8 +1,6 @@
-@import 'variables';
-
 .timer {
   padding: 15px;
-  color: $color-error;
+  color: #d12f3e;
   font-size: .8rem;
   text-align: center;
 }

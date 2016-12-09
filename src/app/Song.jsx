@@ -13,6 +13,7 @@ import ID3Writer from 'browser-id3-writer';
 import open from 'open';
 import sanitize from 'sanitize-filename';
 import leftPad from 'left-pad';
+import 'Song.css';
 
 export default class Song extends React.Component {
   constructor() {
@@ -39,7 +40,7 @@ export default class Song extends React.Component {
       const tmpSong = `${osTmpdir()}/${md5(this.props.url)}`;
 
       progress(request(this.props.url))
-        .on('progress', p => this.setState({ percentage: p.percentage * 100 }))
+        .on('progress', p => this.setState({ percentage: p.percent * 100 }))
         .on('error', error => reject(error))
         .on('end', () => {
           this.setState({ percentage: 100 });

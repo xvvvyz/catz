@@ -1,7 +1,7 @@
 import React from 'react';
-import MediaInfo from '../MediaInfo.jsx';
-import Song from '../media-types/Song.jsx';
-import Timer from '../Timer.jsx';
+import MediaInfo from 'MediaInfo.jsx';
+import Song from 'Song.jsx';
+import Timer from 'Timer.jsx';
 import request from 'request';
 
 const MAX_INITIAL_SONGS = 15;

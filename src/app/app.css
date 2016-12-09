@@ -1,8 +1,15 @@
-@import 'variables';
-@import 'animations';
-
 * {
   box-sizing: border-box;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 body {

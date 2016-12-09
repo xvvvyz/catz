@@ -1,9 +1,9 @@
 import React from 'react';
-import MediaInfo from '../MediaInfo.jsx';
-import Song from '../media-types/Song.jsx';
+import MediaInfo from 'MediaInfo.jsx';
+import Song from 'Song.jsx';
 import request from 'request';
 
-const CLIENT_ID = '02gUJC0hH2ct1EGOcYXQIzRFU91c72Ea';
+const CLIENT_ID = 'fDoItMDbsbZz8dY16ZzARCZmzgHBPotA';
 
 export default class SoundCloud extends React.Component {
   constructor() {

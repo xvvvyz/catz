@@ -1,0 +1,35 @@
+.media-info {
+  width: 100%;
+  padding: 10px;
+  font-size: .8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.media-info__title {
+  color: #777;
+}
+
+.media-info__tag {
+  margin-right: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.media-info__tag.type-nonsense {
+  background-color: #000;
+}
+
+.media-info__tag.type-8tracks {
+  background-color: #2f364a;
+}
+
+.media-info__tag.type-sound-cloud {
+  background-color: #f50;
+}
+
+.media-info__tag.error {
+  background-color: #d12f3e;;
+}

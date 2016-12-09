@@ -1,16 +1,17 @@
 {
   "name": "catz",
   "version": "0.1.0",
+  "homepage": "https://catz.io",
   "repository": {
     "type": "git",
     "url": "git://github.com/cadejscroggins/catz.git"
   },
+  "main": "bootstrap.js",
   "scripts": {
-    "start": "concurrently --kill-others \"webpack --config webpack.config.dev.js --watch\" \"electron .\"",
-    "test": "mocha -t 100000000 --require babel-core/register --require babel-polyfill test/**/*.jsx",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress --profile --colors",
-    "electron": "cross-env NODE_ENV=production electron .",
-    "release": "gh-release"
+    "watch": "webpack --env.dev --watch",
+    "build": "webpack --env.prod",
+    "electron": "electron .",
+    "start": "concurrently -rk \"npm run watch\" \"npm run electron\""
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -21,22 +22,15 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
-    "chai": "^3.5.0",
     "concurrently": "^3.1.0",
-    "cross-env": "^3.1.3",
-    "css-loader": "^0.25.0",
-    "electron": "^1.4.6",
-    "enzyme": "^2.6.0",
+    "css-loader": "^0.26.1",
+    "electron": "^1.4.11",
     "gh-release": "^2.1.0",
-    "mocha": "^3.1.2",
-    "node-sass": "^3.11.2",
     "react-addons-test-utils": "^15.3.2",
-    "sass-lint": "^1.10.2",
-    "sass-loader": "^4.0.2",
-    "sasslint-webpack-plugin": "^1.0.4",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3",
-    "webpack-livereload-plugin": "^0.9.0"
+    "webpack": "^2.1.0-beta.27",
+    "webpack-livereload-plugin": "^0.9.0",
+    "webpack2-externals-plugin": "^1.0.0"
   },
   "dependencies": {
     "browser-id3-writer": "^2.3.1",
@@ -52,8 +46,9 @@
     "react-dom": "^15.3.2",
     "read-chunk": "^2.0.0",
     "request": "^2.78.0",
-    "request-progress": "^2.0.1",
-    "sanitize-filename": "^1.6.1"
+    "request-progress": "^3.0.0",
+    "sanitize-filename": "^1.6.1",
+    "soundcloud-resolve": "^1.0.2"
   },
   "license": "MIT",
   "private": true

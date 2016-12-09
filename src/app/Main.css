@@ -1,5 +1,3 @@
-@import 'variables';
-
 .instructions {
   position: absolute;
   top: 50%;
@@ -7,12 +5,12 @@
   margin: 0;
   transform: translate(-50%, -50%);
   transition: opacity 1s;
-  color: $gray-dark;
+  color: #555;
   font-size: 1.2rem;
   text-align: center;
+}
 
-  &[data-toggled='false'] {
-    opacity: 0;
-    z-index: -10;
-  }
+.instructions[data-toggled='false'] {
+  opacity: 0;
+  z-index: -10;
 }

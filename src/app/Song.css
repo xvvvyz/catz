@@ -1,12 +1,10 @@
-@import 'variables';
-
 .song {
   display: flex;
   position: relative;
   margin: 0 10px;
   padding: 0;
   transition: box-shadow 1s linear;
-  border-bottom: solid 1px $white-dark;
+  border-bottom: solid 1px #f0f0f0;
   font-size: .8rem;
   line-height: 50px;
   white-space: nowrap;
@@ -18,12 +16,12 @@
   left: 0;
   height: 1px;
   transition: width 1s linear, opacity 3s;
-  background-color: $gray-dark;
+  background-color: #555;
   z-index: 100;
+}
 
-  &[data-toggled='false'] {
-    opacity: 0;
-  }
+.song__progress[data-toggled='false'] {
+  opacity: 0;
 }
 
 .song__artwork {
@@ -31,14 +29,14 @@
   width: 30px;
   height: 30px;
   margin: 10px 0;
-  border: solid 1px $white-dark;
+  border: solid 1px #f0f0f0;
   border-radius: 3px;
   vertical-align: middle;
 }
 
 .song__num {
   margin: 0 5px 0 15px;
-  color: $gray;
+  color: #777;
 }
 
 .song__title {
@@ -47,7 +45,7 @@
 
 .song__artist {
   flex-grow: 1;
-  color: $gray;
+  color: #777;
 }
 
 .song__title,
@@ -65,19 +63,19 @@
   border: 0;
   border-radius: 0;
   background-color: transparent;
-  color: $gray-dark;
+  color: #777;
   font-size: .6rem;
   line-height: 35px;
   text-decoration: underline;
   cursor: pointer;
   opacity: 0;
   vertical-align: top;
+}
 
-  &:focus {
-    outline: none;
-  }
+.song__show:focus {
+  outline: none;
+}
 
-  &[data-toggled='true'] {
-    opacity: 1;
-  }
+.song__show[data-toggled='true'] {
+  opacity: 1;
 }

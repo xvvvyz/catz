@@ -1,4 +1,5 @@
 import React from 'react';
+import 'MediaInfo.css';
 
 export default function MediaInfo(props) {
   const camelCaseToDashed = (str) => {
