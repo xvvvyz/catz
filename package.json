@@ -11,7 +11,7 @@
     "watch": "webpack --env.dev --watch",
     "build": "webpack --env.prod",
     "electron": "electron .",
-    "start": "concurrently -rk \"npm run watch\" \"npm run electron\""
+    "start": "npm run watch"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -22,7 +22,6 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
-    "concurrently": "^3.1.0",
     "css-loader": "^0.26.1",
     "electron": "^1.4.11",
     "gh-release": "^2.1.0",
@@ -30,6 +29,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^2.1.0-beta.27",
     "webpack-livereload-plugin": "^0.9.0",
+    "webpack-shell-plugin": "^0.4.9",
     "webpack2-externals-plugin": "^1.0.0"
   },
   "dependencies": {

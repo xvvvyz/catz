@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
+import WebpackShellPlugin from 'webpack-shell-plugin';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import ExternalsPlugin from 'webpack2-externals-plugin';
 
@@ -46,10 +47,9 @@ module.exports = env => {
           output: { screw_ie8: true, comments: false },
         }),
       ] : [
+        new WebpackShellPlugin({ onBuildEnd: ['npm run electron'] }),
         new webpack.HotModuleReplacementPlugin(),
-        new LiveReloadPlugin({
-          appendScriptTag: true,
-        }),
+        new LiveReloadPlugin({ appendScriptTag: true }),
       ]),
   };
 };
