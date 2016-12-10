@@ -1,12 +1,12 @@
 .song {
   display: flex;
+  align-items: center;
   position: relative;
   margin: 0 10px;
   padding: 0;
   transition: box-shadow 1s linear;
   border-bottom: solid 1px #f0f0f0;
-  font-size: .8rem;
-  line-height: 50px;
+  font-size: .8em;
   white-space: nowrap;
 }
 
@@ -64,8 +64,7 @@
   border-radius: 0;
   background-color: transparent;
   color: #777;
-  font-size: .6rem;
-  line-height: 35px;
+  font-size: .8em;
   text-decoration: underline;
   cursor: pointer;
   opacity: 0;
