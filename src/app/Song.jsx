@@ -63,13 +63,22 @@ export default class Song extends React.Component {
 
   nameSong(tmpSong) {
     this.downloadDir = path.join(os.homedir(), 'Downloads');
-    this.filename = `${this.props.title.trim().replace(/[/\\]/g, '-')}` +
-      `.${this.getExtention(tmpSong)}`;
+
+    let filename = sanitize(
+      `${this.props.title.trim().replace(/[/\\]/g, '-')}` +
+      `.${this.getExtention(tmpSong)}`
+    );
 
     if (this.props.playlistName) {
-      this.downloadDir = path.join(this.downloadDir, this.props.playlistName);
-      this.filename = `${leftPad(this.props.trackNum, 2, 0)} ${this.filename}`;
+      this.downloadDir = path.join(
+        this.downloadDir,
+        sanitize(this.props.playlistName)
+      );
+
+      filename = `${leftPad(this.props.trackNum, 2, 0)} ${filename}`;
     }
+
+    this.filePath = path.join(this.downloadDir, filename);
   }
 
   tagSong(tmpSong, tmpArt) {
@@ -128,10 +137,8 @@ export default class Song extends React.Component {
 
   moveSong(tmpSong) {
     return new Promise(resolve => {
-      this.filename = path.join(this.downloadDir, sanitize(this.filename));
-
       fs.mkdir(this.downloadDir, () => {
-        fs.rename(tmpSong, this.filename, () => resolve());
+        fs.rename(tmpSong, this.filePath, () => resolve());
       });
     });
   }
@@ -140,7 +147,7 @@ export default class Song extends React.Component {
     const osx = process.platform === 'darwin';
     const windows = process.platform === 'win32';
 
-    if (osx || windows) open(this.filename, 'desktop');
+    if (osx || windows) open(this.filePath, 'desktop');
     else open(this.downloadDir);
   }
 
