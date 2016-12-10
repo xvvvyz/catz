@@ -14,8 +14,11 @@ export default class SoundCloud extends React.Component {
 
   componentDidMount() {
     (async () => {
-      try { this.resolveJson(await this.resolveUrl()); }
-      catch(err) { this.setState({ invalid: true }); }
+      try {
+        this.resolveJson(await this.resolveUrl());
+      } catch(err) {
+        this.setState({ invalid: true });
+      }
     })();
   }
 
@@ -35,15 +38,26 @@ export default class SoundCloud extends React.Component {
   resolveJson(json) {
     switch (json.kind) {
       case 'track':
-        this.setState({ songs: [json] });
+        this.setState({
+          songs: [json]
+        });
+
         break;
 
       case 'playlist':
-        this.setState({ playlist: json, songs: json.tracks });
+        this.setState({
+          playlistTitle: json.title,
+          playlistTrackCount: json.track_count,
+          playlistAuthor: json.user.username,
+          songs: json.tracks,
+        });
+
         break;
 
       default:
-        this.setState({ invalid: true });
+        this.setState({
+          invalid: true
+        });
     }
   }
 
@@ -52,14 +66,14 @@ export default class SoundCloud extends React.Component {
       return <Song
         key={key}
         title={song.title}
-        artist={song.user.username || this.state.playlist.user.username}
-        album={this.state.playlist.title || ''}
-        artwork={song.artwork_url.replace('large', 't500x500')}
+        artist={song.user.username || this.state.playlistAuthor}
+        album={this.state.playlistTitle || ''}
+        artwork={song.artwork_url ? song.artwork_url.replace('large', 't500x500') : ''}
         artworkThumb={song.artwork_url}
         url={`${song.stream_url}?client_id=${CLIENT_ID}`}
-        playlistName={this.state.playlist.title}
-        trackNum={this.state.playlist.track_count ? key + 1 : 1}
-        totalTracks={this.state.playlist.track_count || 1}
+        playlistName={this.state.playlistTitle}
+        trackNum={this.state.playlistTrackCount ? key + 1 : 1}
+        totalTracks={this.state.playlistTrackCount || 1}
       />
     });
   }
