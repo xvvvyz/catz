@@ -4,7 +4,6 @@ import request from 'request';
 import progress from 'request-progress';
 import readChunk from 'read-chunk';
 import fileType from 'file-type';
-import osTmpdir from 'os-tmpdir';
 import path from 'path';
 import fileExists from 'file-exists';
 import fs from 'fs';
@@ -20,28 +19,28 @@ export default class Song extends React.Component {
     super();
 
     this.state = { percentage: 0, done: false };
-    this.showStuff = this.showStuff.bind(this);
+
+    this.showSong = this.showSong.bind(this);
   }
 
   componentDidMount() {
     (async () => {
       const tmpSong = await this.downloadSong();
-      const tmpArtwork = await this.downloadArtwork();
+      const tmpArt = await this.downloadArtwork();
 
-      await this.nameStuff(tmpSong);
-      await this.tagStuff(tmpSong, tmpArtwork);
-      await this.moveStuff(tmpSong);
+      await this.nameSong(tmpSong);
+      await this.tagSong(tmpSong, tmpArt);
+      await this.moveSong(tmpSong);
       this.setState({ done: true });
     })();
   }
 
   downloadSong() {
     return new Promise((resolve, reject) => {
-      const tmpSong = `${osTmpdir()}/${md5(this.props.url)}`;
+      const tmpSong = `${os.tmpdir()}/${md5(this.props.url)}`;
 
       progress(request(this.props.url))
         .on('progress', p => this.setState({ percentage: p.percent * 100 }))
-        .on('error', error => reject(error))
         .on('end', () => {
           this.setState({ percentage: 100 });
           resolve(tmpSong);
@@ -51,41 +50,32 @@ export default class Song extends React.Component {
 
   downloadArtwork() {
     return new Promise((resolve, reject) => {
-      const tmpArtwork = `${osTmpdir()}/${md5(this.props.artwork)}`;
+      let tmpArt = `${os.tmpdir()}/${md5(this.props.artwork)}`;
 
-      if (!fileExists(tmpArtwork)) {
-        request(this.props.artwork, () => resolve(tmpArtwork))
-          .pipe(fs.createWriteStream(tmpArtwork));
+      if (!fileExists(tmpArt)) {
+        request(this.props.artwork, () => resolve(tmpArt))
+          .pipe(fs.createWriteStream(tmpArt));
       } else {
-        resolve();
+        resolve(tmpArt);
       }
     });
   }
 
-  nameStuff(tmpSong) {
-    this.dir = path.join(os.homedir(), 'Downloads');
-    this.file = `${this.props.title.trim().replace(/[/\\]/g, '-')}` +
+  nameSong(tmpSong) {
+    this.downloadDir = path.join(os.homedir(), 'Downloads');
+    this.filename = `${this.props.title.trim().replace(/[/\\]/g, '-')}` +
       `.${this.getExtention(tmpSong)}`;
 
     if (this.props.playlistName) {
-      this.dir = path.join(this.dir, this.props.playlistName);
-      this.file = `${leftPad(this.props.trackNum, 2, 0)} ${this.file}`;
+      this.downloadDir = path.join(this.downloadDir, this.props.playlistName);
+      this.filename = `${leftPad(this.props.trackNum, 2, 0)} ${this.filename}`;
     }
   }
 
-  tagStuff(tmpSong, tmpArtwork) {
+  tagSong(tmpSong, tmpArt) {
     return new Promise((resolve, reject) => {
       const songBuffer = fs.readFileSync(tmpSong);
-
-      const tags = {
-        title: this.props.title,
-        artist: this.props.artist,
-        album: this.props.album,
-        cover: tmpArtwork ? fs.readFileSync(tmpArtwork) : null,
-        trackNum: this.props.trackNum,
-        totalTracks: this.props.totalTracks
-      }
-
+      const tags = this.getTags(tmpArt);
       let tagged = false;
 
       switch (this.getExtention(tmpSong)) {
@@ -98,15 +88,35 @@ export default class Song extends React.Component {
     });
   }
 
+  getTags(tmpArt) {
+    return {
+      title: this.props.title,
+      artist: this.props.artist,
+      album: this.props.album,
+      cover: this.verifyImage(tmpArt) ? fs.readFileSync(tmpArt) : false,
+      trackNum: this.props.trackNum,
+      totalTracks: this.props.totalTracks
+    };
+  }
+
+  verifyImage(image) {
+    return this.getExtention(image).match(/(jpg|png)/);
+  }
+
+  getExtention(file) {
+    let { ext } = fileType(readChunk.sync(file, 0, 262)) || { ext: 'txt' };
+    return ext === 'mp4' ? 'm4a' : ext;
+  }
+
   tagMp3(songBuffer, tags) {
     const writer = new ID3Writer(songBuffer);
 
-    writer.setFrame('TIT2', tags.title)
-      .setFrame('TPE1', [tags.artist])
-      .setFrame('TALB', tags.album)
-      .setFrame('APIC', tags.cover)
-      .setFrame('TRCK', `${tags.trackNum}/${tags.totalTracks}`)
-      .addTag();
+    writer.setFrame('TIT2', tags.title);
+    writer.setFrame('TPE1', [tags.artist]);
+    writer.setFrame('TALB', tags.album);
+    writer.setFrame('TRCK', `${tags.trackNum}/${tags.totalTracks}`);
+    tags.cover && writer.setFrame('APIC', tags.cover);
+    writer.addTag();
 
     return new Buffer(writer.arrayBuffer);
   }
@@ -116,27 +126,22 @@ export default class Song extends React.Component {
     return false;
   }
 
-  moveStuff(tmpSong) {
+  moveSong(tmpSong) {
     return new Promise(resolve => {
-      this.file = path.join(this.dir, sanitize(this.file));
+      this.filename = path.join(this.downloadDir, sanitize(this.filename));
 
-      fs.mkdir(this.dir, () => {
-        fs.rename(tmpSong, this.file, () => resolve());
+      fs.mkdir(this.downloadDir, () => {
+        fs.rename(tmpSong, this.filename, () => resolve());
       });
     });
   }
 
-  showStuff() {
+  showSong() {
     const osx = process.platform === 'darwin';
     const windows = process.platform === 'win32';
 
-    if (osx || windows) open(this.file, 'desktop');
-    else open(this.dir);
-  }
-
-  getExtention(tmpSong) {
-    let {ext} = fileType(readChunk.sync(tmpSong, 0, 262));
-    return ext === 'mp4' ? 'm4a' : ext;
+    if (osx || windows) open(this.filename, 'desktop');
+    else open(this.downloadDir);
   }
 
   render() {
@@ -149,7 +154,7 @@ export default class Song extends React.Component {
         {this.props.totalTracks && <span className="song__num">{this.props.trackNum}</span>}
         <span className="song__title">{this.props.title}</span>
         <span className="song__artist">{this.props.artist}</span>
-        <button className="song__show" onClick={this.showStuff} disabled={!this.state.done} data-toggled={this.state.done}>Show</button>
+        <button className="song__show" onClick={this.showSong} disabled={!this.state.done} data-toggled={this.state.done}>Show</button>
       </div>
     );
   }

@@ -39,7 +39,6 @@
     "lodash": "^4.16.6",
     "md5": "^2.2.1",
     "open": "git+https://github.com/cadejscroggins/node-open.git",
-    "os-tmpdir": "^1.0.2",
     "pretty-seconds": "^0.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
