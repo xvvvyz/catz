@@ -4,7 +4,7 @@ const windows = module.exports = {
   createMainWindow: () => {
     let win = windows.main = new BrowserWindow({
       title: 'Catz',
-      width: 500,
+      width: 600,
       minWidth: 500,
       height: 600,
       minHeight: 300,
