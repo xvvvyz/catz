@@ -64,21 +64,24 @@ export default class Song extends React.Component {
   nameSong(tmpSong) {
     this.downloadDir = path.join(os.homedir(), 'Downloads');
 
-    let filename = sanitize(
-      `${this.props.title.trim().replace(/[/\\]/g, '-')}` +
-      `.${this.getExtention(tmpSong)}`
+    let filename = (
+      `${this.sanitizePath(this.props.title)}.${this.getExtention(tmpSong)}`
     );
 
     if (this.props.playlistName) {
       this.downloadDir = path.join(
         this.downloadDir,
-        sanitize(this.props.playlistName)
+        this.sanitizePath(this.props.playlistName)
       );
 
       filename = `${leftPad(this.props.trackNum, 2, 0)} ${filename}`;
     }
 
     this.filePath = path.join(this.downloadDir, filename);
+  }
+
+  sanitizePath(path) {
+    return sanitize(path.trim(), { replacement: '-' });
   }
 
   tagSong(tmpSong, tmpArt) {
