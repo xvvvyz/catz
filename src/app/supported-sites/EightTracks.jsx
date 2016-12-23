@@ -3,7 +3,6 @@ import MediaInfo from 'MediaInfo.jsx';
 import Song from 'Song.jsx';
 import Timer from 'Timer.jsx';
 import request from 'request';
-import https from 'https';
 
 const MAX_INITIAL_SONGS = 15;
 const REQUEST_PADDING = 1000;
@@ -63,34 +62,15 @@ export default class EightTracks extends React.Component {
         while (i < this.state.playlist.tracks_count) {
           const position = i;
 
-          // request({
-          //   url: this.nextSongUrl,
-          //   json: true
-          // }, (error, res, body) => {
-          //   const success = res.statusCode === 200;
-          //   if (success && body.set.track.name) songs.push(body.set.track);
-          //   const count = songs.filter(v => v !== undefined).length;
-          //   const last = count === this.state.playlist.tracks_count;
-          //   if (!success || last) resolve(songs);
-          // });
-
-          // testing to see if this fixes issue #65
-          // https://github.com/cadejscroggins/catz/issues/65
-
-          https.get(this.nextSongUrl, res => {
-            let data = '';
-
+          request({
+            url: this.nextSongUrl,
+            json: true
+          }, (error, res, body) => {
             const success = res.statusCode === 200;
-
-            res.on('data', d => data += d);
-
-            res.on('end', () => {
-              const body = JSON.parse(data);
-              if (success && body.set.track.name) songs.push(body.set.track);
-              const count = songs.filter(v => v !== undefined).length;
-              const last = count === this.state.playlist.tracks_count;
-              if (!success || last) resolve(songs);
-            });
+            if (success && body.set.track.name) songs.push(body.set.track);
+            const count = songs.filter(v => v !== undefined).length;
+            const last = count === this.state.playlist.tracks_count;
+            if (!success || last) resolve(songs);
           });
 
           i++;
