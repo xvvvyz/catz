@@ -8,8 +8,8 @@
   },
   "main": "src/bootstrap.js",
   "scripts": {
-    "build": "webpack --env.prod",
-    "start": "webpack --env.dev --watch",
+    "build": "webpack --display-modules --env.prod",
+    "start": "webpack --hide-modules --env.dev --watch",
     "electron": "electron .",
     "release": "gh-release"
   },
