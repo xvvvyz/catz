@@ -1,6 +1,6 @@
 {
   "name": "catz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://catz.io",
   "repository": {
     "type": "git",
@@ -10,7 +10,8 @@
   "scripts": {
     "build": "webpack --env.prod",
     "start": "webpack --env.dev --watch",
-    "electron": "electron ."
+    "electron": "electron .",
+    "release": "gh-release"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
