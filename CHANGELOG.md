@@ -9,7 +9,6 @@
 
 ### Fixed
 - Some 8tracks playlists weren't downloading (#70)
-- Cannot read property 'track_file_stream_url' (#65)
 
 ## v0.1.0 - 2016-11-21
 
