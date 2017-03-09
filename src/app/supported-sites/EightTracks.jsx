@@ -60,16 +60,13 @@ export default class EightTracks extends React.Component {
         let songs = [];
 
         while (i < this.state.playlist.tracks_count) {
-          const position = i;
-
           request({
             url: this.nextSongUrl,
             json: true
           }, (error, res, body) => {
-            const success = res.statusCode === 200;
-            if (success && body.set.track.name) songs.push(body.set.track);
-            const count = songs.filter(v => v !== undefined).length;
-            const last = count === this.state.playlist.tracks_count;
+            const success = res.statusCode === 200 && body.set.track.name;
+            if (success) songs.push(body.set.track);
+            const last = songs.length === this.state.playlist.tracks_count;
             if (!success || last) resolve(songs);
           });
 
