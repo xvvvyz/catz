@@ -942,10 +942,6 @@ brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
-browser-id3-writer@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/browser-id3-writer/-/browser-id3-writer-3.0.3.tgz#a0adfd4417bfb997b551cc1cffb53755aed82259"
-
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.0.6.tgz#5e7725dbdef1fd5930d4ebab48567ce451c48a0a"
@@ -1963,9 +1959,13 @@ hyperquest@~2.0.0:
     duplexer2 "~0.0.2"
     through2 "~0.6.3"
 
-iconv-lite@0.4.13, iconv-lite@~0.4.13:
+iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
+
+iconv-lite@^0.4.15, iconv-lite@~0.4.13:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
 icss-replace-symbols@^1.0.2:
   version "1.0.2"
@@ -2480,6 +2480,12 @@ node-fetch@^1.0.1:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-id3@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/node-id3/-/node-id3-0.0.9.tgz#bfdf2c84002c7dbfc2382ebffb286a60a49cbe9c"
+  dependencies:
+    iconv-lite "^0.4.15"
 
 node-libs-browser@^2.0.0:
   version "2.0.0"

@@ -8,7 +8,7 @@ import path from 'path';
 import fileExists from 'file-exists';
 import fs from 'fs';
 import md5 from 'md5';
-import ID3Writer from 'browser-id3-writer';
+import nodeID3 from 'node-id3';
 import open from 'open';
 import sanitize from 'sanitize-filename';
 import leftPad from 'left-pad';
@@ -25,90 +25,76 @@ export default class Song extends React.Component {
 
   componentDidMount() {
     (async () => {
-      const tmpSong = await this.downloadSong();
-      const tmpArt = await this.downloadArtwork();
+      this.tmpSong = await this.downloadSong();
+      this.tmpArt = await this.downloadArtwork();
+      this.downloadDir = await this.getDownloadDir();
+      this.downloadFile = this.getDownloadFile();
+      await this.tagSong();
+      await this.moveSong();
 
-      await this.nameSong(tmpSong);
-      await this.tagSong(tmpSong, tmpArt);
-      await this.moveSong(tmpSong);
       this.setState({ done: true });
     })();
   }
 
   downloadSong() {
     return new Promise((resolve, reject) => {
-      const tmpSong = `${os.tmpdir()}/${md5(this.props.url)}`;
+      const path = `${os.tmpdir()}/${md5(this.props.url)}`;
 
       progress(request(this.props.url))
         .on('progress', p => this.setState({ percentage: p.percent * 100 }))
         .on('end', () => {
           this.setState({ percentage: 100 });
-          resolve(tmpSong);
-        }).pipe(fs.createWriteStream(tmpSong));
+          resolve(path);
+        }).pipe(fs.createWriteStream(path));
     });
   }
 
   downloadArtwork() {
     return new Promise((resolve, reject) => {
-      let tmpArt = `${os.tmpdir()}/${md5(this.props.artwork)}`;
+      const path = `${os.tmpdir()}/${md5(this.props.artwork)}`;
 
-      if (!fileExists(tmpArt)) {
-        request(this.props.artwork, () => resolve(tmpArt))
-          .pipe(fs.createWriteStream(tmpArt));
+      if (!fileExists(path)) {
+        request(this.props.artwork, () => resolve(path))
+          .pipe(fs.createWriteStream(path));
       } else {
-        resolve(tmpArt);
+        resolve(path);
       }
     });
   }
 
-  nameSong(tmpSong) {
-    this.downloadDir = path.join(os.homedir(), 'Downloads');
+  getDownloadDir() {
+    return new Promise(resolve => {
+      let dir = path.join(os.homedir(), 'Downloads');
 
-    let filename = (
-      `${this.sanitizePath(this.props.title)}.${this.getExtention(tmpSong)}`
-    );
+      if (this.props.playlistName) {
+        dir = path.join(dir, this.sanitizePath(this.props.playlistName));
+      }
+
+      fs.mkdir(dir, () => resolve(dir));
+    });
+  }
+
+  getDownloadFile() {
+    let name = this.sanitizePath(this.props.title);
+    let ext = this.getExtention(this.tmpSong);
+    let filename = `${name}.${ext}`;
 
     if (this.props.playlistName) {
-      this.downloadDir = path.join(
-        this.downloadDir,
-        this.sanitizePath(this.props.playlistName)
-      );
-
       filename = `${leftPad(this.props.trackNum, 2, 0)} ${filename}`;
     }
 
-    this.filePath = path.join(this.downloadDir, filename);
+    return path.join(this.downloadDir, filename);
   }
 
   sanitizePath(path) {
     return sanitize(path.trim(), { replacement: '-' });
   }
 
-  tagSong(tmpSong, tmpArt) {
-    return new Promise((resolve, reject) => {
-      const songBuffer = fs.readFileSync(tmpSong);
-      const tags = this.getTags(tmpArt);
-      let tagged = false;
-
-      switch (this.getExtention(tmpSong)) {
-        case 'mp3': tagged = this.tagMp3(songBuffer, tags); break;
-        case 'm4a': tagged = this.tagM4a(songBuffer, tags); break;
-      }
-
-      if (tagged) fs.writeFile(tmpSong, tagged, resolve);
-      else resolve();
-    });
-  }
-
-  getTags(tmpArt) {
-    return {
-      title: this.props.title,
-      artist: this.props.artist,
-      album: this.props.album,
-      cover: this.verifyImage(tmpArt) ? fs.readFileSync(tmpArt) : false,
-      trackNum: this.props.trackNum,
-      totalTracks: this.props.totalTracks
-    };
+  tagSong() {
+    switch (this.getExtention(this.tmpSong)) {
+      case 'mp3': this.tagMp3(); break;
+      case 'm4a': this.tagM4a(); break;
+    }
   }
 
   verifyImage(image) {
@@ -117,38 +103,33 @@ export default class Song extends React.Component {
 
   getExtention(file) {
     let { ext } = fileType(readChunk.sync(file, 0, 262)) || { ext: 'txt' };
-    return ext === 'mp4' ? 'm4a' : ext;
+
+    switch (ext) {
+      case 'mp4': return 'm4a';
+      default: return ext;
+    }
   }
 
-  tagMp3(songBuffer, tags) {
-    const writer = new ID3Writer(songBuffer);
+  tagMp3() {
+    const tags = {
+      title: this.props.title,
+      artist: this.props.artist,
+      album: this.props.album,
+      image: this.verifyImage(this.tmpArt) ? this.tmpArt : false,
+      trackNumber: `${this.props.trackNum}/${this.props.totalTracks}`,
+    };
 
-    writer.setFrame('TIT2', tags.title);
-    writer.setFrame('TPE1', [tags.artist]);
-    writer.setFrame('TALB', tags.album);
-    writer.setFrame('TRCK', `${tags.trackNum}/${tags.totalTracks}`);
-
-    tags.cover && writer.setFrame('APIC', {
-      type: 0,
-      data: tags.cover,
-      description: '',
-    });
-
-    writer.addTag();
-
-    return new Buffer(writer.arrayBuffer);
+    nodeID3.removeTags(this.tmpSong);
+    nodeID3.write(tags, this.tmpSong);
   }
 
-  tagM4a(songBuffer, tags) {
-    // TODO: find or build an m4a tagger
-    return false;
+  tagM4a() {
+    // TODO
   }
 
-  moveSong(tmpSong) {
+  moveSong() {
     return new Promise(resolve => {
-      fs.mkdir(this.downloadDir, () => {
-        fs.rename(tmpSong, this.filePath, () => resolve());
-      });
+      fs.rename(this.tmpSong, this.downloadFile, () => resolve());
     });
   }
 
@@ -156,7 +137,7 @@ export default class Song extends React.Component {
     const osx = process.platform === 'darwin';
     const windows = process.platform === 'win32';
 
-    if (osx || windows) open(this.filePath, 'desktop');
+    if (osx || windows) open(this.downloadFile, 'desktop');
     else open(this.downloadDir);
   }
 
