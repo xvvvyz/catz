@@ -127,7 +127,13 @@ export default class Song extends React.Component {
     writer.setFrame('TPE1', [tags.artist]);
     writer.setFrame('TALB', tags.album);
     writer.setFrame('TRCK', `${tags.trackNum}/${tags.totalTracks}`);
-    tags.cover && writer.setFrame('APIC', tags.cover);
+
+    tags.cover && writer.setFrame('APIC', {
+      type: 0,
+      data: tags.cover,
+      description: '',
+    });
+
     writer.addTag();
 
     return new Buffer(writer.arrayBuffer);

@@ -3,7 +3,7 @@ import MediaInfo from 'MediaInfo.jsx';
 import Song from 'Song.jsx';
 import request from 'request';
 
-const CLIENT_ID = 'fDoItMDbsbZz8dY16ZzARCZmzgHBPotA';
+const CLIENT_ID = '2t9loNQH90kzJcsFCODdigxfp325aq4z';
 
 export default class SoundCloud extends React.Component {
   constructor() {
