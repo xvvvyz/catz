@@ -19,7 +19,7 @@ export default class EightTracks extends React.Component {
       playlist: {},
       songs: [],
       timeout: REQUEST_PADDING,
-      timer: false
+      timer: false,
     };
 
     this.getInitialSongs = this.getInitialSongs.bind(this);
@@ -34,7 +34,7 @@ export default class EightTracks extends React.Component {
     return new Promise((resolve) => {
       request({
         url: `${this.props.url}?format=jsonh`,
-        json: true
+        json: true,
       }, (error, res, body) => {
         if (res.statusCode === 200) {
           if (body.mix) this.setState({ playlist: body.mix });
@@ -53,16 +53,14 @@ export default class EightTracks extends React.Component {
 
   getInitialSongs() {
     (async () => {
-      let failed = false;
-      let i = 0;
-
       const songs = await new Promise(resolve => {
         let songs = [];
+        let i = 0;
 
         while (i < this.state.playlist.tracks_count) {
           request({
             url: this.nextSongUrl,
-            json: true
+            json: true,
           }, (error, res, body) => {
             const success = res.statusCode === 200 && body.set.track.name;
             if (success) songs.push(body.set.track);
@@ -82,10 +80,11 @@ export default class EightTracks extends React.Component {
   getNextSong() {
     request({
       url: this.nextSongUrl,
-      json: true
+      json: true,
     }, (error, res, body) => {
-      if (res.statusCode === 200) this.songSuccess(body.set.track);
-      else if (this.consecutiveFails === 0) this.songFailure();
+      const success = res.statusCode === 200 && body.set.track.name;
+      if (success) this.songSuccess(body.set.track);
+      else if (this.consecutiveFails < 1) this.songFailure();
       else this.setState({ timer: false, timeout: REQUEST_PADDING});
     });
   }
@@ -96,7 +95,7 @@ export default class EightTracks extends React.Component {
     this.setState({
       timer: false,
       timeout: 0,
-      songs: [...this.state.songs, song]
+      songs: [...this.state.songs, song],
     });
 
     if (this.state.songs.length < this.state.playlist.tracks_count) {
