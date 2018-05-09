@@ -1,6 +1,6 @@
 import React from 'react';
 import prettySeconds from 'pretty-seconds';
-import 'Timer.css';
+import './Timer.css';
 
 export default class Timer extends React.Component {
   constructor() {

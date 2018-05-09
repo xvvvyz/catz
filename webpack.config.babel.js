@@ -1,6 +1,5 @@
 import webpack from 'webpack';
 import { resolve } from 'path';
-import { readdirSync } from 'fs';
 import WebpackShellPlugin from 'webpack-shell-plugin';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import nodeExternals from 'webpack-node-externals';

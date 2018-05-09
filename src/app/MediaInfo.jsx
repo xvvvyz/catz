@@ -1,10 +1,10 @@
 import React from 'react';
-import 'MediaInfo.css';
+import './MediaInfo.css';
 
 export default function MediaInfo(props) {
   const camelCaseToDashed = (str) => {
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  }
+  };
 
   return (
     <div className="media-info">

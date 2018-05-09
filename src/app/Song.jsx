@@ -1,18 +1,18 @@
 import React from 'react';
-import os from 'os';
-import request from 'request';
-import progress from 'request-progress';
-import readChunk from 'read-chunk';
-import fileType from 'file-type';
-import path from 'path';
 import fileExists from 'file-exists';
+import fileType from 'file-type';
 import fs from 'fs';
+import leftPad from 'left-pad';
 import md5 from 'md5';
 import nodeID3 from 'node-id3';
 import open from 'open';
+import os from 'os';
+import path from 'path';
+import progress from 'request-progress';
+import readChunk from 'read-chunk';
+import request from 'request';
 import sanitize from 'sanitize-filename';
-import leftPad from 'left-pad';
-import 'Song.css';
+import './Song.css';
 
 export default class Song extends React.Component {
   constructor() {

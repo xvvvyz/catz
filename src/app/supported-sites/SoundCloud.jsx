@@ -1,7 +1,7 @@
 import React from 'react';
-import MediaInfo from 'MediaInfo.jsx';
-import Song from 'Song.jsx';
 import request from 'request';
+import MediaInfo from '../MediaInfo.jsx';
+import Song from '../Song.jsx';
 
 const CLIENT_ID = '2t9loNQH90kzJcsFCODdigxfp325aq4z';
 

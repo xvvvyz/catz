@@ -1,10 +1,9 @@
 import React from 'react';
-import MediaInfo from 'MediaInfo.jsx';
-import Song from 'Song.jsx';
-import Timer from 'Timer.jsx';
 import request from 'request';
+import MediaInfo from '../MediaInfo.jsx';
+import Song from '../Song.jsx';
+import Timer from '../Timer.jsx';
 
-const MAX_INITIAL_SONGS = 15;
 const REQUEST_PADDING = 1000;
 
 export default class EightTracks extends React.Component {
@@ -53,23 +52,22 @@ export default class EightTracks extends React.Component {
 
   getInitialSongs() {
     (async () => {
+      const recursiveRequest = (songs, resolve) => {
+        request({
+          url: this.nextSongUrl,
+          json: true,
+        }, (error, res, body) => {
+          const success = res.statusCode === 200 && body.set.track.name;
+          if (success) songs.push(body.set.track);
+          const last = songs.length === this.state.playlist.tracks_count;
+          if (!success || last) resolve(songs);
+          else recursiveRequest(songs, resolve);
+        });
+      };
+
       const songs = await new Promise(resolve => {
         let songs = [];
-        let i = 0;
-
-        while (i < this.state.playlist.tracks_count) {
-          request({
-            url: this.nextSongUrl,
-            json: true,
-          }, (error, res, body) => {
-            const success = res.statusCode === 200 && body.set.track.name;
-            if (success) songs.push(body.set.track);
-            const last = songs.length === this.state.playlist.tracks_count;
-            if (!success || last) resolve(songs);
-          });
-
-          i++;
-        }
+        recursiveRequest(songs, resolve);
       });
 
       this.setState({ songs: songs });
