@@ -1,3 +1,5 @@
+_This repo has been archived due to insufficient kitten production._
+
 # Catz
 
 ![Sreenshot](SCREENSHOT.png)
@@ -12,10 +14,6 @@ cd catz
 yarn
 yarn start
 ```
-
-## Contributing
-
-Before spending lots of time on something, ask for feedback in [the chat](https://gitter.im/cadejscroggins/omgcatz).
 
 ## License
 
